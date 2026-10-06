@@ -1,0 +1,9 @@
+[
+  {
+    "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/7e75982b97cd5a41d2dcfa1904ee88d0686d6fd1/diffusion_models/minimax_h3_ref2va_int8_convrot.safetensors",
+    "sha256": "9eef934046a0671bc8a5daf87100705e1478419c574cfde70c50fbe6885f76a9",
+    "size": 34038894550,
+    "destination": "C:/AI/H3/models/diffusion_models/minimax_h3_ref2va_int8_convrot.safetensors",
+    "name": "diffusion_models/minimax_h3_ref2va_int8_convrot.safetensors"
+  }
+]

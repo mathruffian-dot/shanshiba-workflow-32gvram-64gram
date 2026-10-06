@@ -1,0 +1,16 @@
+[
+  {
+    "url": "https://huggingface.co/ZhengmingYu/DMAD/resolve/723954a331b372747f390afdc097e8f5699acad9/minimax_h3/dmad_minimax_h3_4step_full_critic.safetensors",
+    "sha256": "ac23eaef3a359666610769e4ef5f8af9530262c265f25ac211b0b54e51efc91e",
+    "size": 1383674320,
+    "destination": "C:/AI/H3/ComfyUI-0.36.0/models/loras/dmad_raw/dmad_minimax_h3_4step_full_critic.safetensors",
+    "name": "minimax_h3/dmad_minimax_h3_4step_full_critic.safetensors"
+  },
+  {
+    "url": "https://huggingface.co/ZhengmingYu/DMAD/resolve/723954a331b372747f390afdc097e8f5699acad9/minimax_h3/dmad_minimax_h3_4step_lora_critic.safetensors",
+    "sha256": "61d0865d6bf426e328caeab6610a28a677c68e9f2f04c607657c6451e38b5980",
+    "size": 1383674304,
+    "destination": "C:/AI/H3/ComfyUI-0.36.0/models/loras/dmad_raw/dmad_minimax_h3_4step_lora_critic.safetensors",
+    "name": "minimax_h3/dmad_minimax_h3_4step_lora_critic.safetensors"
+  }
+]

@@ -1,0 +1,321 @@
+{
+ "film": "〈D-7〉",
+ "cameras": {
+  "WIDE_BACK": {
+   "loc": [
+    3.9,
+    7.4,
+    2.5
+   ],
+   "target": [
+    -0.3,
+    -2.6,
+    1.1
+   ],
+   "lens": 22
+  },
+  "XW_MS": {
+   "loc": [
+    1.6,
+    -1.95,
+    1.45
+   ],
+   "target": [
+    2.1,
+    -0.42,
+    1.25
+   ],
+   "lens": 32
+  },
+  "T_DOOR": {
+   "loc": [
+    1.5,
+    -0.7,
+    1.5
+   ],
+   "target": [
+    3.25,
+    -2.3,
+    1.6
+   ],
+   "lens": 35
+  },
+  "THREE": {
+   "loc": [
+    0.6,
+    -2.6,
+    2.0
+   ],
+   "target": [
+    0.6,
+    0.1,
+    1.0
+   ],
+   "lens": 24
+  },
+  "T_DESK": {
+   "loc": [
+    0.6,
+    -1.1,
+    1.55
+   ],
+   "target": [
+    0.6,
+    -2.62,
+    1.45
+   ],
+   "lens": 35
+  },
+  "T_CU": {
+   "loc": [
+    0.6,
+    -1.5,
+    1.6
+   ],
+   "target": [
+    0.6,
+    -2.62,
+    1.65
+   ],
+   "lens": 50
+  },
+  "AHE_MS": {
+   "loc": [
+    1.3,
+    -1.6,
+    1.4
+   ],
+   "target": [
+    0.6,
+    -0.42,
+    1.1
+   ],
+   "lens": 32
+  },
+  "AFU_MS": {
+   "loc": [
+    -0.1,
+    -0.45,
+    1.45
+   ],
+   "target": [
+    -0.9,
+    0.83,
+    1.15
+   ],
+   "lens": 32
+  }
+ },
+ "setups": [
+  {
+   "teacher": "door",
+   "id": "L_S01",
+   "camera": "WIDE_BACK"
+  },
+  {
+   "teacher": "door",
+   "id": "L_S02",
+   "camera": "XW_MS"
+  },
+  {
+   "teacher": "door",
+   "id": "L_S03",
+   "camera": "T_DOOR"
+  },
+  {
+   "teacher": "hidden",
+   "id": "L_S04",
+   "camera": "THREE"
+  },
+  {
+   "teacher": "desk",
+   "id": "L_S05",
+   "camera": "T_DESK"
+  },
+  {
+   "teacher": "desk",
+   "id": "L_S06",
+   "camera": "AHE_MS"
+  },
+  {
+   "teacher": "hidden",
+   "id": "L_S12",
+   "camera": "THREE"
+  },
+  {
+   "teacher": "desk",
+   "id": "L_S13",
+   "camera": "T_DESK"
+  },
+  {
+   "teacher": "desk",
+   "id": "L_S14",
+   "camera": "AFU_MS"
+  },
+  {
+   "teacher": "desk",
+   "id": "L_S16",
+   "camera": "AFU_MS"
+  },
+  {
+   "teacher": "desk",
+   "id": "L_S17",
+   "camera": "AFU_MS"
+  },
+  {
+   "teacher": "desk",
+   "id": "L_S19",
+   "camera": "T_CU"
+  },
+  {
+   "teacher": "desk",
+   "id": "L_S21",
+   "camera": "AFU_MS"
+  }
+ ],
+ "shots": [
+  {
+   "shot": "S01",
+   "camera": "WIDE_BACK",
+   "action": "下課；山獅霸在前門說話",
+   "layer": "電影層",
+   "method": "H3",
+   "sec": 0,
+   "frames_sec": 0,
+   "speaker": "",
+   "line": ""
+  },
+  {
+   "shot": "S02",
+   "camera": "XW_MS",
+   "action": "小雯抬頭問老師",
+   "layer": "電影層",
+   "method": "H3",
+   "sec": 0,
+   "frames_sec": 0,
+   "speaker": "",
+   "line": ""
+  },
+  {
+   "shot": "S03",
+   "camera": "T_DOOR",
+   "action": "老師在前門停一拍",
+   "layer": "電影層",
+   "method": "H3",
+   "sec": 0,
+   "frames_sec": 0,
+   "speaker": "",
+   "line": ""
+  },
+  {
+   "shot": "S04",
+   "camera": "THREE",
+   "action": "三人正面同框：左小雯、中阿禾、右阿福",
+   "layer": "電影層",
+   "method": "H3",
+   "sec": 0,
+   "frames_sec": 0,
+   "speaker": "",
+   "line": ""
+  },
+  {
+   "shot": "S05",
+   "camera": "T_DESK",
+   "action": "放學，老師在講桌後",
+   "layer": "電影層",
+   "method": "H3",
+   "sec": 0,
+   "frames_sec": 0,
+   "speaker": "",
+   "line": ""
+  },
+  {
+   "shot": "S06",
+   "camera": "AHE_MS",
+   "action": "阿禾拉書包拉鍊停住",
+   "layer": "電影層",
+   "method": "H3",
+   "sec": 0,
+   "frames_sec": 0,
+   "speaker": "",
+   "line": ""
+  },
+  {
+   "shot": "S12",
+   "camera": "THREE",
+   "action": "D-0 早自習三人同框",
+   "layer": "電影層",
+   "method": "H3",
+   "sec": 0,
+   "frames_sec": 0,
+   "speaker": "",
+   "line": ""
+  },
+  {
+   "shot": "S13",
+   "camera": "T_DESK",
+   "action": "老師抱考卷＋咖啡",
+   "layer": "電影層",
+   "method": "H3",
+   "sec": 0,
+   "frames_sec": 0,
+   "speaker": "",
+   "line": ""
+  },
+  {
+   "shot": "S14",
+   "camera": "AFU_MS",
+   "action": "阿福接卷往後傳",
+   "layer": "電影層",
+   "method": "H3",
+   "sec": 0,
+   "frames_sec": 0,
+   "speaker": "",
+   "line": ""
+  },
+  {
+   "shot": "S16",
+   "camera": "AFU_MS",
+   "action": "阿福：今天段考？",
+   "layer": "電影層",
+   "method": "H3",
+   "sec": 0,
+   "frames_sec": 0,
+   "speaker": "",
+   "line": ""
+  },
+  {
+   "shot": "S17",
+   "camera": "AFU_MS",
+   "action": "阿福：考卷是熱的",
+   "layer": "電影層",
+   "method": "H3",
+   "sec": 0,
+   "frames_sec": 0,
+   "speaker": "",
+   "line": ""
+  },
+  {
+   "shot": "S19",
+   "camera": "T_CU",
+   "action": "老師又來了表情",
+   "layer": "電影層",
+   "method": "H3",
+   "sec": 0,
+   "frames_sec": 0,
+   "speaker": "",
+   "line": ""
+  },
+  {
+   "shot": "S21",
+   "camera": "AFU_MS",
+   "action": "阿福雙手貼考卷",
+   "layer": "電影層",
+   "method": "H3",
+   "sec": 0,
+   "frames_sec": 0,
+   "speaker": "",
+   "line": ""
+  }
+ ]
+}

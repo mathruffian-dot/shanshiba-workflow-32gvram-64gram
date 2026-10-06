@@ -1,0 +1,30 @@
+[
+ {
+  "name": "minimax_h3_fun_controlnet_union_pruned_int8_convrot.safetensors",
+  "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/e5eb578a89295337b8ff433a035929ce0279e0b6/model_patches/minimax_h3_fun_controlnet_union_pruned_int8_convrot.safetensors",
+  "size": 2296635360,
+  "sha256": "9c645c0a308c8af361efd43b409710f6f8fec0db297c29503e141a84991fed0c",
+  "destination": "C:/AI/H3/ComfyUI-0.36.0/models/model_patches/minimax_h3_fun_controlnet_union_pruned_int8_convrot.safetensors"
+ },
+ {
+  "name": "minimax_h3_fun_controlnet_union_2.0_pruned_int8_convrot.safetensors",
+  "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/e5eb578a89295337b8ff433a035929ce0279e0b6/model_patches/minimax_h3_fun_controlnet_union_2.0_pruned_int8_convrot.safetensors",
+  "size": 4531220608,
+  "sha256": "890af58bb350f0c2f6c409b1c67ea8f4196654297d037769b72de1e6f504c612",
+  "destination": "C:/AI/H3/ComfyUI-0.36.0/models/model_patches/minimax_h3_fun_controlnet_union_2.0_pruned_int8_convrot.safetensors"
+ },
+ {
+  "name": "sdpose_wholebody_fp16.safetensors",
+  "url": "https://huggingface.co/Comfy-Org/SDPose/resolve/acb43fbe8142b54d9ebd52b720b81dd4e14c8d81/checkpoints/sdpose_wholebody_fp16.safetensors",
+  "size": 1916645792,
+  "sha256": "63d01f9a7494560693b24767f4469d59c9d3266b31ff0a253e74d1e611442721",
+  "destination": "C:/AI/H3/ComfyUI-0.36.0/models/checkpoints/sdpose_wholebody_fp16.safetensors"
+ },
+ {
+  "name": "rt_detr_v4-x-hgnet_fp16.safetensors",
+  "url": "https://huggingface.co/Comfy-Org/SDPose/resolve/acb43fbe8142b54d9ebd52b720b81dd4e14c8d81/diffusion_models/rt_detr_v4-x-hgnet_fp16.safetensors",
+  "size": 123968978,
+  "sha256": "581f9af9bbabb664d1891cbccd823308b176ecd409146f954dfa39af3bec2476",
+  "destination": "C:/AI/H3/ComfyUI-0.36.0/models/diffusion_models/rt_detr_v4-x-hgnet_fp16.safetensors"
+ }
+]

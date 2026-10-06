@@ -1,0 +1,37 @@
+[
+  {
+    "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/7e75982b97cd5a41d2dcfa1904ee88d0686d6fd1/diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+    "sha256": "9255f52b6677845ad238f20dfaafa94727053694127ab7f255c048f0f9365779",
+    "size": 20970379616,
+    "destination": "C:/AI/H3/models/diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+    "name": "diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors"
+  },
+  {
+    "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/7e75982b97cd5a41d2dcfa1904ee88d0686d6fd1/text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+    "sha256": "35a88d51044231fe332301d7a62aa81e3f2cba62febeb446e2c1e3e0ef76f2c6",
+    "size": 15687142551,
+    "destination": "C:/AI/H3/models/text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+    "name": "text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors"
+  },
+  {
+    "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/7e75982b97cd5a41d2dcfa1904ee88d0686d6fd1/vae/minimax_h3_audio_vae_fp32.safetensors",
+    "sha256": "8e505d95dd1561d47abd43d4238fd40d9bb1ae9e147ed0a4cba778d76ae4db48",
+    "size": 605254808,
+    "destination": "C:/AI/H3/models/vae/minimax_h3_audio_vae_fp32.safetensors",
+    "name": "vae/minimax_h3_audio_vae_fp32.safetensors"
+  },
+  {
+    "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/7e75982b97cd5a41d2dcfa1904ee88d0686d6fd1/vae/minimax_h3_video_vae_fp16.safetensors",
+    "sha256": "7c1f131492e7eddacaac9069a61b81bdd39de5cc96561e677c5eab1cdce5e522",
+    "size": 5207808496,
+    "destination": "C:/AI/H3/models/vae/minimax_h3_video_vae_fp16.safetensors",
+    "name": "vae/minimax_h3_video_vae_fp16.safetensors"
+  },
+  {
+    "url": "https://github.com/Comfy-Org/ComfyUI/releases/download/v0.36.0/ComfyUI_windows_portable_nvidia.7z",
+    "sha256": "c3c60192840f8b68c9a47cf3e8161ecb108e5ffdf5ea236c1c72a402e442695d",
+    "size": 1917442353,
+    "destination": "C:/AI/H3/downloads/ComfyUI_windows_portable_nvidia_v0.36.0.7z",
+    "name": "ComfyUI_windows_portable_nvidia.7z"
+  }
+]

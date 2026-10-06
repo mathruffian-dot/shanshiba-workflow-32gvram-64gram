@@ -1,0 +1,25 @@
+{
+  "duration": 3.75,
+  "size": [1344, 768],
+  "seed": 2026092810,
+  "steps": 14,
+  "style": "a realistic live-action Taiwanese film shot on 35mm, with warm late-afternoon window light, real skin texture and subtle, believable acting",
+  "setting": "an empty Taiwanese elementary school classroom after school",
+  "first_frame": "first.png",
+  "subjects": [
+    {"key": "ahe", "desc": "Ahe, a mischievous 12-year-old Taiwanese boy (messy spiky black hair with a cowlick, playful eyes, white short-sleeve school shirt, a navy backpack)",
+     "voice": "a bright, unbroken 12-year-old boy's voice with a playful tone and a soft Taiwanese accent"},
+    {"key": "teacher", "desc": "the teacher, seen from behind as an out-of-focus black-jacket shoulder and the edge of a tan fabric cougar costume hood in the left foreground"}
+  ],
+  "audio": {"voice_ref": {"subject": "ahe", "file": "ahe_voice_ref.wav"}},
+  "shots": [
+    {"camera": "The camera holds a static over-the-shoulder shot on a tripod.",
+     "action": "Ahe sits at his desk with a grey cloth under his hands, head turned up and to the left toward the teacher. Early in the clip he looks up with a small grateful smile.",
+     "dialogue": [{"subject": "ahe", "line": "謝謝你讓我自己做。", "lang": "Chinese",
+                   "after": "Right after the line he closes his lips and keeps smiling up at the teacher, whose shoulder and hood stay still in the foreground."}]}
+  ],
+  "constraints": ["The rest of the classroom stays empty: every other desk and chair is unoccupied for the whole clip.",
+                  "The teacher's cougar hood is a lifeless fabric costume prop whose sewn face stays still."],
+  "soundscape": "Quiet empty-classroom room tone with the soft rustle of a cotton cloth and a school shirt.",
+  "music": "N/A"
+}

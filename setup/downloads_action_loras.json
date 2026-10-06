@@ -1,0 +1,37 @@
+[
+  {
+    "url": "https://huggingface.co/JOKER141/MiniMax-H3-Combat-Base-V2/resolve/233a183fb7d28b3b10d777b00d9b3ed3c691af81/H3_Combat_V2.safetensors",
+    "sha256": "5b3edb09e9d6029439badf9bc9db4ba4a355ae679b0810888de82c4793c0bac8",
+    "size": 155110280,
+    "destination": "C:/AI/H3/ComfyUI-0.36.0/models/loras/H3_Combat_V2.safetensors",
+    "name": "H3_Combat_V2.safetensors"
+  },
+  {
+    "url": "https://huggingface.co/JOKER141/MiniMaxH3-GunFu-Gunfight-LORA/resolve/eca01be332c05ee149f1a7758e86efd85696512b/GunFu.safetensors",
+    "sha256": "975083859a69cd1bd503e026e987c27cf2b66e97d992db353d2ceb7d0b175791",
+    "size": 155110272,
+    "destination": "C:/AI/H3/ComfyUI-0.36.0/models/loras/GunFu.safetensors",
+    "name": "GunFu.safetensors"
+  },
+  {
+    "url": "https://huggingface.co/JOKER141/MiniMax-H3-General-Motion-Continuity-Repair/resolve/8a5126beb17b7de5642ee056ff5a7b60ae0915c7/Motion_Repair.safetensors",
+    "sha256": "a678a3657cefd5c2c2712f892da2f71be53c3f252e335557e918854f8abc579f",
+    "size": 155110272,
+    "destination": "C:/AI/H3/ComfyUI-0.36.0/models/loras/Motion_Repair.safetensors",
+    "name": "Motion_Repair.safetensors"
+  },
+  {
+    "url": "https://huggingface.co/JOKER141/MiniMax-H3-General-Motion-Continuity-Repair/resolve/8a5126beb17b7de5642ee056ff5a7b60ae0915c7/Motion_Repair_V2.safetensors",
+    "sha256": "edfa0e2858caeba7be9108883f61da8525d3c58af998c94ac7a449d9603d7574",
+    "size": 155110272,
+    "destination": "C:/AI/H3/ComfyUI-0.36.0/models/loras/Motion_Repair_V2.safetensors",
+    "name": "Motion_Repair_V2.safetensors"
+  },
+  {
+    "url": "https://huggingface.co/RunningHubAI/rh-h3-speed-slider-1.1-lora/resolve/e1af402c4483fbf3c03894364a2403cbe316a584/H3_speed_slider_1.1.safetensors",
+    "sha256": "593b074e8eb17bf9f858c3586fc12f53038dbfdd9634e146fe34a17e2661ca40",
+    "size": 10093356,
+    "destination": "C:/AI/H3/ComfyUI-0.36.0/models/loras/H3_speed_slider_1.1.safetensors",
+    "name": "H3_speed_slider_1.1.safetensors"
+  }
+]

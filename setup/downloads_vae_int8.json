@@ -1,0 +1,9 @@
+[
+  {
+    "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/e5eb578a89295337b8ff433a035929ce0279e0b6/vae/minimax_h3_video_vae_int8_convrot.safetensors",
+    "sha256": "52a2c8c73583c86e4f41cdcce3a6ad0ea562987bc0bf3d60a0cef5f5c8e60c0e",
+    "size": 2811065184,
+    "destination": "C:/AI/H3/models/vae/minimax_h3_video_vae_int8_convrot.safetensors",
+    "name": "vae/minimax_h3_video_vae_int8_convrot.safetensors"
+  }
+]

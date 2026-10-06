@@ -1,0 +1,14 @@
+{
+ "title": "山獅霸的多重宇宙",
+ "header": "本片使用的 AI 工具",
+ "card_dur": 3.3,
+ "title_dur": 7.5,
+ "out": "ending.mp4",
+ "cards": [
+  {"image": "../first/S12.png", "tools": [["MiniMax H3", "影片生成"], ["OpenAI Image 2.5", "首幀影像"]]},
+  {"image": "../first/S19.png", "tools": [["VoxCPM2", "配音（三師爸克隆聲）"], ["MiniMax Music 3", "配樂生成"]]},
+  {"image": "../first/S11.png", "tools": [["Blender", "空間預演與鏡位"], ["faster-whisper", "語音校對"]]},
+  {"image": "../first/S21.png", "tools": [["NVIDIA RTX VSR", "1080p 放大"], ["ComfyUI", "本機生成工作流"]]},
+  {"image": "../first/S02.png", "tools": [["Claude Code", "製作流程與協作"], ["本片畫面、配音與配樂皆由 AI 生成", ""]]}
+ ]
+}
