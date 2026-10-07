@@ -17,3 +17,7 @@
 | 新增檔案 | — | `references/segmentation.md` |
 
 原專案的 `agents/openai.yaml` 未沿用（Claude Code 不使用該格式）。
+
+## 原作授權全文
+
+見同資料夾 `LICENSE-AI-drama-pound.txt`（MIT，Copyright (c) 2026 POUND0423）。

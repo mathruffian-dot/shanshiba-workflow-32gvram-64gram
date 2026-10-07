@@ -1,0 +1,114 @@
+[
+ {
+  "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/LICENSE",
+  "sha256": null,
+  "size": 18719,
+  "destination": "C:/AI/BreezeTTS/breeze-tts-2/LICENSE",
+  "name": "LICENSE"
+ },
+ {
+  "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/README.md",
+  "sha256": null,
+  "size": 9818,
+  "destination": "C:/AI/BreezeTTS/breeze-tts-2/README.md",
+  "name": "README.md"
+ },
+ {
+  "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/assets/breezeblue-logo.png",
+  "sha256": null,
+  "size": 27533,
+  "destination": "C:/AI/BreezeTTS/breeze-tts-2/assets/breezeblue-logo.png",
+  "name": "assets/breezeblue-logo.png"
+ },
+ {
+  "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/assets/tts-elo-leaderboard.svg",
+  "sha256": null,
+  "size": 60367,
+  "destination": "C:/AI/BreezeTTS/breeze-tts-2/assets/tts-elo-leaderboard.svg",
+  "name": "assets/tts-elo-leaderboard.svg"
+ },
+ {
+  "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/audio_tokenizer/config.json",
+  "sha256": null,
+  "size": 2336,
+  "destination": "C:/AI/BreezeTTS/breeze-tts-2/audio_tokenizer/config.json",
+  "name": "audio_tokenizer/config.json"
+ },
+ {
+  "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/audio_tokenizer/configuration.json",
+  "sha256": null,
+  "size": 76,
+  "destination": "C:/AI/BreezeTTS/breeze-tts-2/audio_tokenizer/configuration.json",
+  "name": "audio_tokenizer/configuration.json"
+ },
+ {
+  "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/audio_tokenizer/model.safetensors",
+  "sha256": "836b7b357f5ea43e889936a3709af68dfe3751881acefe4ecf0dbd30ba571258",
+  "size": 682293092,
+  "destination": "C:/AI/BreezeTTS/breeze-tts-2/audio_tokenizer/model.safetensors",
+  "name": "audio_tokenizer/model.safetensors"
+ },
+ {
+  "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/audio_tokenizer/preprocessor_config.json",
+  "sha256": null,
+  "size": 234,
+  "destination": "C:/AI/BreezeTTS/breeze-tts-2/audio_tokenizer/preprocessor_config.json",
+  "name": "audio_tokenizer/preprocessor_config.json"
+ },
+ {
+  "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/config.json",
+  "sha256": null,
+  "size": 10161,
+  "destination": "C:/AI/BreezeTTS/breeze-tts-2/config.json",
+  "name": "config.json"
+ },
+ {
+  "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/generation_config.json",
+  "sha256": null,
+  "size": 251,
+  "destination": "C:/AI/BreezeTTS/breeze-tts-2/generation_config.json",
+  "name": "generation_config.json"
+ },
+ {
+  "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/model-00001-of-00002.safetensors",
+  "sha256": "abf813781256e10cbe81f2dbb415f897556225d4dfa0282d67aa8ea164e114a9",
+  "size": 4961989890,
+  "destination": "C:/AI/BreezeTTS/breeze-tts-2/model-00001-of-00002.safetensors",
+  "name": "model-00001-of-00002.safetensors"
+ },
+ {
+  "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/model-00002-of-00002.safetensors",
+  "sha256": "36aa73b1a11361e1774db90d9c63c63303b294c022de112aa51904d940edcef1",
+  "size": 2004567152,
+  "destination": "C:/AI/BreezeTTS/breeze-tts-2/model-00002-of-00002.safetensors",
+  "name": "model-00002-of-00002.safetensors"
+ },
+ {
+  "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/model.safetensors.index.json",
+  "sha256": null,
+  "size": 109004,
+  "destination": "C:/AI/BreezeTTS/breeze-tts-2/model.safetensors.index.json",
+  "name": "model.safetensors.index.json"
+ },
+ {
+  "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/special_tokens_map.json",
+  "sha256": null,
+  "size": 886,
+  "destination": "C:/AI/BreezeTTS/breeze-tts-2/special_tokens_map.json",
+  "name": "special_tokens_map.json"
+ },
+ {
+  "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/tokenizer.json",
+  "sha256": "d3ec9ac3eb2392389b9f5112e85d8b43316494addb587ba7b7a9d61eac23af96",
+  "size": 33386945,
+  "destination": "C:/AI/BreezeTTS/breeze-tts-2/tokenizer.json",
+  "name": "tokenizer.json"
+ },
+ {
+  "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/tokenizer_config.json",
+  "sha256": null,
+  "size": 1157960,
+  "destination": "C:/AI/BreezeTTS/breeze-tts-2/tokenizer_config.json",
+  "name": "tokenizer_config.json"
+ }
+]

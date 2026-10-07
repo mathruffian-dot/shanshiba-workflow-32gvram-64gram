@@ -148,6 +148,17 @@ def build(a, preset, prompt):
         g["6"]["inputs"]["model"] = ["17", 0]
         g["6"]["inputs"]["positive"] = ["14", 0]
         g["6"]["inputs"]["negative"] = ["15", 0]
+    if getattr(a, "lora", None):  # 2026-10-07: --lora name.safetensors[:strength], repeatable (stacked in order)
+        model = ["1", 0]
+        for i, spec in enumerate(a.lora):
+            name, _, st = spec.partition(":")
+            nid = str(90 + i)
+            g[nid] = {"class_type": "LoraLoaderModelOnly", "inputs": {"model": model, "lora_name": name, "strength_model": float(st or 1.0)}}
+            model = [nid, 0]
+        for nid, n in g.items():
+            if not nid.startswith("9") or len(nid) != 2:
+                if n["inputs"].get("model") == ["1", 0]:
+                    n["inputs"]["model"] = model
     return g
 
 
@@ -174,6 +185,7 @@ def main():
     ap.add_argument("--vae", default=None)
     ap.add_argument("--host", default=DEFAULT_HOST)
     ap.add_argument("--out", default=None, help="optional folder to copy the finished image into")
+    ap.add_argument("--lora", action="append", default=None, help="LoRA file[:strength], repeatable (e.g. afu_qwen21.safetensors:1.0)")
     a = ap.parse_args()
 
     name = "qwen21-unc" if a.uncensored else a.model

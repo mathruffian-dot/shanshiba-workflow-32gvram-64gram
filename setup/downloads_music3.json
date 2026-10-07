@@ -1,0 +1,23 @@
+[
+ {
+  "url": "https://huggingface.co/Comfy-Org/MiniMax-Music-3/resolve/9e364ccd290a401561091fb441ed19cd7de92550/diffusion_models/minimax_music3_dit_int8_convrot.safetensors",
+  "sha256": "d6b959633e69899f99f3a92d6741c0fe79f26958a30811e50e372ef978b24d5f",
+  "size": 2502161682,
+  "destination": "C:/AI/H3/models/diffusion_models/minimax_music3_dit_int8_convrot.safetensors",
+  "name": "diffusion_models/minimax_music3_dit_int8_convrot.safetensors"
+ },
+ {
+  "url": "https://huggingface.co/Comfy-Org/MiniMax-Music-3/resolve/9e364ccd290a401561091fb441ed19cd7de92550/text_encoders/minimax_music3_text_encoder_pruned_int8_convrot.safetensors",
+  "sha256": "010b7416d2336a08c711bc22ee65849c9623069ddb7d89bec011a75699e52014",
+  "size": 9196611886,
+  "destination": "C:/AI/H3/models/text_encoders/minimax_music3_text_encoder_pruned_int8_convrot.safetensors",
+  "name": "text_encoders/minimax_music3_text_encoder_pruned_int8_convrot.safetensors"
+ },
+ {
+  "url": "https://huggingface.co/Comfy-Org/MiniMax-Music-3/resolve/9e364ccd290a401561091fb441ed19cd7de92550/vae/minimax_music3_dav.safetensors",
+  "sha256": "2a32155b769be01445fcc2a8663b910fc9e1751e18dc1c3ec528064512d9ef0c",
+  "size": 216696128,
+  "destination": "C:/AI/H3/models/vae/minimax_music3_dav.safetensors",
+  "name": "vae/minimax_music3_dav.safetensors"
+ }
+]

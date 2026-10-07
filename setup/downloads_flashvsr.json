@@ -1,0 +1,30 @@
+[
+ {
+  "url": "https://huggingface.co/JunhaoZhuang/FlashVSR-v1.1/resolve/27561b186ded3402d7c975f4fd722e2885b6135f/LQ_proj_in.ckpt",
+  "sha256": "d6d011cdaaba6a52645086caa08fa04124e746f6ca568140a24007591142bfd2",
+  "size": 575694948,
+  "destination": "C:/AI/H3/ComfyUI-0.36.0/models/FlashVSR-v1.1/LQ_proj_in.ckpt",
+  "name": "LQ_proj_in.ckpt"
+ },
+ {
+  "url": "https://huggingface.co/JunhaoZhuang/FlashVSR-v1.1/resolve/27561b186ded3402d7c975f4fd722e2885b6135f/TCDecoder.ckpt",
+  "sha256": "e224bdcf2f52745cbf4d393ff5374c2ba09e90285d5d19062d2bf63b915b6161",
+  "size": 189018333,
+  "destination": "C:/AI/H3/ComfyUI-0.36.0/models/FlashVSR-v1.1/TCDecoder.ckpt",
+  "name": "TCDecoder.ckpt"
+ },
+ {
+  "url": "https://huggingface.co/JunhaoZhuang/FlashVSR-v1.1/resolve/27561b186ded3402d7c975f4fd722e2885b6135f/Wan2.1_VAE.pth",
+  "sha256": "38071ab59bd94681c686fa51d75a1968f64e470262043be31f7a094e442fd981",
+  "size": 507609880,
+  "destination": "C:/AI/H3/ComfyUI-0.36.0/models/FlashVSR-v1.1/Wan2.1_VAE.pth",
+  "name": "Wan2.1_VAE.pth"
+ },
+ {
+  "url": "https://huggingface.co/JunhaoZhuang/FlashVSR-v1.1/resolve/27561b186ded3402d7c975f4fd722e2885b6135f/diffusion_pytorch_model_streaming_dmd.safetensors",
+  "sha256": "bd28180edcf3446c028e32fc6b731a80bf7e4da2ab4caac3186b9499964d37be",
+  "size": 5676070392,
+  "destination": "C:/AI/H3/ComfyUI-0.36.0/models/FlashVSR-v1.1/diffusion_pytorch_model_streaming_dmd.safetensors",
+  "name": "diffusion_pytorch_model_streaming_dmd.safetensors"
+ }
+]

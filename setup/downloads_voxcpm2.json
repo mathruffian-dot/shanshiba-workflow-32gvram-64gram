@@ -1,0 +1,16 @@
+[
+  {
+    "url": "https://huggingface.co/openbmb/VoxCPM2/resolve/32279effe8c19989596f05d353d1447f51d9e915/audiovae.pth",
+    "sha256": "94b5d51e107e0507d4acc976cfdadb64edd6fd06d1f751dadbf2fd1594274bf1",
+    "destination": "C:/AI/Voice/models/VoxCPM2/audiovae.pth",
+    "name": "audiovae.pth",
+    "size": 376951122
+  },
+  {
+    "url": "https://huggingface.co/openbmb/VoxCPM2/resolve/32279effe8c19989596f05d353d1447f51d9e915/model.safetensors",
+    "sha256": "f7f964cfa9da23653baec6e6f7750719977ad944ed9f95fe52fe3a620506891d",
+    "destination": "C:/AI/Voice/models/VoxCPM2/model.safetensors",
+    "name": "model.safetensors",
+    "size": 4580080592
+  }
+]

@@ -1,0 +1,7 @@
+# ComfyUI custom nodes used by this workflow (git clone into ComfyUI/custom_nodes/, then checkout the commit)
+# name | repo | commit | needed for
+Nvidia_RTX_Nodes_ComfyUI | https://github.com/Comfy-Org/Nvidia_RTX_Nodes_ComfyUI.git | 892515e | RTX VSR (optional; upscale_vsr.py uses the nvidia-vfx pip package directly)
+ComfyUI-FlashVSR_Ultra_Fast | https://github.com/lihaoyun6/ComfyUI-FlashVSR_Ultra_Fast.git | 4820b3f | FlashVSR upscale for wide shots (flashvsr_cli.py loads it directly)
+ComfyUI-Fisher-Pose | https://github.com/Work-Fisher/ComfyUI-Fisher-Pose.git | d116451 | optional: pose control for still images
+# H3 (MiniMaxH3ReferenceToVideo, MiniMaxH3AddGuide, MiniMaxH3SigmaShift), Qwen-Image 2.1, MiniMax Music 3,
+# ModelAttentionBackend (comfy kitchen) and EasyCache are ComfyUI 0.37.0 core nodes - no install needed.

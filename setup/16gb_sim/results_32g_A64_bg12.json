@@ -1,0 +1,54 @@
+{
+ "target_avail_gb": 52.0,
+ "ram_hog_gb": 31,
+ "mem_before": {
+  "avail_phys": 83.1159553527832,
+  "commit_limit": 101.37960052490234,
+  "commit_used": 22.445552825927734
+ },
+ "mem_after_hog": {
+  "avail_phys": 52.00055694580078,
+  "commit_limit": 101.37960052490234,
+  "commit_used": 53.53711700439453
+ },
+ "flags": [],
+ "env": {},
+ "runs": [
+  {
+   "profile": "A64",
+   "shot": "B06",
+   "desc": "對白中景 158 格",
+   "kind": "cold",
+   "ok": true,
+   "status": "success",
+   "exec_s": 78.6,
+   "wall_s": 83.9,
+   "psnr_vs_A": "average:inf",
+   "vram_peak_comfy_mib": 31071,
+   "comfy_private_peak_gib": 36.34,
+   "sys_avail_min_gib": 45.31,
+   "commit_peak_gib": 90.1,
+   "watchdog_killed": false,
+   "pagefile_used_peak_gib": 1.2,
+   "disk_read_gib": 51.0
+  },
+  {
+   "profile": "A64",
+   "shot": "C04",
+   "desc": "雙人近景 107 格",
+   "kind": "warm",
+   "ok": true,
+   "status": "success",
+   "exec_s": 56.9,
+   "wall_s": 63.2,
+   "psnr_vs_A": "average:inf",
+   "vram_peak_comfy_mib": 31285,
+   "comfy_private_peak_gib": 37.29,
+   "sys_avail_min_gib": 46.11,
+   "commit_peak_gib": 91.4,
+   "watchdog_killed": false,
+   "pagefile_used_peak_gib": 1.1,
+   "disk_read_gib": 51.0
+  }
+ ]
+}

@@ -1,0 +1,64 @@
+# AI Toolkit (ostris/ai-toolkit commit 60d0c28) config for a Qwen-Image 2.1 character LoRA.
+# Used by the original project on an RTX 4080 Laptop 12GB / 32GB RAM (about 3 h for 1600 steps at 768).
+# Replace __NAME__ __OUTPUT_DIR__ __DATASET_DIR__ __TRIGGER__ __DESC__; run: python run.py this.yaml (inside the ai-toolkit venv)
+job: extension
+config:
+  name: __NAME__
+  process:
+  - type: sd_trainer
+    training_folder: __OUTPUT_DIR__
+    device: cuda:0
+    network:
+      type: lora
+      linear: 32
+      linear_alpha: 32
+    save:
+      dtype: float16
+      save_every: 400
+      max_step_saves_to_keep: 3
+    datasets:
+    - folder_path: __DATASET_DIR__
+      caption_ext: txt
+      caption_dropout_rate: 0.0
+      shuffle_tokens: false
+      cache_latents_to_disk: true
+      resolution:
+      - 768
+    train:
+      batch_size: 1
+      cache_text_embeddings: true
+      steps: 1600
+      gradient_accumulation: 1
+      train_unet: true
+      train_text_encoder: false
+      gradient_checkpointing: true
+      noise_scheduler: flowmatch
+      optimizer: adamw8bit
+      lr: 0.0001
+      skip_first_sample: true
+      disable_sampling: false
+      dtype: bf16
+    model:
+      name_or_path: Comfy-Org/Qwen-Image-2.1
+      arch: qwen_image_2
+      quantize: true
+      qtype: convrot8
+      quantize_te: true
+      qtype_te: convrot8
+      low_vram: true
+    sample:
+      sampler: flowmatch
+      sample_every: 400
+      sample_start_step: 400
+      width: 768
+      height: 768
+      prompts:
+      - __TRIGGER__, __DESC__, close-up portrait in a bright classroom, warm smile, realistic photograph
+      - __TRIGGER__, __DESC__, full-body shot on a school sports field, cheerful, realistic photograph
+      neg: ''
+      seed: 42
+      guidance_scale: 1
+      sample_steps: 20
+meta:
+  name: __NAME__
+  version: template-from-g14-2026-09-29

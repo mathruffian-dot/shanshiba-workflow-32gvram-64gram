@@ -1,34 +1,46 @@
-# 山獅霸的多重宇宙：本機 AI 短片製作工作流
+# 山獅霸的多重宇宙：AI 短片製作工作流（完整版：32GB VRAM＋64GB RAM）
 
-YouTube 頻道「山獅霸的多重宇宙」的完整製作做法。每支片 1–3 分鐘、16:9、24fps，台灣校園奇幻喜劇。
-**劇本由 AI agent（Claude Code）協作寫，畫面首幀用 OpenAI Image 2.5，影片與音效用本機 MiniMax H3 生成，配音、挑音、配樂、後製、自審全部腳本化**，人只在三個關卡驗收：劇本、首幀、成片。
+YouTube 頻道「山獅霸的多重宇宙」的完整製作做法：每支片 1–3 分鐘、16:9、24fps，台灣校園奇幻喜劇。劇本由 AI agent（Claude Code）協作，角色、首幀、影片、配音、配樂全部用本機模型生成（原專案首幀用雲端 Image 2.5，本 repo 改為全本地），挑音、後製、自審全部腳本化；人只在劇本、首幀、成片三個關卡驗收。
 
-> 這是私有分享版。原專案裡的本人照片、本人克隆聲音、API 金鑰、第三方素材都沒有放進來；角色定妝照也沒放（見[第 6 節](#6-這個-repo-沒有放的東西)）。
+> 私有分享版。原專案的本人照片、本人克隆聲音、API 金鑰、第三方素材、角色定妝照都沒有放進來。
 
-## 1. 先選版本
+## 1. 這份是給誰的
 
-| | 版本 A：現行做法 | 版本 B：低需求版 |
-|---|---|---|
-| 硬體 | RTX 5090 32GB／96GB RAM | 16GB VRAM／64GB RAM（4080、5070 Ti、5080） |
-| 狀態 | **已實際出片 8 支以上** | **5090 上模擬驗證過**（2026-10-07）；真實卡速度未實測 |
-| 模型 | 剪枝 int8 H3＋int8 文字編碼器 | **跟 A 一樣**（記憶體 48GB 以下才換 NVFP4） |
-| 畫面 | — | 同 seed **跟 A 逐格相同**（顯存峰值約 14.4GB） |
-| 單鏡長度 | ≤12 秒 | ≤12 秒（260 格實測可跑） |
-| 一支 40 鏡的片 | H3 約 41 分鐘 | 推估 1.5–2 小時 |
-| 說明 | [docs/hardware_A_5090.md](docs/hardware_A_5090.md) | [docs/hardware_B_16GB.md](docs/hardware_B_16GB.md) |
+| 項目 | 內容 |
+|---|---|
+| 顯卡 | 32GB：RTX 5090（或其他 32GB 顯卡） |
+| 記憶體 | 64GB 以上 |
+| 硬碟 | NVMe SSD，模型約 145GB＋工作空間 |
+| 狀態 | **原專案實際出片 8 支以上**（RTX 5090＋96GB）；64GB 記憶體 2026-10-07 模擬驗證：畫面逐格相同、速度相同 |
+| 一支 40 鏡的片 | H3 部分約 41 分鐘；首幀審過到成片約 3–4 小時（大多是 GPU 自己跑，可過夜） |
 
-兩版的**流程與模型完全一樣**，版本 B 只是啟動 ComfyUI 時加 `--reserve-vram 1.5`、一次只跑一件 GPU 工作。切換用 [configs/](configs/) 裡的設定檔。
+詳細：[docs/hardware.md](docs/hardware.md)
+
+## 三個硬體版本
+
+同一套工作流，依硬體分成三份 repo，內容只差在硬體說明與設定檔：
+
+| repo | 硬體 | 顯卡 | 記憶體 |
+|---|---|---|---|
+| **→ 本 repo** | 32GB VRAM＋64GB RAM | RTX 5090 32GB（或其他 32GB 顯卡） | 64GB 以上 |
+| [shanshiba-workflow-16gvram-64gram](https://github.com/mathruffian-dot/shanshiba-workflow-16gvram-64gram) | 16GB VRAM＋64GB RAM | RTX 4080／5070 Ti／5080 16GB | 64GB |
+| [shanshiba-workflow-16gvram-32gram](https://github.com/mathruffian-dot/shanshiba-workflow-16gvram-32gram) | 16GB VRAM＋32GB RAM | RTX 4080／5070 Ti／5080 16GB | 32GB |
+
+> ⚠️ **本 repo 預設給非商業用途**（教學、研究、個人創作）。用到的 **Qwen-Image 2.1、Breeze TTS 2 只能非商業使用**；要營利請照 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) 換掉這兩個（例如生圖改用雲端 Image 2.5）。另外**MiniMax H3 的授權排除美國、歐盟、英國、南韓**；MiniMax H3／Music 3 要求公開內容標示 AI 生成。本 repo 不含任何模型權重。
 
 ## 2. 流程一覽
 
 ```
-選題 → 劇本 ─✅─→ Blender 布置圖 → 首幀（Image 2.5）─✅─→ 配音候選 → 自動挑音
+選題 → 劇本 ─✅─→ 角色定妝照（Qwen-Image 2.1）→ 首幀（Qwen-Image-Edit）─✅─→ 配音候選 → 自動挑音
      → H3 生成（DMAD 4 步）→ RTX VSR 放大 → 後製（名片、字卡、音效、配樂、字幕）
      → 組裝 → 片尾 → 自審五遍 → 封面＋YouTube 資訊 ─✅─→ 上片
                                            ✅ = 人工驗收關卡
 ```
 
-每一步用哪支腳本、輸入輸出是什麼：[docs/02_端到端流程.md](docs/02_端到端流程.md)。
+全部在本機生成（只有挑音用的「台灣國語答案卷」edge-tts 需要連網，沒網路可改用本地 Breeze）。
+每一步用哪支腳本、輸入輸出是什麼：[docs/02_端到端流程.md](docs/02_端到端流程.md)；本地角色與首幀做法：[docs/07_本地角色與首幀.md](docs/07_本地角色與首幀.md)。
+
+**裝好之後先跑全本地示範片** `pipeline/demo_local/run_demo.py`：從零做兩個角色、4 鏡、配音、配樂，約 17 秒成片，證明整條工作流在你的電腦上能跑通。
 
 ## 3. 目錄
 
@@ -41,25 +53,29 @@ docs/
   04_自審清單.md            review.py 五遍＋常退件清單
   05_agent協作與知識庫.md   讓 AI agent 長期接手的做法
   06_安裝.md                環境、模型、資料夾慣例
-  hardware_A_5090.md        版本 A：硬體、模型、實測耗時
-  hardware_B_16GB.md        版本 B：調整方式、風險、驗證狀態
+  07_本地角色與首幀.md      不用雲端：Qwen 做角色與首幀（兩種做法）
+  hardware.md               ⭐ 你這個硬體版本：模型組合、啟動參數、實測數據、風險
 tools/                      全域工具（放到 C:\AI\tools）
   h3_shot.py ⭐             分鏡 JSON → 官方格式提示詞 → 格式檢查 → H3 生成
   img25.py                  OpenAI Image 2.5 生圖／編輯
   pron_check.py／pron_compare.py  中文配音聲調審核
   ...（完整清單見 docs/06_安裝.md）
-pipeline/example_D-7/       一支真實短片〈D-7〉的全套製作腳本（可直接複製改表格）
+pipeline/demo_local/        ⭐ 全本地示範片（裝好就能跑，不需要任何素材）
+pipeline/example_D-7/       原專案一支真實短片〈D-7〉的全套腳本（首幀當時用雲端 Image 2.5；全本地請參考 demo_local 換掉首幀那步）
+setup/                      模型下載清單（鎖定版本＋SHA-256）
 templates/                  片尾範本、咒印法陣素材
 agent/                      CLAUDE.md 範本、編劇技能、Blender 預演技能
-configs/                    版本 A／B 的環境變數
+configs/profile.cmd         這個硬體版本的環境變數
 ```
 
 ## 4. 最快上手
 
-1. 照 [docs/06_安裝.md](docs/06_安裝.md) 裝好 ComfyUI＋H3、Voice 環境、Breeze TTS，把 `tools/` 複製到 `C:\AI\tools`。
-2. 套用版本設定：`configs\profile_A_5090.cmd` 或 `configs\profile_B_16GB.cmd`（記憶體 48GB 以下用 `profile_B_16GB_lowRAM.cmd`），再執行 `tools\start_comfy.cmd`。
-3. 把 `pipeline/example_D-7/` 複製成新片資料夾，改四張表：`gen_frames.py` 的 SHOTS、`voice_plan.py` 的 LINES、`plan_h3.py` 的 SHOTS、`assemble.py` 的 SEGS。
-4. 依序跑：`gen_frames.py` → 審首幀、建 `frames_ok` → `run_queue.sh`（配音→挑音→H3）→ `music_scenes.py` → `assemble.py --vsr` → `review.py`。
+0. **AI agent 請先讀 [AGENT_SETUP.md](AGENT_SETUP.md)**，它會一步步帶你檢查硬體、安裝、下載、驗證。
+1. 照 [AGENT_SETUP.md](AGENT_SETUP.md) 裝好 ComfyUI＋H3、Voice 環境、Breeze TTS，把 `tools/` 複製到 `C:\AI\tools`。
+2. 先讀 [docs/hardware.md](docs/hardware.md)，再 `call configs\profile.cmd` 套用這個硬體版本的設定，然後執行 `tools\start_comfy.cmd`。
+3. 跑 `setup\smoke_test.py` 與 `pipeline\demo_local\run_demo.py` 確認全部正常。
+4. 把 `pipeline/example_D-7/` 複製成新片資料夾，改四張表：`gen_frames.py` 的 SHOTS、`voice_plan.py` 的 LINES、`plan_h3.py` 的 SHOTS、`assemble.py` 的 SEGS。
+5. 依序跑：`gen_frames.py`（全本地時改用 demo_local 的首幀寫法） → 審首幀、建 `frames_ok` → `run_queue.sh`（配音→挑音→H3）→ `music_scenes.py` → `assemble.py --vsr` → `review.py`。
 
 建議讓 AI agent 來跑：把 [agent/CLAUDE.md範本.md](agent/CLAUDE.md範本.md) 放進專案根目錄，它會照規則做、自審、寫紀錄。
 
@@ -84,11 +100,14 @@ configs/                    版本 A／B 的環境變數
 | 配音參考音 | 含本人授權克隆聲音 | 自己錄或用 Breeze 設計 |
 | 模型權重 | 檔案大、各有授權 | 照 [06_安裝.md](docs/06_安裝.md) 下載 |
 | 成片影片 | 檔案大 | 看頻道 |
-| OpenAI 金鑰 | — | 設環境變數 `OPENAI_API_KEY` |
+| OpenAI 金鑰（選用） | 預設不用；想改用雲端 Image 2.5 生首幀才需要 | 設環境變數 `OPENAI_API_KEY`，用 `tools/img25.py` |
 
-## 7. 授權提醒
+## 7. 授權
 
-- MiniMax H3、MiniMax Music 3：各有社群授權（H3 排除部分國家地區、Music 3 要求標示與 AI 揭露、有營收上限），商用前自己讀原文。
-- Breeze TTS 2、YuE2：**非商用**。
-- 片尾要揭露 AI 生成；YouTube Studio 的「合成內容」要勾選。
-- 本 repo 程式碼：私有分享，未經同意請勿再散布。
+| 內容 | 授權 | 檔案 |
+|---|---|---|
+| 本 repo 的程式碼（`*.py`、`*.ps1`、`*.cmd`、`*.sh`、設定檔） | **MIT** | [LICENSE](LICENSE) |
+| 本 repo 的文件與素材（`*.md`、技能文字、範例圖） | **CC BY-NC 4.0**（姓名標示、非商業） | [LICENSE-docs.md](LICENSE-docs.md) |
+| 用到的模型與第三方工具 | 各自的授權（**不隨本 repo 散布，自行下載**） | [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) |
+
+fork 或轉載時請保留這三個檔案。用這套工作流做出來的影片要遵守各模型的條款，特別是：MiniMax H3 的使用地區限制、MiniMax Music 3 的標示與 AI 揭露、Breeze TTS 2 的非商用限制（細節見 THIRD_PARTY_NOTICES.md）。

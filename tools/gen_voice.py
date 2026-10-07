@@ -23,7 +23,7 @@ OUTPUT_DIR = VOICE_DIR / "output"
 MODEL_PATH = VOICE_DIR / "models" / "VoxCPM2"
 
 
-def generate_voxcpm2(text: str, ref_wav: str | None, out_path: Path, cfg: float, steps: int, seed: int):
+def generate_voxcpm2(text: str, ref_wav: str | None, out_path: Path, cfg: float, steps: int, seed: int, control: str | None = None, no_default_ref: bool = False):
     import soundfile as sf
     import torch
     from voxcpm import VoxCPM
@@ -31,7 +31,9 @@ def generate_voxcpm2(text: str, ref_wav: str | None, out_path: Path, cfg: float,
     if not MODEL_PATH.exists():
         raise FileNotFoundError(f"VoxCPM2 model path does not exist: {MODEL_PATH}")
 
-    ref_audio = ref_wav if (ref_wav and Path(ref_wav).exists()) else (str(DEFAULT_REF) if DEFAULT_REF.exists() else None)
+    ref_audio = ref_wav if (ref_wav and Path(ref_wav).exists()) else (str(DEFAULT_REF) if DEFAULT_REF.exists() and not no_default_ref else None)
+    if control:  # VoxCPM2 voice design: "(description)text"; with no reference audio it designs a new voice (2026-10-07)
+        text = f"({control.strip()}){text}"
     
     torch.manual_seed(seed)
     model = VoxCPM.from_pretrained(str(MODEL_PATH), load_denoiser=False, optimize=False, device="cuda")
@@ -80,6 +82,8 @@ def main():
     parser.add_argument("--steps", type=int, default=10, help="Inference timesteps (VoxCPM2)")
     parser.add_argument("--seed", type=int, default=20260918, help="Random seed")
     parser.add_argument("--out", type=str, help="Output audio file path (.wav or .mp3)")
+    parser.add_argument("--control", type=str, default=None, help="VoxCPM2 voice description, e.g. 'a bright 11-year-old Taiwanese girl' (voice design)")
+    parser.add_argument("--design", action="store_true", help="VoxCPM2: do not fall back to the default reference voice (pure voice design with --control)")
     args = parser.parse_args()
 
     text = args.text
@@ -99,7 +103,7 @@ def main():
 
     t0 = time.time()
     if args.engine == "voxcpm2":
-        dest = generate_voxcpm2(text, args.ref, out_path, args.cfg, args.steps, args.seed)
+        dest = generate_voxcpm2(text, args.ref, out_path, args.cfg, args.steps, args.seed, args.control, args.design)
     else:
         dest = generate_edge(text, args.voice, out_path)
 
