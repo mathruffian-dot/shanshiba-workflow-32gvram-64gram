@@ -41,6 +41,8 @@ def render(cfg):
     f_head = ImageFont.truetype(FONT_BOLD, 30); f_a = ImageFont.truetype(FONT_BOLD, 46); f_b = ImageFont.truetype(FONT_BOLD, 30)
     enc = encoder(base / cfg.get("out", "ending.mp4")); n_card = int(card_dur * FPS)
     for ci, card in enumerate(cfg["cards"]):
+        if len(card.get("tools", [])) > 3:   # max 3 tool lines per card: a 4th line runs off the bottom of the frame
+            raise SystemExit(f"card {ci + 1} has {len(card['tools'])} tool lines; split it into two cards (max 3 per card)")
         im = Image.open(base / card["image"]).convert("RGB").resize((W, H), Image.LANCZOS)
         for i in range(n_card):
             u = i / (n_card - 1); z = 1.03 + (0.07 * u if ci % 2 == 0 else 0.07 * (1 - u))

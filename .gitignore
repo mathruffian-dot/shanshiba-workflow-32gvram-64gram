@@ -3,6 +3,7 @@
 *.mov
 *.wav
 *.mp3
+!sfx/**/*.mp3
 *.flac
 *.safetensors
 *.gguf

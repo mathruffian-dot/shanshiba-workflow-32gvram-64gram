@@ -4,42 +4,48 @@
   "sha256": null,
   "size": 18719,
   "destination": "C:/AI/BreezeTTS/breeze-tts-2/LICENSE",
-  "name": "LICENSE"
+  "name": "LICENSE",
+  "git_oid": "91765f274e37e08a9fced19a6167ca9d0e52f799"
  },
  {
   "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/README.md",
   "sha256": null,
   "size": 9818,
   "destination": "C:/AI/BreezeTTS/breeze-tts-2/README.md",
-  "name": "README.md"
+  "name": "README.md",
+  "git_oid": "71a3f6da9361fd64cf31e8e4cd0ce39501a77e43"
  },
  {
   "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/assets/breezeblue-logo.png",
   "sha256": null,
   "size": 27533,
   "destination": "C:/AI/BreezeTTS/breeze-tts-2/assets/breezeblue-logo.png",
-  "name": "assets/breezeblue-logo.png"
+  "name": "assets/breezeblue-logo.png",
+  "git_oid": "4bc125888d1886b4aa565d18a665cb586910f149"
  },
  {
   "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/assets/tts-elo-leaderboard.svg",
   "sha256": null,
   "size": 60367,
   "destination": "C:/AI/BreezeTTS/breeze-tts-2/assets/tts-elo-leaderboard.svg",
-  "name": "assets/tts-elo-leaderboard.svg"
+  "name": "assets/tts-elo-leaderboard.svg",
+  "git_oid": "435303d219a7c40db8cf0476752da0ac09ab6efc"
  },
  {
   "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/audio_tokenizer/config.json",
   "sha256": null,
   "size": 2336,
   "destination": "C:/AI/BreezeTTS/breeze-tts-2/audio_tokenizer/config.json",
-  "name": "audio_tokenizer/config.json"
+  "name": "audio_tokenizer/config.json",
+  "git_oid": "06cc8dc4c5ec8a1929086b71b98c313020d9268b"
  },
  {
   "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/audio_tokenizer/configuration.json",
   "sha256": null,
   "size": 76,
   "destination": "C:/AI/BreezeTTS/breeze-tts-2/audio_tokenizer/configuration.json",
-  "name": "audio_tokenizer/configuration.json"
+  "name": "audio_tokenizer/configuration.json",
+  "git_oid": "ab58e2eaf53cd14a1a2a7527d9261ceea93a24cd"
  },
  {
   "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/audio_tokenizer/model.safetensors",
@@ -53,21 +59,24 @@
   "sha256": null,
   "size": 234,
   "destination": "C:/AI/BreezeTTS/breeze-tts-2/audio_tokenizer/preprocessor_config.json",
-  "name": "audio_tokenizer/preprocessor_config.json"
+  "name": "audio_tokenizer/preprocessor_config.json",
+  "git_oid": "ba40914f4f49ab98a8ca545d4892ef7291a39592"
  },
  {
   "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/config.json",
   "sha256": null,
   "size": 10161,
   "destination": "C:/AI/BreezeTTS/breeze-tts-2/config.json",
-  "name": "config.json"
+  "name": "config.json",
+  "git_oid": "4b44ed4d6189c57b780cd73915579de059b3ba18"
  },
  {
   "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/generation_config.json",
   "sha256": null,
   "size": 251,
   "destination": "C:/AI/BreezeTTS/breeze-tts-2/generation_config.json",
-  "name": "generation_config.json"
+  "name": "generation_config.json",
+  "git_oid": "da03eee098c41e30790890d4c998325ddc1bd0b9"
  },
  {
   "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/model-00001-of-00002.safetensors",
@@ -88,14 +97,16 @@
   "sha256": null,
   "size": 109004,
   "destination": "C:/AI/BreezeTTS/breeze-tts-2/model.safetensors.index.json",
-  "name": "model.safetensors.index.json"
+  "name": "model.safetensors.index.json",
+  "git_oid": "b4467c038557531368ea999361e726fe61668ecf"
  },
  {
   "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/special_tokens_map.json",
   "sha256": null,
   "size": 886,
   "destination": "C:/AI/BreezeTTS/breeze-tts-2/special_tokens_map.json",
-  "name": "special_tokens_map.json"
+  "name": "special_tokens_map.json",
+  "git_oid": "1556c52ad39a242591f2dd6ed0401bd3582ba005"
  },
  {
   "url": "https://huggingface.co/BreezeBlue/Breeze-TTS-2/resolve/3e28c5151381a722f1d8661b4118c298caa77aa4/tokenizer.json",
@@ -109,6 +120,7 @@
   "sha256": null,
   "size": 1157960,
   "destination": "C:/AI/BreezeTTS/breeze-tts-2/tokenizer_config.json",
-  "name": "tokenizer_config.json"
+  "name": "tokenizer_config.json",
+  "git_oid": "466af463b97cdd1e912320df115ce3bdd54d1a85"
  }
 ]

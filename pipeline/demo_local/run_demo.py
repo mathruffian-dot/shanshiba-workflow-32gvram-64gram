@@ -20,6 +20,11 @@ import time
 import urllib.request
 import wave
 from pathlib import Path
+for _s in (sys.stdout, sys.stderr):                 # 中文輸出在非 UTF-8 主控台不變亂碼
+    try:
+        _s.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "out"; OUT.mkdir(exist_ok=True)
@@ -125,7 +130,9 @@ def frames():
         dst = OUT / "first" / f"{s['id']}.png"
         if dst.exists():
             continue
-        keep = " ".join(f"Keep exactly the same person as <image{i}>: same face, hairstyle and clothes." for i, _ in enumerate(s["refs"], 1))
+        # 參考圖之外，每一鏡都要照抄完整外觀描述（只寫「Keep the same person」時，Qwen-Edit 會掉眼鏡、換髮型；2026-10-07 實測）
+        keep = " ".join(f"Keep exactly the same person as <image{i}>: same face, hairstyle and clothes — {CHARS[k]['look']}."
+                        for i, k in enumerate(s["refs"], 1))
         p = keep + " New photo: " + CINE + s["frame"] + " No text, no watermark, no captions."
         cmd = [PYH3, str(T / "gen_image.py"), "--model", "qwen-edit", "--width", "1344", "--height", "768", "--prompt", p, "--seed", "5101",
                "--prefix", f"demo/{s['id']}", "--out", "first"]

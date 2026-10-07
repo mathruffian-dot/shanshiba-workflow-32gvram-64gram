@@ -10,7 +10,7 @@
 ```
 C:\AI\H3\venv\Scripts\python.exe render_ending.py config.json
 ```
-`config_example.json` 是阿福〈三個絕招〉實際用的設定（5 張特寫＋工具名單）。把特寫靜幀放進 `frames/`、依本片實際工具修改 tools。輸出 1920×1080、24fps、無音訊。
+`config_example.json` 是 4 張特寫＋工具名單的範例（約 21 秒）；30 秒左右的短片用 `config_short_example.json`（2 張、約 9 秒）。`title` 改成你的片名或頻道名（原頻道用「山獅霸的多重宇宙」）。**每張卡最多 3 行工具**，超過程式會停下來提醒。MiniMax Music3 的授權要求商業使用時顯著標示「MiniMax-Music3」，公開內容要標示 AI 生成，所以最後一張建議保留「本片畫面、配音與配樂皆由 AI 生成」。把特寫靜幀放進 `frames/`、依本片實際工具修改 tools。輸出 1920×1080、24fps、無音訊。
 
 ## 名單規則
 - 只列實際用到的工具；使用者指示**不列非商用授權工具**（例如 Breeze TTS 2、YuE2）——但授權義務不會因不列名消失，商用前要另外處理。

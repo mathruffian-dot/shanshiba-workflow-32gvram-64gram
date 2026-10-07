@@ -5,6 +5,12 @@ import json
 import platform
 import shutil
 import subprocess
+import sys
+for _s in (sys.stdout, sys.stderr):                 # 中文輸出在非 UTF-8 主控台不變亂碼
+    try:
+        _s.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
 
 REPOS = [
     ("shanshiba-workflow-32gvram-64gram", 30, 60, "32GB VRAM + 64GB RAM（完整版）"),

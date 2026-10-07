@@ -57,12 +57,16 @@ docs/
   hardware.md               ⭐ 你這個硬體版本：模型組合、啟動參數、實測數據、風險
 tools/                      全域工具（放到 C:\AI\tools）
   h3_shot.py ⭐             分鏡 JSON → 官方格式提示詞 → 格式檢查 → H3 生成
-  img25.py                  OpenAI Image 2.5 生圖／編輯
+  make_breezyvoice.cmd ⭐   台詞配音：BreezyVoice 每句 8 候選 → 聽寫＋腔調自動挑
+  gen_image.py              本機 Qwen-Image 2.1／Qwen-Image-Edit 生圖
+  start_comfy.cmd           啟動 ComfyUI
+  img25.py                  OpenAI Image 2.5 生圖／編輯（選用，雲端）
   pron_check.py／pron_compare.py  中文配音聲調審核
   ...（完整清單見 docs/06_安裝.md）
 pipeline/demo_local/        ⭐ 全本地示範片（裝好就能跑，不需要任何素材）
-pipeline/example_D-7/       原專案一支真實短片〈D-7〉的全套腳本（首幀當時用雲端 Image 2.5；全本地請參考 demo_local 換掉首幀那步）
-setup/                      模型下載清單（鎖定版本＋SHA-256）
+pipeline/example_D-7/       原專案一支真實短片〈D-7〉的全套腳本（參考用：首幀用雲端 Image 2.5、舊配音流程，不能直接照跑）
+setup/                      安裝：模型下載清單（鎖定版本＋逐檔雜湊）、套件清單、smoke_test、硬體偵測
+sfx/                        58 個 Freesound CC0 音效（腳步、翻頁、門、球、歡呼…）
 templates/                  片尾範本、咒印法陣素材
 agent/                      CLAUDE.md 範本、編劇技能、Blender 預演技能
 configs/profile.cmd         這個硬體版本的環境變數
@@ -72,10 +76,24 @@ configs/profile.cmd         這個硬體版本的環境變數
 
 0. **AI agent 請先讀 [AGENT_SETUP.md](AGENT_SETUP.md)**，它會一步步帶你檢查硬體、安裝、下載、驗證。
 1. 照 [AGENT_SETUP.md](AGENT_SETUP.md) 裝好 ComfyUI＋H3、Voice 環境、Breeze TTS、BreezyVoice，把 `tools/` 複製到 `C:\AI\tools`。
-2. 先讀 [docs/hardware.md](docs/hardware.md)，再 `call configs\profile.cmd` 套用這個硬體版本的設定，然後執行 `tools\start_comfy.cmd`。
+2. 先讀 [docs/hardware.md](docs/hardware.md)，再在同一個 cmd 視窗 `call configs\profile.cmd` 套用這個硬體版本的設定，然後執行 `C:\AI\tools\start_comfy.cmd`。
 3. 跑 `setup\smoke_test.py` 與 `pipeline\demo_local\run_demo.py` 確認全部正常。
-4. 把 `pipeline/example_D-7/` 複製成新片資料夾，改四張表：`gen_frames.py` 的 SHOTS、`voice_plan.py` 的 LINES、`plan_h3.py` 的 SHOTS、`assemble.py` 的 SEGS。
-5. 依序跑：`gen_frames.py`（全本地時改用 demo_local 的首幀寫法） → 審首幀、建 `frames_ok` → `run_queue.sh`（配音→挑音→H3）→ `music_scenes.py` → `assemble.py --vsr` → `review.py`。
+4. 開始做自己的片，照下面的檢查表一步一步來（2026-10-07 實測：一個沒看過本專案的 agent 照這個 repo，約 45 分鐘做出 7 鏡、28 秒的片）。
+
+| # | 步驟 | 工具 | 看哪份文件 | 產出 | 要人工看嗎 |
+|---|---|---|---|---|---|
+| 1 | 劇本＋鏡表（每鏡 ≤12 秒） | `agent/skills/shanshiba-drama` | SKILL.md 開頭的版本說明、`docs/03` | `劇本.md` | ✅ 確認劇本 |
+| 2 | 角色定妝照（單張、灰底、半身） | `gen_image.py`（Qwen-Image 2.1） | `docs/07` §1 | `chars/<角色>.png` | ✅ 挑一張定案 |
+| 3 | 場景母版（空景，之後裁成各鏡景別） | `gen_image.py` | `docs/07` §4 | `masters/*.png` | |
+| 4 | 首幀（附定妝照＋母版裁切，**每鏡照抄角色完整外觀描述**） | `gen_image.py --model qwen-edit --ref` | `docs/07` §2–3 | `first/<鏡>.png` | ✅ 逐張看：臉、服裝、多手多腳、背景有沒有字 |
+| 5 | 角色聲音（一次）→ 台詞配音 | `breeze_batch.py`（設計參考音）→ `make_breezyvoice.cmd` | `docs/03` §5 | `bv/<句>.wav`（已去頭尾靜音） | `needs_review` 的句子聽一次 |
+| 6 | H3 每鏡（DMAD 4 步、只給首幀、台詞當固定音軌；看得到臉又沒台詞的鏡給靜音） | `h3_shot.py`（spec 加 `"draft": true`） | `docs/03` §4、`tools/examples/` | `h3/<鏡>/clip.mp4` | ✅ 抽格看：換臉、多人、鏡頭漂移 |
+| 7 | 配樂（純器樂、多抽幾個 seed，挑人聲殘留最少的） | `gen_music3.py` → `audio-separator` | `docs/02` §9 | `music/*.flac` | |
+| 8 | 放大、剪接（台詞提前 0.2 秒）、配樂壓低（台詞期間 15–30%）、響度、字幕 | `upscale_vsr.py`、ffmpeg | `docs/02` §7、§10（**響度指令照抄，`alimiter` 要 `level=false`**） | `cut/<片名>_1080p.mp4` | |
+| 9 | 片尾（工具名單＋AI 生成標示） | `templates/ending/render_ending.py` | `templates/ending/README.md` | `ending.mp4` | |
+| 10 | 自審五遍（抽格、ASR、雜訊、黑畫面與響度、切點） | 參考 `pipeline/example_D-7/review.py`、`noise_scan.py`、`stt.py` | `docs/04_自審清單.md` | `review/` | ✅ 最後一定給人看成片 |
+
+`pipeline/demo_local/run_demo.py` 是上面 2、4、5、6、7、8 的最小可執行版本（4 鏡），寫自己的片可以從它改起。`pipeline/example_D-7/` 是原頻道一支 120 秒成片的完整腳本，可以參考剪接與自審的寫法；但它用雲端 Image 2.5 首幀和舊配音流程，**不能直接照跑**。
 
 建議讓 AI agent 來跑：把 [agent/CLAUDE.md範本.md](agent/CLAUDE.md範本.md) 放進專案根目錄，它會照規則做、自審、寫紀錄。
 
@@ -88,7 +106,7 @@ configs/profile.cmd         這個硬體版本的環境變數
 5. **不說話的鏡頭給靜音引導音軌**，否則角色會自己嘟囔。
 6. **畫面上的中文一律後製疊字**，H3 會把字寫成亂碼。
 7. **台灣腔配音**：Breeze 設計角色聲音（一次）→ **BreezyVoice** 用它念每句台詞（每句 8 候選，約 2.5 秒一個）→ 聽寫全對＋跟台灣國語參考音比聲調自動挑；念不準的字直接標注音（`連假[:ㄐㄧㄚ4]`）。
-8. **低頭、轉身後臉會換人** → 用 Image 2.5 生尾幀鎖住。
+8. **低頭、轉身後臉會換人** → 再生一張「動作結束時」的畫面當尾幀鎖住（原頻道用 Image 2.5；本地可用 Qwen-Image-Edit 附定妝照）。
 9. **先做最難的一鏡再批次**，不要整片生完才發現共通問題。
 10. **不合格就重拍到合格**，不靠剪掉躲；給人看並排影片，數字只當備註。
 
@@ -96,10 +114,12 @@ configs/profile.cmd         這個硬體版本的環境變數
 
 | 東西 | 原因 | 你要自己準備 |
 |---|---|---|
-| 角色定妝照、轉面圖、表情表 | 頻道角色資產 | 用 Image 2.5 為自己的角色做一組（見 [03_規則與踩坑.md](docs/03_規則與踩坑.md) §3） |
+| 原頻道的角色定妝照、轉面圖、表情表 | 頻道角色資產 | 用本機 Qwen-Image 2.1 為自己的角色做單張半身定妝照（見 [07_本地角色與首幀.md](docs/07_本地角色與首幀.md)） |
 | 配音參考音 | 含本人授權克隆聲音 | 自己錄或用 Breeze 設計，台詞一律 BreezyVoice |
-| 模型權重 | 檔案大、各有授權 | 照 [06_安裝.md](docs/06_安裝.md) 下載 |
+| 模型權重 | 檔案大、各有授權 | 照 [AGENT_SETUP.md](AGENT_SETUP.md) 第 3 節下載（約 150GB） |
 | 成片影片 | 檔案大 | 看頻道 |
+
+（音效有附：`sfx/` 裡 58 個 Freesound CC0 音效。）
 | OpenAI 金鑰（選用） | 預設不用；想改用雲端 Image 2.5 生首幀才需要 | 設環境變數 `OPENAI_API_KEY`，用 `tools/img25.py` |
 
 ## 7. 授權

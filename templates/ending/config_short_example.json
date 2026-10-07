@@ -1,0 +1,35 @@
+{
+ "title": "你的片名或頻道名",
+ "header": "本片使用的 AI 工具",
+ "card_dur": 2.4,
+ "title_dur": 4.0,
+ "out": "ending_short.mp4",
+ "cards": [
+  {
+   "image": "frames/close1.png",
+   "tools": [
+    [
+     "MiniMax H3",
+     "影片"
+    ],
+    [
+     "Qwen-Image 2.1／Edit 2511",
+     "首幀"
+    ],
+    [
+     "BreezyVoice・Music3",
+     "配音／配樂"
+    ]
+   ]
+  },
+  {
+   "image": "frames/close2.png",
+   "tools": [
+    [
+     "本片畫面、配音與配樂皆由 AI 生成",
+     ""
+    ]
+   ]
+  }
+ ]
+}

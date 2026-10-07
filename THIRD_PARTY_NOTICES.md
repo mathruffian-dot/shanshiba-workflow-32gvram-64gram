@@ -52,6 +52,7 @@
 | python-audio-separator | MIT（README 請使用者標註 UVR 專案） | 建議在片尾或說明欄標註 | https://github.com/nomadkaraoke/python-audio-separator |
 | edge-tts | LGPL-3.0（套件）；**微軟朗讀服務沒有公開授權第三方使用** | 本 repo 只用它產生「發音對照」參考音、不放進成片；離線替代為 Breeze（同樣非商用） | https://github.com/rany2/edge-tts |
 | Blender | GPL（只約束程式本身；算出的圖與 .blend 歸使用者） | 無 | https://www.blender.org/about/license/ |
+| `sfx/` 音效 58 個（Freesound） | CC0 1.0（每個檔的編號、網址、授權確認見 `sfx/manifest.json`） | 公有領域，可商用、免標示；本 repo 直接附檔 | https://freesound.org |
 | POUND0423/AI-drama-pound | MIT（Copyright (c) 2026 POUND0423） | `agent/skills/shanshiba-drama/` 改寫自此，已附原授權全文 | https://github.com/POUND0423/AI-drama-pound |
 
 ## 本 repo 的定位：非商業使用

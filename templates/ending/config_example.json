@@ -1,14 +1,57 @@
 {
-  "title": "山獅霸的多重宇宙",
-  "header": "本片使用的 AI 工具",
-  "card_dur": 3.3,
-  "title_dur": 7.5,
-  "out": "ending.mp4",
-  "cards": [
-    {"image": "frames/close1.png", "tools": [["MiniMax H3", "影片生成"], ["OpenAI Image 2.5", "首幀影像"]]},
-    {"image": "frames/close2.png", "tools": [["VoxCPM2", "配音"], ["MiniMax Music 3", "配樂生成"]]},
-    {"image": "frames/close3.png", "tools": [["faster-whisper", "語音校對"], ["BS-RoFormer", "人聲分離"]]},
-    {"image": "frames/close4.png", "tools": [["NVIDIA RTX VSR", "1080p 放大"], ["ComfyUI", "本機生成工作流"]]},
-    {"image": "frames/close5.png", "tools": [["Claude Code", "製作流程與協作"], ["本片畫面、配音與配樂皆由 AI 生成", ""]]}
-  ]
+ "title": "你的片名或頻道名",
+ "header": "本片使用的 AI 工具",
+ "card_dur": 3.3,
+ "title_dur": 7.5,
+ "out": "ending.mp4",
+ "cards": [
+  {
+   "image": "frames/close1.png",
+   "tools": [
+    [
+     "MiniMax H3",
+     "影片生成"
+    ],
+    [
+     "Qwen-Image 2.1／Edit 2511",
+     "角色與首幀"
+    ]
+   ]
+  },
+  {
+   "image": "frames/close2.png",
+   "tools": [
+    [
+     "BreezyVoice＋Breeze TTS 2",
+     "配音"
+    ],
+    [
+     "MiniMax Music3",
+     "配樂生成"
+    ]
+   ]
+  },
+  {
+   "image": "frames/close3.png",
+   "tools": [
+    [
+     "faster-whisper・BS-RoFormer",
+     "校對／分離人聲"
+    ],
+    [
+     "NVIDIA RTX VSR",
+     "1080p 放大"
+    ]
+   ]
+  },
+  {
+   "image": "frames/close4.png",
+   "tools": [
+    [
+     "本片畫面、配音與配樂皆由 AI 生成",
+     ""
+    ]
+   ]
+  }
+ ]
 }

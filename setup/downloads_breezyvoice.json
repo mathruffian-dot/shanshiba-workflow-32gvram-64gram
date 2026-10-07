@@ -4,707 +4,808 @@
   "sha256": null,
   "size": 6447,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/Sable.v0_2.dtd",
-  "name": "CosyVoice-ttsfrd/resource/festival/Sable.v0_2.dtd"
+  "name": "CosyVoice-ttsfrd/resource/festival/Sable.v0_2.dtd",
+  "git_oid": "63e7f23a91b57ce4693799d3e09c424a120080cc"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/Singing.v0_1.dtd",
   "sha256": null,
   "size": 872,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/Singing.v0_1.dtd",
-  "name": "CosyVoice-ttsfrd/resource/festival/Singing.v0_1.dtd"
+  "name": "CosyVoice-ttsfrd/resource/festival/Singing.v0_1.dtd",
+  "git_oid": "b0dd8a8881a8a6599c8a4d751122718d11c9d1a0"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/VCLocalRules",
   "sha256": null,
   "size": 152,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/VCLocalRules",
-  "name": "CosyVoice-ttsfrd/resource/festival/VCLocalRules"
+  "name": "CosyVoice-ttsfrd/resource/festival/VCLocalRules",
+  "git_oid": "45bb8323297d9003a27f6f3853d8f2fd47604a10"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/apml.scm",
   "sha256": null,
   "size": 17528,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/apml.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/apml.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/apml.scm",
+  "git_oid": "85a46868c0f45e882f3c16862fb22d6405759f5d"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/apml_f2bf0lr.scm",
   "sha256": null,
   "size": 26037,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/apml_f2bf0lr.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/apml_f2bf0lr.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/apml_f2bf0lr.scm",
+  "git_oid": "3d312a8ff8d7d20eba6b043d12cd3c880d7b66ee"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/apml_kaldurtreeZ.scm",
   "sha256": null,
   "size": 35956,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/apml_kaldurtreeZ.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/apml_kaldurtreeZ.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/apml_kaldurtreeZ.scm",
+  "git_oid": "5a3d44e3e80ad6998d8506f825186ba1f8c15d2d"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/cart_aux.scm",
   "sha256": null,
   "size": 7897,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/cart_aux.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/cart_aux.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/cart_aux.scm",
+  "git_oid": "b641a3aad7dadcb6e0b04e7bc8b96bd0d625d274"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/clunits.scm",
   "sha256": null,
   "size": 10517,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/clunits.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/clunits.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/clunits.scm",
+  "git_oid": "9ad181ad2894225abb35bf82c2cb52602200d7b2"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/clunits_build.scm",
   "sha256": null,
   "size": 16471,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/clunits_build.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/clunits_build.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/clunits_build.scm",
+  "git_oid": "39c13219ec78f80cc9c685d03cf92fdff1f8e7b2"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/cmusphinx2_phones.scm",
   "sha256": null,
   "size": 5271,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/cmusphinx2_phones.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/cmusphinx2_phones.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/cmusphinx2_phones.scm",
+  "git_oid": "49c6597e557c0e2d8315a1fb594c67e9a16c4eb7"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/cslush.scm",
   "sha256": null,
   "size": 3969,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/cslush.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/cslush.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/cslush.scm",
+  "git_oid": "6864917d6cc81b9c1620eb5738881f168cddd974"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/cstr.scm",
   "sha256": null,
   "size": 4778,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/cstr.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/cstr.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/cstr.scm",
+  "git_oid": "ffc01d876fb30bf9973fdd854a8ff1e1b689b4cf"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/darpa_phones.scm",
   "sha256": null,
   "size": 5329,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/darpa_phones.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/darpa_phones.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/darpa_phones.scm",
+  "git_oid": "184c8bfdd614e26d83c5c95f15ce6eaf65c49bb5"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/dicts/cmu/COPYING",
   "sha256": null,
   "size": 2258,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/dicts/cmu/COPYING",
-  "name": "CosyVoice-ttsfrd/resource/festival/dicts/cmu/COPYING"
+  "name": "CosyVoice-ttsfrd/resource/festival/dicts/cmu/COPYING",
+  "git_oid": "6129d1e55ac895cd3104d6ac7d61798e499f87c6"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/dicts/cmu/allowables.scm",
   "sha256": null,
   "size": 2106,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/dicts/cmu/allowables.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/dicts/cmu/allowables.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/dicts/cmu/allowables.scm",
+  "git_oid": "dbed159810339e7d31c1002f12222f13884166a5"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmu2ft",
   "sha256": null,
   "size": 536,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmu2ft",
-  "name": "CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmu2ft"
+  "name": "CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmu2ft",
+  "git_oid": "c5642038718ab8b2bc527854a633729288f7dc16"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmu_lts_rules.scm",
   "sha256": null,
   "size": 2958964,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmu_lts_rules.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmu_lts_rules.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmu_lts_rules.scm",
+  "git_oid": "8c7a27be90434e3148a2922ab108a7f171b390f2"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmudict-0.4.diff",
   "sha256": null,
   "size": 120798,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmudict-0.4.diff",
-  "name": "CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmudict-0.4.diff"
+  "name": "CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmudict-0.4.diff",
+  "git_oid": "02b80d7e849c66b53899f8e521f8f83b111ccf61"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmudict-0.4.out",
   "sha256": null,
   "size": 5159104,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmudict-0.4.out",
-  "name": "CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmudict-0.4.out"
+  "name": "CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmudict-0.4.out",
+  "git_oid": "bf4b93f014580a85c8276e4572d8545517d37b01"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmudict-0.4.scm",
   "sha256": null,
   "size": 3745214,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmudict-0.4.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmudict-0.4.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmudict-0.4.scm",
+  "git_oid": "33da97dd49d142e5a93e8359e4e8723e0f089b0f"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmudict_compile.scm",
   "sha256": null,
   "size": 2563,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmudict_compile.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmudict_compile.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmudict_compile.scm",
+  "git_oid": "c49c931cdf3d4bfe42a3f1730157ba3b7af380ce"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmudict_extensions.scm",
   "sha256": null,
   "size": 21825,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmudict_extensions.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmudict_extensions.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmudict_extensions.scm",
+  "git_oid": "724cb3578f6dbbc8a05d98f3301b956432bd8289"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmulex.scm",
   "sha256": null,
   "size": 15842,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmulex.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmulex.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/dicts/cmu/cmulex.scm",
+  "git_oid": "784835a68b7854585e9ff2e209e4924a45fb5b74"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/dicts/oald/COPYING",
   "sha256": null,
   "size": 2449,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/dicts/oald/COPYING",
-  "name": "CosyVoice-ttsfrd/resource/festival/dicts/oald/COPYING"
+  "name": "CosyVoice-ttsfrd/resource/festival/dicts/oald/COPYING",
+  "git_oid": "af8547cd6410f3d6d8633d3f7bf4da842e57f633"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/dicts/oald/ali.oald.lex",
   "sha256": null,
   "size": 5216501,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/dicts/oald/ali.oald.lex",
-  "name": "CosyVoice-ttsfrd/resource/festival/dicts/oald/ali.oald.lex"
+  "name": "CosyVoice-ttsfrd/resource/festival/dicts/oald/ali.oald.lex",
+  "git_oid": "dd2b21bff4b60f108cf34fb5682bae4d8d9c97da"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/dicts/oald/oald_extensions.scm",
   "sha256": null,
   "size": 58063,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/dicts/oald/oald_extensions.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/dicts/oald/oald_extensions.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/dicts/oald/oald_extensions.scm",
+  "git_oid": "233457edaf9e9d0350742c0e634862c84ebbf4c6"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/dicts/oald/oald_lts_rules.scm",
   "sha256": null,
   "size": 2409618,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/dicts/oald/oald_lts_rules.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/dicts/oald/oald_lts_rules.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/dicts/oald/oald_lts_rules.scm",
+  "git_oid": "7e0003fa2586ec015425789a6b3fe1acd9b90c3d"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/dicts/oald/oaldlex.scm",
   "sha256": null,
   "size": 11922,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/dicts/oald/oaldlex.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/dicts/oald/oaldlex.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/dicts/oald/oaldlex.scm",
+  "git_oid": "0c318760ce384fe84339873ddd9c5b6c5e777f47"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/dicts/wsj.wp39.poslexR",
   "sha256": null,
   "size": 1220432,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/dicts/wsj.wp39.poslexR",
-  "name": "CosyVoice-ttsfrd/resource/festival/dicts/wsj.wp39.poslexR"
+  "name": "CosyVoice-ttsfrd/resource/festival/dicts/wsj.wp39.poslexR",
+  "git_oid": "f734226ac8450de80eb9ec9ac7c7474292552505"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/dicts/wsj.wp39.tri.ngrambin",
   "sha256": null,
   "size": 143569,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/dicts/wsj.wp39.tri.ngrambin",
-  "name": "CosyVoice-ttsfrd/resource/festival/dicts/wsj.wp39.tri.ngrambin"
+  "name": "CosyVoice-ttsfrd/resource/festival/dicts/wsj.wp39.tri.ngrambin",
+  "git_oid": "cce064dc39c9ecebc0760fd5955a3d3be8ce9614"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/display.scm",
   "sha256": null,
   "size": 3823,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/display.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/display.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/display.scm",
+  "git_oid": "b190c05186bdb0181db4201493cb1e217227ec5c"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/duration.scm",
   "sha256": null,
   "size": 7484,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/duration.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/duration.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/duration.scm",
+  "git_oid": "7e074d76367bf08325c2064474abe7038c3bfb5d"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/email-mode.scm",
   "sha256": null,
   "size": 4199,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/email-mode.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/email-mode.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/email-mode.scm",
+  "git_oid": "4f8450f5b8ddfc41694304b6697c064fb3566f22"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/engmorph.scm",
   "sha256": null,
   "size": 5976,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/engmorph.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/engmorph.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/engmorph.scm",
+  "git_oid": "46b7c427dcdc9f9571d0d32d62bc8fd35c7105a7"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/engmorphsyn.scm",
   "sha256": null,
   "size": 6017,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/engmorphsyn.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/engmorphsyn.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/engmorphsyn.scm",
+  "git_oid": "d6e237f1cb8e45f4ab897409f05bd259646b26fd"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/etc/email_filter",
   "sha256": null,
   "size": 3169,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/etc/email_filter",
-  "name": "CosyVoice-ttsfrd/resource/festival/etc/email_filter"
+  "name": "CosyVoice-ttsfrd/resource/festival/etc/email_filter",
+  "git_oid": "a2d92502e22a561bdcba1287b5bf5e9fc878e9b9"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/f2bdurtreeZ.scm",
   "sha256": null,
   "size": 34155,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/f2bdurtreeZ.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/f2bdurtreeZ.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/f2bdurtreeZ.scm",
+  "git_oid": "407943a97c3d408cb74989c85cc35808ba279ac0"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/f2bf0lr.scm",
   "sha256": null,
   "size": 11795,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/f2bf0lr.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/f2bf0lr.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/f2bf0lr.scm",
+  "git_oid": "6a066719ff42f98780e88056c0651433a14c983e"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/festdoc.scm",
   "sha256": null,
   "size": 7638,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/festdoc.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/festdoc.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/festdoc.scm",
+  "git_oid": "13bc5ddd4b261dd39c43ad9f8e0bfcaa987bdca9"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/festival.el",
   "sha256": null,
   "size": 11103,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/festival.el",
-  "name": "CosyVoice-ttsfrd/resource/festival/festival.el"
+  "name": "CosyVoice-ttsfrd/resource/festival/festival.el",
+  "git_oid": "c1899f63a3b98c47faf0988348b70aa87a9fa114"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/festival.scm",
   "sha256": null,
   "size": 24262,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/festival.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/festival.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/festival.scm",
+  "git_oid": "77b22929e3b661543b979cfe41bed1b45d6b1764"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/festtest.scm",
   "sha256": null,
   "size": 3642,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/festtest.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/festtest.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/festtest.scm",
+  "git_oid": "345c3cc2b59600933adb490050507c429e7eb7ef"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/fringe.scm",
   "sha256": null,
   "size": 4250,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/fringe.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/fringe.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/fringe.scm",
+  "git_oid": "b60bd1e5106687642dba7f33449a6817ff4e9152"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/gswdurtreeZ.scm",
   "sha256": null,
   "size": 35377,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/gswdurtreeZ.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/gswdurtreeZ.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/gswdurtreeZ.scm",
+  "git_oid": "4968192dce221ec1f557c83bcadc4d41fa035b90"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/holmes_phones.scm",
   "sha256": null,
   "size": 5447,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/holmes_phones.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/holmes_phones.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/holmes_phones.scm",
+  "git_oid": "29e38ed5a55b784fe3069c4aada05c07278eb386"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/hts.scm",
   "sha256": null,
   "size": 17862,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/hts.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/hts.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/hts.scm",
+  "git_oid": "030bf4f8a52fedcc5b8552d6004a9397712276b3"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/init.scm",
   "sha256": null,
   "size": 5905,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/init.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/init.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/init.scm",
+  "git_oid": "90bccb7e7bf74ec6132112ce475e70ea75cc1ede"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/intonation.scm",
   "sha256": null,
   "size": 7922,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/intonation.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/intonation.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/intonation.scm",
+  "git_oid": "8062e03a8f63f13c13a555bc4a251e05aab7947f"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/java.scm",
   "sha256": null,
   "size": 2563,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/java.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/java.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/java.scm",
+  "git_oid": "e6f514ea45036efe9a7f0346cb6636a2e62fe114"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/klatt_durs.scm",
   "sha256": null,
   "size": 3273,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/klatt_durs.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/klatt_durs.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/klatt_durs.scm",
+  "git_oid": "8f3864cb792b1f1a7a6969b2e11fa3c90e520463"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/languages.scm",
   "sha256": null,
   "size": 4831,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/languages.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/languages.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/languages.scm",
+  "git_oid": "5f4fb41d17db5ed25cf75c81b028cfc97ad115d5"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/lexicons.scm",
   "sha256": null,
   "size": 10791,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/lexicons.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/lexicons.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/lexicons.scm",
+  "git_oid": "574c8fa40e25be9a0d2ae6b1059c5c05360e3a4e"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/lts.scm",
   "sha256": null,
   "size": 7912,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/lts.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/lts.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/lts.scm",
+  "git_oid": "23c2dad2f889501ee593881c5c77610be64a8aef"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/lts_build.scm",
   "sha256": null,
   "size": 23476,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/lts_build.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/lts_build.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/lts_build.scm",
+  "git_oid": "63567d9b9366b368aa8bfbcd2816c9b64fc7f2da"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/mbrola.scm",
   "sha256": null,
   "size": 4713,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/mbrola.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/mbrola.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/mbrola.scm",
+  "git_oid": "77d1e42c5f2f0d542828f71eff592cd157808252"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/mettree.scm",
   "sha256": null,
   "size": 3811,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/mettree.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/mettree.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/mettree.scm",
+  "git_oid": "638ded1090e6551a37ac32cbd49457ecf7678345"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/module_description.scm",
   "sha256": null,
   "size": 4557,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/module_description.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/module_description.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/module_description.scm",
+  "git_oid": "0cf426f9a9afcd012bed5a49642fee8821b6cfd5"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/mrpa_allophones.scm",
   "sha256": null,
   "size": 4965,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/mrpa_allophones.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/mrpa_allophones.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/mrpa_allophones.scm",
+  "git_oid": "fbabf369c8047c14c6553c5323e8495f56f9619f"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/mrpa_durs.scm",
   "sha256": null,
   "size": 3943,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/mrpa_durs.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/mrpa_durs.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/mrpa_durs.scm",
+  "git_oid": "86b14ca79e63fe01266c18a3e55c6eea50d88755"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/mrpa_phones.scm",
   "sha256": null,
   "size": 4906,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/mrpa_phones.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/mrpa_phones.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/mrpa_phones.scm",
+  "git_oid": "84e2c176df50504131af5fcc94cfbb670c1ab966"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/multisyn/multisyn.scm",
   "sha256": null,
   "size": 7603,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/multisyn/multisyn.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/multisyn/multisyn.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/multisyn/multisyn.scm",
+  "git_oid": "2efd1e2e115e0da891f7a7f7be5656f730c4916a"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/multisyn/multisyn_pauses.scm",
   "sha256": null,
   "size": 4988,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/multisyn/multisyn_pauses.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/multisyn/multisyn_pauses.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/multisyn/multisyn_pauses.scm",
+  "git_oid": "f3dd2a9472915edad6ce9b1bc52f4d327406a619"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/multisyn/radio_phones_multisyn.scm",
   "sha256": null,
   "size": 6021,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/multisyn/radio_phones_multisyn.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/multisyn/radio_phones_multisyn.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/multisyn/radio_phones_multisyn.scm",
+  "git_oid": "1c6af01f3ff439b1b89d84c787925e01fcb85ebe"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/multisyn/send_xwaves.scm",
   "sha256": null,
   "size": 10629,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/multisyn/send_xwaves.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/multisyn/send_xwaves.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/multisyn/send_xwaves.scm",
+  "git_oid": "f4983245e1df18c01bc20ddf3f9e13ed3386524c"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/multisyn/target_cost.scm",
   "sha256": null,
   "size": 13164,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/multisyn/target_cost.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/multisyn/target_cost.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/multisyn/target_cost.scm",
+  "git_oid": "fc5d223ca0589894da7bee259ae9878c687c9524"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/ogimarkup-mode.scm",
   "sha256": null,
   "size": 7986,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/ogimarkup-mode.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/ogimarkup-mode.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/ogimarkup-mode.scm",
+  "git_oid": "2bca41a1a49d62b30ee39ca9e0418c6831caabce"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/pauses.scm",
   "sha256": null,
   "size": 10237,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/pauses.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/pauses.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/pauses.scm",
+  "git_oid": "18af2a9cf30a36db91999ae264103aab8c95a604"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/phoneset.scm",
   "sha256": null,
   "size": 5345,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/phoneset.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/phoneset.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/phoneset.scm",
+  "git_oid": "19d9b847c6d6b9f303675a87ffdc2187a925c8e4"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/phrase.scm",
   "sha256": null,
   "size": 6881,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/phrase.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/phrase.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/phrase.scm",
+  "git_oid": "d35c8877c0ecb184d06daf94d21e34adb4286daa"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/pos.scm",
   "sha256": null,
   "size": 9457,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/pos.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/pos.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/pos.scm",
+  "git_oid": "0ace3615ba414cb1b0b9f8ddb2d8a88966441579"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/postlex.scm",
   "sha256": null,
   "size": 25738,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/postlex.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/postlex.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/postlex.scm",
+  "git_oid": "7fb038bad9437d00bba9e7e7e95b7b3964002e89"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/radio_phones.scm",
   "sha256": null,
   "size": 5494,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/radio_phones.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/radio_phones.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/radio_phones.scm",
+  "git_oid": "7c6b524e6bfebada7620ec85b4fba8398faac6c0"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/sable-latin.ent",
   "sha256": null,
   "size": 8118,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/sable-latin.ent",
-  "name": "CosyVoice-ttsfrd/resource/festival/sable-latin.ent"
+  "name": "CosyVoice-ttsfrd/resource/festival/sable-latin.ent",
+  "git_oid": "f068020fc1bc2f26c724e83182487d4ed2f7a600"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/sable-mode.scm",
   "sha256": null,
   "size": 20528,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/sable-mode.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/sable-mode.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/sable-mode.scm",
+  "git_oid": "3c73882fb28d1220c012b1b7cf4267134041fc9f"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/scfg.scm",
   "sha256": null,
   "size": 3255,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/scfg.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/scfg.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/scfg.scm",
+  "git_oid": "6716e5b46cc8d73257946f2a1eaf13504075a3d8"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/scfg_wsj_wp20.gram",
   "sha256": null,
   "size": 16192,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/scfg_wsj_wp20.gram",
-  "name": "CosyVoice-ttsfrd/resource/festival/scfg_wsj_wp20.gram"
+  "name": "CosyVoice-ttsfrd/resource/festival/scfg_wsj_wp20.gram",
+  "git_oid": "2df54146c494981119c42bf25f61098ab2f4e4b6"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/sec.B.hept.ngrambin",
   "sha256": null,
   "size": 545,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/sec.B.hept.ngrambin",
-  "name": "CosyVoice-ttsfrd/resource/festival/sec.B.hept.ngrambin"
+  "name": "CosyVoice-ttsfrd/resource/festival/sec.B.hept.ngrambin",
+  "git_oid": "3434e0f5736b3582c1ca3d53b1a4b5c50aed9172"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/sec.ts20.quad.ngrambin",
   "sha256": null,
   "size": 34376,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/sec.ts20.quad.ngrambin",
-  "name": "CosyVoice-ttsfrd/resource/festival/sec.ts20.quad.ngrambin"
+  "name": "CosyVoice-ttsfrd/resource/festival/sec.ts20.quad.ngrambin",
+  "git_oid": "3b35f451bc36c3122ad5a5b2baf63991d9d029d1"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/singing-mode.scm",
   "sha256": null,
   "size": 23592,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/singing-mode.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/singing-mode.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/singing-mode.scm",
+  "git_oid": "91751e336807d40669eb347cef691309013fc352"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/siod.scm",
   "sha256": null,
   "size": 17960,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/siod.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/siod.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/siod.scm",
+  "git_oid": "9584f88e32bb23da524881898c9d5aeb9bbe3e7c"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/siteinit.scm",
   "sha256": null,
   "size": 3567,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/siteinit.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/siteinit.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/siteinit.scm",
+  "git_oid": "61f048dfe1939fe6323a3f9dec7efbe0057857ac"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/soleml-mode.scm",
   "sha256": null,
   "size": 12479,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/soleml-mode.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/soleml-mode.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/soleml-mode.scm",
+  "git_oid": "9856fb2cdcdb96f24a888c762850ce122b604598"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/speech.properties",
   "sha256": null,
   "size": 88,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/speech.properties",
-  "name": "CosyVoice-ttsfrd/resource/festival/speech.properties"
+  "name": "CosyVoice-ttsfrd/resource/festival/speech.properties",
+  "git_oid": "507a5197951156291622c5c71cf561c3cb7d6db2"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/synthesis.scm",
   "sha256": null,
   "size": 14827,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/synthesis.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/synthesis.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/synthesis.scm",
+  "git_oid": "69c5d56995162a77d5f83b474218ade57ec69ffd"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/tilt.scm",
   "sha256": null,
   "size": 31534,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/tilt.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/tilt.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/tilt.scm",
+  "git_oid": "92dbec6420dbd5c2f98aa9bd736fc381044ab517"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/tobi.scm",
   "sha256": null,
   "size": 23342,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/tobi.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/tobi.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/tobi.scm",
+  "git_oid": "f5421139ac32dc47e6c44236e1cf294ae8524ce8"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/tobi_rules.scm",
   "sha256": null,
   "size": 35439,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/tobi_rules.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/tobi_rules.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/tobi_rules.scm",
+  "git_oid": "1b3e4e5efaadd4a4c978f09b46a9ca641f8ee6b3"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/token.scm",
   "sha256": null,
   "size": 30791,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/token.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/token.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/token.scm",
+  "git_oid": "5b16522e5a690f704c1263fcd707f0d8f8267b13"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/tokenpos.scm",
   "sha256": null,
   "size": 10829,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/tokenpos.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/tokenpos.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/tokenpos.scm",
+  "git_oid": "cf253521faddbd36237f552a05a668adeb62e0d4"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/tts.scm",
   "sha256": null,
   "size": 11179,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/tts.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/tts.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/tts.scm",
+  "git_oid": "2888967d52b9d288ba9223d38a8b3d7fc6677fa6"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/unilex_phones.scm",
   "sha256": null,
   "size": 7914,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/unilex_phones.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/unilex_phones.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/unilex_phones.scm",
+  "git_oid": "25e905ebc780874425dbd9565039065eb73dd1e6"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/voices.scm",
   "sha256": null,
   "size": 13417,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/voices.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/voices.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/voices.scm",
+  "git_oid": "168d842a75c46e5a030f589a0fbb1341cfab7773"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/voices/english/kal_diphone/COPYING",
   "sha256": null,
   "size": 2630,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/voices/english/kal_diphone/COPYING",
-  "name": "CosyVoice-ttsfrd/resource/festival/voices/english/kal_diphone/COPYING"
+  "name": "CosyVoice-ttsfrd/resource/festival/voices/english/kal_diphone/COPYING",
+  "git_oid": "561a7f94ac16496c044c98c4f57b647cc6bb0ab0"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/voices/english/kal_diphone/festvox/kal_diphone.scm",
   "sha256": null,
   "size": 10685,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/voices/english/kal_diphone/festvox/kal_diphone.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/voices/english/kal_diphone/festvox/kal_diphone.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/voices/english/kal_diphone/festvox/kal_diphone.scm",
+  "git_oid": "32ecc10afbd5b9f844f2a3db48b4b4a8a207a765"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/voices/english/kal_diphone/festvox/kaldurtreeZ.scm",
   "sha256": null,
   "size": 35371,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/voices/english/kal_diphone/festvox/kaldurtreeZ.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/voices/english/kal_diphone/festvox/kaldurtreeZ.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/voices/english/kal_diphone/festvox/kaldurtreeZ.scm",
+  "git_oid": "f6b18af14144c81b8567adaf09e9ba7957ebd160"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/voices/english/kal_diphone/group/kallpc16k.group",
   "sha256": null,
   "size": 6136911,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/voices/english/kal_diphone/group/kallpc16k.group",
-  "name": "CosyVoice-ttsfrd/resource/festival/voices/english/kal_diphone/group/kallpc16k.group"
+  "name": "CosyVoice-ttsfrd/resource/festival/voices/english/kal_diphone/group/kallpc16k.group",
+  "git_oid": "a5c6926e64f9472cac691bf4f86889dc280e0a98"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/voices/english/rab_diphone/COPYING",
   "sha256": null,
   "size": 2444,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/voices/english/rab_diphone/COPYING",
-  "name": "CosyVoice-ttsfrd/resource/festival/voices/english/rab_diphone/COPYING"
+  "name": "CosyVoice-ttsfrd/resource/festival/voices/english/rab_diphone/COPYING",
+  "git_oid": "76c360224cd2663b268853176be8fc10a6f554e7"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/voices/english/rab_diphone/festvox/rab_diphone.scm",
   "sha256": null,
   "size": 11067,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/voices/english/rab_diphone/festvox/rab_diphone.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/voices/english/rab_diphone/festvox/rab_diphone.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/voices/english/rab_diphone/festvox/rab_diphone.scm",
+  "git_oid": "2935680fd4e5329cbd4e735d02691b3fd6b33394"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/voices/english/rab_diphone/group/rablpc16k.group",
   "sha256": null,
   "size": 7582984,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/voices/english/rab_diphone/group/rablpc16k.group",
-  "name": "CosyVoice-ttsfrd/resource/festival/voices/english/rab_diphone/group/rablpc16k.group"
+  "name": "CosyVoice-ttsfrd/resource/festival/voices/english/rab_diphone/group/rablpc16k.group",
+  "git_oid": "def4210b6ff9770888a7b8e632834da245d88b6a"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/festival/web.scm",
   "sha256": null,
   "size": 4232,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/festival/web.scm",
-  "name": "CosyVoice-ttsfrd/resource/festival/web.scm"
+  "name": "CosyVoice-ttsfrd/resource/festival/web.scm",
+  "git_oid": "bc3b3da43ba9a206b37d6d5282da9ee6459e5959"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/jprsc/COPYING",
   "sha256": null,
   "size": 5865,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/jprsc/COPYING",
-  "name": "CosyVoice-ttsfrd/resource/jprsc/COPYING"
+  "name": "CosyVoice-ttsfrd/resource/jprsc/COPYING",
+  "git_oid": "05d9789fde8883f09b0b9a814a53e6000346e964"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/jprsc/char.bin",
@@ -718,7 +819,8 @@
   "sha256": null,
   "size": 77672,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/jprsc/left-id.def",
-  "name": "CosyVoice-ttsfrd/resource/jprsc/left-id.def"
+  "name": "CosyVoice-ttsfrd/resource/jprsc/left-id.def",
+  "git_oid": "51c269688b9591d76eab882b6339c83c960b3e5b"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/jprsc/matrix.bin",
@@ -732,21 +834,24 @@
   "sha256": null,
   "size": 1923,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/jprsc/pos-id.def",
-  "name": "CosyVoice-ttsfrd/resource/jprsc/pos-id.def"
+  "name": "CosyVoice-ttsfrd/resource/jprsc/pos-id.def",
+  "git_oid": "ffd74a8e933dc71a0464c8123c5b887d3c425a7d"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/jprsc/rewrite.def",
   "sha256": null,
   "size": 7457,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/jprsc/rewrite.def",
-  "name": "CosyVoice-ttsfrd/resource/jprsc/rewrite.def"
+  "name": "CosyVoice-ttsfrd/resource/jprsc/rewrite.def",
+  "git_oid": "81727723b1826e5cd765efb1685c27d129b937c4"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/jprsc/right-id.def",
   "sha256": null,
   "size": 77672,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/jprsc/right-id.def",
-  "name": "CosyVoice-ttsfrd/resource/jprsc/right-id.def"
+  "name": "CosyVoice-ttsfrd/resource/jprsc/right-id.def",
+  "git_oid": "51c269688b9591d76eab882b6339c83c960b3e5b"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/jprsc/sys.dic",
@@ -760,7 +865,8 @@
   "sha256": null,
   "size": 5690,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/jprsc/unk.dic",
-  "name": "CosyVoice-ttsfrd/resource/jprsc/unk.dic"
+  "name": "CosyVoice-ttsfrd/resource/jprsc/unk.dic",
+  "git_oid": "2635af4613f6c6012259743bad97594ab0c85bc0"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/languagedata_embedded.bin",
@@ -774,7 +880,8 @@
   "sha256": null,
   "size": 484,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/ws/AliTokenizer_example.conf",
-  "name": "CosyVoice-ttsfrd/resource/ws/AliTokenizer_example.conf"
+  "name": "CosyVoice-ttsfrd/resource/ws/AliTokenizer_example.conf",
+  "git_oid": "1b18ace5c583fda3165c653f6c3c5dcc724a4e3e"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/ws/crf_model",
@@ -788,28 +895,32 @@
   "sha256": null,
   "size": 79020,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/ws/ivr.dict",
-  "name": "CosyVoice-ttsfrd/resource/ws/ivr.dict"
+  "name": "CosyVoice-ttsfrd/resource/ws/ivr.dict",
+  "git_oid": "9dfc80402985c2e7d649b75e6ca39354c3398df6"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/ws/pos_hmm.dict",
   "sha256": null,
   "size": 15349,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/ws/pos_hmm.dict",
-  "name": "CosyVoice-ttsfrd/resource/ws/pos_hmm.dict"
+  "name": "CosyVoice-ttsfrd/resource/ws/pos_hmm.dict",
+  "git_oid": "c460f7246d2908f523b6daa9e9f7f72009d729c8"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/ws/puncNumberTimeLetter.dict",
   "sha256": null,
   "size": 131072,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/ws/puncNumberTimeLetter.dict",
-  "name": "CosyVoice-ttsfrd/resource/ws/puncNumberTimeLetter.dict"
+  "name": "CosyVoice-ttsfrd/resource/ws/puncNumberTimeLetter.dict",
+  "git_oid": "28859b051ad78fd03cb6f3e77e54d507d1b111ef"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/ws/ws-dfa-rule.dict",
   "sha256": null,
   "size": 435114,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/ws/ws-dfa-rule.dict",
-  "name": "CosyVoice-ttsfrd/resource/ws/ws-dfa-rule.dict"
+  "name": "CosyVoice-ttsfrd/resource/ws/ws-dfa-rule.dict",
+  "git_oid": "d1d64b1c621ecdf19d79cdea3917281b3c23abc7"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/ws/xiaoyan.dict",
@@ -823,35 +934,40 @@
   "sha256": null,
   "size": 485,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/ws_chhk/AliTokenizer_example.conf",
-  "name": "CosyVoice-ttsfrd/resource/ws_chhk/AliTokenizer_example.conf"
+  "name": "CosyVoice-ttsfrd/resource/ws_chhk/AliTokenizer_example.conf",
+  "git_oid": "70fe072eda6f66b432cbaca0d582c664b9203760"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/ws_chhk/ivr.dict",
   "sha256": null,
   "size": 79020,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/ws_chhk/ivr.dict",
-  "name": "CosyVoice-ttsfrd/resource/ws_chhk/ivr.dict"
+  "name": "CosyVoice-ttsfrd/resource/ws_chhk/ivr.dict",
+  "git_oid": "9dfc80402985c2e7d649b75e6ca39354c3398df6"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/ws_chhk/pos_hmm.dict",
   "sha256": null,
   "size": 15349,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/ws_chhk/pos_hmm.dict",
-  "name": "CosyVoice-ttsfrd/resource/ws_chhk/pos_hmm.dict"
+  "name": "CosyVoice-ttsfrd/resource/ws_chhk/pos_hmm.dict",
+  "git_oid": "c460f7246d2908f523b6daa9e9f7f72009d729c8"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/ws_chhk/puncNumberTimeLetter.dict",
   "sha256": null,
   "size": 131072,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/ws_chhk/puncNumberTimeLetter.dict",
-  "name": "CosyVoice-ttsfrd/resource/ws_chhk/puncNumberTimeLetter.dict"
+  "name": "CosyVoice-ttsfrd/resource/ws_chhk/puncNumberTimeLetter.dict",
+  "git_oid": "28859b051ad78fd03cb6f3e77e54d507d1b111ef"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/ws_chhk/ws-dfa-rule.dict",
   "sha256": null,
   "size": 435114,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/ws_chhk/ws-dfa-rule.dict",
-  "name": "CosyVoice-ttsfrd/resource/ws_chhk/ws-dfa-rule.dict"
+  "name": "CosyVoice-ttsfrd/resource/ws_chhk/ws-dfa-rule.dict",
+  "git_oid": "d1d64b1c621ecdf19d79cdea3917281b3c23abc7"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/ws_chhk/xiaoyan.dict",
@@ -865,35 +981,40 @@
   "sha256": null,
   "size": 485,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/ws_chsh/AliTokenizer_example.conf",
-  "name": "CosyVoice-ttsfrd/resource/ws_chsh/AliTokenizer_example.conf"
+  "name": "CosyVoice-ttsfrd/resource/ws_chsh/AliTokenizer_example.conf",
+  "git_oid": "70fe072eda6f66b432cbaca0d582c664b9203760"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/ws_chsh/ivr.dict",
   "sha256": null,
   "size": 79020,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/ws_chsh/ivr.dict",
-  "name": "CosyVoice-ttsfrd/resource/ws_chsh/ivr.dict"
+  "name": "CosyVoice-ttsfrd/resource/ws_chsh/ivr.dict",
+  "git_oid": "9dfc80402985c2e7d649b75e6ca39354c3398df6"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/ws_chsh/pos_hmm.dict",
   "sha256": null,
   "size": 15349,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/ws_chsh/pos_hmm.dict",
-  "name": "CosyVoice-ttsfrd/resource/ws_chsh/pos_hmm.dict"
+  "name": "CosyVoice-ttsfrd/resource/ws_chsh/pos_hmm.dict",
+  "git_oid": "c460f7246d2908f523b6daa9e9f7f72009d729c8"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/ws_chsh/puncNumberTimeLetter.dict",
   "sha256": null,
   "size": 131072,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/ws_chsh/puncNumberTimeLetter.dict",
-  "name": "CosyVoice-ttsfrd/resource/ws_chsh/puncNumberTimeLetter.dict"
+  "name": "CosyVoice-ttsfrd/resource/ws_chsh/puncNumberTimeLetter.dict",
+  "git_oid": "28859b051ad78fd03cb6f3e77e54d507d1b111ef"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/ws_chsh/ws-dfa-rule.dict",
   "sha256": null,
   "size": 435114,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/ws_chsh/ws-dfa-rule.dict",
-  "name": "CosyVoice-ttsfrd/resource/ws_chsh/ws-dfa-rule.dict"
+  "name": "CosyVoice-ttsfrd/resource/ws_chsh/ws-dfa-rule.dict",
+  "git_oid": "d1d64b1c621ecdf19d79cdea3917281b3c23abc7"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/ws_chsh/xiaoyan.dict",
@@ -907,35 +1028,40 @@
   "sha256": null,
   "size": 485,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/ws_hk/AliTokenizer_example.conf",
-  "name": "CosyVoice-ttsfrd/resource/ws_hk/AliTokenizer_example.conf"
+  "name": "CosyVoice-ttsfrd/resource/ws_hk/AliTokenizer_example.conf",
+  "git_oid": "70fe072eda6f66b432cbaca0d582c664b9203760"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/ws_hk/ivr.dict",
   "sha256": null,
   "size": 79020,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/ws_hk/ivr.dict",
-  "name": "CosyVoice-ttsfrd/resource/ws_hk/ivr.dict"
+  "name": "CosyVoice-ttsfrd/resource/ws_hk/ivr.dict",
+  "git_oid": "9dfc80402985c2e7d649b75e6ca39354c3398df6"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/ws_hk/pos_hmm.dict",
   "sha256": null,
   "size": 15349,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/ws_hk/pos_hmm.dict",
-  "name": "CosyVoice-ttsfrd/resource/ws_hk/pos_hmm.dict"
+  "name": "CosyVoice-ttsfrd/resource/ws_hk/pos_hmm.dict",
+  "git_oid": "c460f7246d2908f523b6daa9e9f7f72009d729c8"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/ws_hk/puncNumberTimeLetter.dict",
   "sha256": null,
   "size": 131072,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/ws_hk/puncNumberTimeLetter.dict",
-  "name": "CosyVoice-ttsfrd/resource/ws_hk/puncNumberTimeLetter.dict"
+  "name": "CosyVoice-ttsfrd/resource/ws_hk/puncNumberTimeLetter.dict",
+  "git_oid": "28859b051ad78fd03cb6f3e77e54d507d1b111ef"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/ws_hk/ws-dfa-rule.dict",
   "sha256": null,
   "size": 435114,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/ws_hk/ws-dfa-rule.dict",
-  "name": "CosyVoice-ttsfrd/resource/ws_hk/ws-dfa-rule.dict"
+  "name": "CosyVoice-ttsfrd/resource/ws_hk/ws-dfa-rule.dict",
+  "git_oid": "d1d64b1c621ecdf19d79cdea3917281b3c23abc7"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/ws_hk/xiaoyan.dict",
@@ -949,7 +1075,8 @@
   "sha256": null,
   "size": 484,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/ws_zhsc/AliTokenizer_example.conf",
-  "name": "CosyVoice-ttsfrd/resource/ws_zhsc/AliTokenizer_example.conf"
+  "name": "CosyVoice-ttsfrd/resource/ws_zhsc/AliTokenizer_example.conf",
+  "git_oid": "1b18ace5c583fda3165c653f6c3c5dcc724a4e3e"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/ws_zhsc/crf_model",
@@ -963,28 +1090,32 @@
   "sha256": null,
   "size": 79020,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/ws_zhsc/ivr.dict",
-  "name": "CosyVoice-ttsfrd/resource/ws_zhsc/ivr.dict"
+  "name": "CosyVoice-ttsfrd/resource/ws_zhsc/ivr.dict",
+  "git_oid": "9dfc80402985c2e7d649b75e6ca39354c3398df6"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/ws_zhsc/pos_hmm.dict",
   "sha256": null,
   "size": 15349,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/ws_zhsc/pos_hmm.dict",
-  "name": "CosyVoice-ttsfrd/resource/ws_zhsc/pos_hmm.dict"
+  "name": "CosyVoice-ttsfrd/resource/ws_zhsc/pos_hmm.dict",
+  "git_oid": "c460f7246d2908f523b6daa9e9f7f72009d729c8"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/ws_zhsc/puncNumberTimeLetter.dict",
   "sha256": null,
   "size": 131072,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/ws_zhsc/puncNumberTimeLetter.dict",
-  "name": "CosyVoice-ttsfrd/resource/ws_zhsc/puncNumberTimeLetter.dict"
+  "name": "CosyVoice-ttsfrd/resource/ws_zhsc/puncNumberTimeLetter.dict",
+  "git_oid": "28859b051ad78fd03cb6f3e77e54d507d1b111ef"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/ws_zhsc/ws-dfa-rule.dict",
   "sha256": null,
   "size": 435114,
   "destination": "C:/AI/BreezyVoice/model/CosyVoice-ttsfrd/resource/ws_zhsc/ws-dfa-rule.dict",
-  "name": "CosyVoice-ttsfrd/resource/ws_zhsc/ws-dfa-rule.dict"
+  "name": "CosyVoice-ttsfrd/resource/ws_zhsc/ws-dfa-rule.dict",
+  "git_oid": "d1d64b1c621ecdf19d79cdea3917281b3c23abc7"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/CosyVoice-ttsfrd/resource/ws_zhsc/xiaoyan.dict",
@@ -998,7 +1129,8 @@
   "sha256": null,
   "size": 3302,
   "destination": "C:/AI/BreezyVoice/model/README.md",
-  "name": "README.md"
+  "name": "README.md",
+  "git_oid": "f6dd4491b6c33490f64355edc3d97ef7496fa1bb"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/campplus.onnx",
@@ -1012,14 +1144,16 @@
   "sha256": null,
   "size": 47,
   "destination": "C:/AI/BreezyVoice/model/configuration.json",
-  "name": "configuration.json"
+  "name": "configuration.json",
+  "git_oid": "5e812fae901c12933ac69ebf3eb79d0eb49bbab4"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/cosyvoice.yaml",
   "sha256": null,
   "size": 6402,
   "destination": "C:/AI/BreezyVoice/model/cosyvoice.yaml",
-  "name": "cosyvoice.yaml"
+  "name": "cosyvoice.yaml",
+  "git_oid": "9ce4d27604ce14fd6fcba2bbfb96a8a19b7c8e0f"
  },
  {
   "url": "https://huggingface.co/MediaTek-Research/BreezyVoice-300M/resolve/e33b502e0ac21c16b0ee0d00df66ac3fa737393d/flow.decoder.estimator.fp32.onnx",

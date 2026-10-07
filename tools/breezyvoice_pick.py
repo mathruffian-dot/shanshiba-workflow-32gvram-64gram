@@ -4,7 +4,7 @@
   2. 長度要在 edge-tts 台灣國語參考音的 0.5–2.5 倍之間（擋掉拖長、亂音）；
   3. 合格者依 pron_compare（對照 edge-tts 台灣國語參考音的每字音高曲線）分數排序，同分取平均距離小的。
 都不合格 → 取聽寫最接近的，標 needs_review。
-輸出 <out_dir>/<name>.wav（選中的那支）＋ <out_dir>/picks.json（全部候選分數）。
+輸出 <out_dir>/<name>.wav（選中的那支，已去頭尾靜音：保留開頭 80 ms、結尾 150 ms）＋ <out_dir>/picks.json（全部候選分數）。
 用法：C:\\AI\\Voice\\venv\\Scripts\\python.exe C:\\AI\\tools\\breezyvoice_pick.py jobs.json
 edge-tts 只產生參考音當「答案卷」，不進影片（要連網；微軟介面無公開授權）。job 給 "tw_ref"（自備參考音路徑）就不呼叫 edge-tts。"""
 import difflib
@@ -110,12 +110,24 @@ def main():
         choose(out, picks, picks_path, name, j, rows)
 
 
+def write_trimmed(src, dst, head=0.08, tail=0.15):
+    """選中的那支去掉頭尾靜音（保留開頭 80 ms、結尾 150 ms），台詞放到時間軸上才會準時開口、字幕對得上。
+    BreezyVoice 候選頭尾常有 0.3–1.0 秒靜音（2026-10-07 全新安裝測試發現）。回傳 [裁掉的開頭秒數, 保留的長度秒數]。"""
+    import librosa
+    x, sr = sf.read(str(src), dtype="float32")
+    mono = x.mean(axis=1) if x.ndim > 1 else x
+    _, (a, b) = librosa.effects.trim(mono, top_db=40)
+    a = max(0, a - int(head * sr)); b = min(len(x), b + int(tail * sr))
+    sf.write(str(dst), x[a:b], sr, subtype="PCM_16")
+    return [round(float(a) / sr, 3), round(float(b - a) / sr, 3)]
+
+
 def choose(out, picks, picks_path, name, j, rows):
     good = [r for r in rows if r["asr_ok"] and r["len_ok"]]
     pool = good or [r for r in rows if r["len_ok"]] or rows
     best = max(pool, key=lambda r: (r["asr_ok"], r["sim"], r["tw_score"], -(r["tw_dist"] or 9)) if not good else (r["tw_score"], -(r["tw_dist"] or 9)))
-    shutil.copyfile(out / "cand" / best["file"], out / f"{name}.wav")
-    picks[name] = {"text": j["text"], "pick": best["file"], "n_ok": len(good), "needs_review": not good, "cands": rows}
+    trim = write_trimmed(out / "cand" / best["file"], out / f"{name}.wav")
+    picks[name] = {"text": j["text"], "pick": best["file"], "n_ok": len(good), "needs_review": not good, "trim_s": trim, "cands": rows}
     picks_path.write_text(json.dumps(picks, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"[pick] {name} {best['file']} ok={len(good)}/{len(rows)} tw={best['tw_score']} {'NEEDS_REVIEW ' + best['asr'] if not good else ''}", flush=True)
 
