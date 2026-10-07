@@ -6,8 +6,9 @@ try {
   Write-Output 'ComfyUI already running.'
   exit 0
 } catch { }
+$extra = @(); if ($env:COMFY_EXTRA_ARGS) { $extra = $env:COMFY_EXTRA_ARGS -split ' ' }   # 版本 B：--reserve-vram 1.5（見 configs\）
 Start-Process -FilePath 'C:\AI\H3\venv\Scripts\python.exe' `
-  -ArgumentList '-X','utf8','C:\AI\H3\ComfyUI-0.36.0\main.py','--listen','127.0.0.1','--port','8188','--disable-auto-launch','--preview-method','none','--cache-none','--fast','fp16_accumulation' `
+  -ArgumentList (@('-X','utf8','C:\AI\H3\ComfyUI-0.36.0\main.py','--listen','127.0.0.1','--port','8188','--disable-auto-launch','--preview-method','none','--cache-none','--fast','fp16_accumulation') + $extra) `
   -WorkingDirectory 'C:\AI\H3\ComfyUI-0.36.0'
 for ($i = 0; $i -lt 60; $i++) {
   Start-Sleep -Seconds 2

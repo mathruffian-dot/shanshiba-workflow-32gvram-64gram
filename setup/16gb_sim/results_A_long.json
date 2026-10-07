@@ -1,0 +1,30 @@
+{
+ "hog_mib": 0,
+ "base_used_mib": 515,
+ "used_after_hog_mib": 515,
+ "flags": [],
+ "env": {},
+ "runs": [
+  {
+   "profile": "A",
+   "shot": "S34",
+   "desc": "長鏡頭 260 格（10.8 秒）",
+   "kind": "cold",
+   "frames": 260,
+   "seed": 20261344,
+   "ok": true,
+   "status": "success",
+   "exec_s": 136.5,
+   "wall_s": 145.9,
+   "vram_peak_comfy_mib": 31184,
+   "vram_total_used_mib": 31699,
+   "comfy_rss_peak_gib": 6.31,
+   "comfy_private_peak_gib": 35.89,
+   "sys_avail_min_gib": 70.56
+  }
+ ],
+ "process_peak": {
+  "peak_wset_gib": 6.33,
+  "peak_pagefile_gib": 35.92
+ }
+}

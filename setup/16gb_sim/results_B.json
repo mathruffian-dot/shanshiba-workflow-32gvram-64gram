@@ -1,0 +1,87 @@
+{
+ "hog_mib": 16304,
+ "base_used_mib": 563,
+ "used_after_hog_mib": 17412,
+ "flags": [
+  "--reserve-vram",
+  "1.5"
+ ],
+ "env": {
+  "H3_CLIP": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+  "H3_VIDEO_VAE": "minimax_h3_video_vae_int8_convrot.safetensors"
+ },
+ "runs": [
+  {
+   "profile": "B",
+   "shot": "B06",
+   "desc": "對白近景 158 格（老師兩句）",
+   "kind": "cold",
+   "frames": 158,
+   "seed": 20261267,
+   "ok": true,
+   "status": "success",
+   "exec_s": 71.6,
+   "wall_s": 79.6,
+   "vram_peak_comfy_mib": 14287,
+   "vram_total_used_mib": 31699,
+   "comfy_rss_peak_gib": 22.3,
+   "comfy_private_peak_gib": 36.57,
+   "sys_avail_min_gib": 53.69
+  },
+  {
+   "profile": "B",
+   "shot": "B08",
+   "desc": "手部動作 158 格（摺紙）",
+   "kind": "warm",
+   "frames": 158,
+   "seed": 20262287,
+   "ok": true,
+   "status": "success",
+   "exec_s": 73.3,
+   "wall_s": 79.8,
+   "vram_peak_comfy_mib": 14719,
+   "vram_total_used_mib": 32131,
+   "comfy_rss_peak_gib": 22.57,
+   "comfy_private_peak_gib": 36.9,
+   "sys_avail_min_gib": 52.17
+  },
+  {
+   "profile": "B",
+   "shot": "C04",
+   "desc": "雙人耳語 107 格",
+   "kind": "warm",
+   "frames": 107,
+   "seed": 20261467,
+   "ok": true,
+   "status": "success",
+   "exec_s": 48.1,
+   "wall_s": 54.7,
+   "vram_peak_comfy_mib": 14688,
+   "vram_total_used_mib": 32100,
+   "comfy_rss_peak_gib": 19.92,
+   "comfy_private_peak_gib": 34.72,
+   "sys_avail_min_gib": 54.51
+  },
+  {
+   "profile": "B",
+   "shot": "B06",
+   "desc": "對白近景 158 格（老師兩句）",
+   "kind": "warm-repeat",
+   "frames": 158,
+   "seed": 20261267,
+   "ok": true,
+   "status": "success",
+   "exec_s": 73.0,
+   "wall_s": 79.5,
+   "vram_peak_comfy_mib": 14704,
+   "vram_total_used_mib": 32116,
+   "comfy_rss_peak_gib": 22.58,
+   "comfy_private_peak_gib": 37.03,
+   "sys_avail_min_gib": 51.77
+  }
+ ],
+ "process_peak": {
+  "peak_wset_gib": 22.6,
+  "peak_pagefile_gib": 37.06
+ }
+}

@@ -10,13 +10,14 @@ YouTube 頻道「山獅霸的多重宇宙」的完整製作做法。每支片 1�
 | | 版本 A：現行做法 | 版本 B：低需求版 |
 |---|---|---|
 | 硬體 | RTX 5090 32GB／96GB RAM | 16GB VRAM／64GB RAM（4080、5070 Ti、5080） |
-| 狀態 | **已實際出片 8 支以上** | **模擬推估**（驗證中，結果會補在文件裡） |
-| H3 文字編碼器 | Qwen3-VL 32B int8（24.5GiB） | 官方 NVFP4（14.6GiB） |
-| 單鏡長度 | ≤12 秒 | ≤6.6 秒（158 格），最多 9.4 秒 |
-| 一支 40 鏡的片 | H3 約 41 分鐘 | 估 2–3.5 小時 |
+| 狀態 | **已實際出片 8 支以上** | **5090 上模擬驗證過**（2026-10-07）；真實卡速度未實測 |
+| 模型 | 剪枝 int8 H3＋int8 文字編碼器 | **跟 A 一樣**（記憶體 48GB 以下才換 NVFP4） |
+| 畫面 | — | 同 seed **跟 A 逐格相同**（顯存峰值約 14.4GB） |
+| 單鏡長度 | ≤12 秒 | ≤12 秒（260 格實測可跑） |
+| 一支 40 鏡的片 | H3 約 41 分鐘 | 推估 1.5–2 小時 |
 | 說明 | [docs/hardware_A_5090.md](docs/hardware_A_5090.md) | [docs/hardware_B_16GB.md](docs/hardware_B_16GB.md) |
 
-兩版的**流程完全一樣**，差在模型組合、單鏡長度、放大方式。切換只要換 [configs/](configs/) 裡的環境變數檔。
+兩版的**流程與模型完全一樣**，版本 B 只是啟動 ComfyUI 時加 `--reserve-vram 1.5`、一次只跑一件 GPU 工作。切換用 [configs/](configs/) 裡的設定檔。
 
 ## 2. 流程一覽
 
@@ -56,7 +57,7 @@ configs/                    版本 A／B 的環境變數
 ## 4. 最快上手
 
 1. 照 [docs/06_安裝.md](docs/06_安裝.md) 裝好 ComfyUI＋H3、Voice 環境、Breeze TTS，把 `tools/` 複製到 `C:\AI\tools`。
-2. 套用版本設定：`configs\profile_A_5090.cmd` 或 `configs\profile_B_16GB.cmd`。
+2. 套用版本設定：`configs\profile_A_5090.cmd` 或 `configs\profile_B_16GB.cmd`（記憶體 48GB 以下用 `profile_B_16GB_lowRAM.cmd`），再執行 `tools\start_comfy.cmd`。
 3. 把 `pipeline/example_D-7/` 複製成新片資料夾，改四張表：`gen_frames.py` 的 SHOTS、`voice_plan.py` 的 LINES、`plan_h3.py` 的 SHOTS、`assemble.py` 的 SEGS。
 4. 依序跑：`gen_frames.py` → 審首幀、建 `frames_ok` → `run_queue.sh`（配音→挑音→H3）→ `music_scenes.py` → `assemble.py --vsr` → `review.py`。
 

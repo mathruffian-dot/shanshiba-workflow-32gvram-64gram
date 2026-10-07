@@ -1,0 +1,81 @@
+{
+ "hog_mib": 0,
+ "base_used_mib": 563,
+ "used_after_hog_mib": 563,
+ "flags": [],
+ "env": {},
+ "runs": [
+  {
+   "profile": "A",
+   "shot": "B06",
+   "desc": "對白近景 158 格（老師兩句）",
+   "kind": "cold",
+   "frames": 158,
+   "seed": 20261267,
+   "ok": true,
+   "status": "success",
+   "exec_s": 77.8,
+   "wall_s": 83.9,
+   "vram_peak_comfy_mib": 31135,
+   "vram_total_used_mib": 31698,
+   "comfy_rss_peak_gib": 0.0,
+   "comfy_private_peak_gib": 0.0,
+   "sys_avail_min_gib": 72.77
+  },
+  {
+   "profile": "A",
+   "shot": "B08",
+   "desc": "手部動作 158 格（摺紙）",
+   "kind": "warm",
+   "frames": 158,
+   "seed": 20262287,
+   "ok": true,
+   "status": "success",
+   "exec_s": 76.2,
+   "wall_s": 83.8,
+   "vram_peak_comfy_mib": 31127,
+   "vram_total_used_mib": 31690,
+   "comfy_rss_peak_gib": 0.0,
+   "comfy_private_peak_gib": 0.0,
+   "sys_avail_min_gib": 71.14
+  },
+  {
+   "profile": "A",
+   "shot": "C04",
+   "desc": "雙人耳語 107 格",
+   "kind": "warm",
+   "frames": 107,
+   "seed": 20261467,
+   "ok": true,
+   "status": "success",
+   "exec_s": 49.7,
+   "wall_s": 54.7,
+   "vram_peak_comfy_mib": 31119,
+   "vram_total_used_mib": 31682,
+   "comfy_rss_peak_gib": 0.0,
+   "comfy_private_peak_gib": 0.0,
+   "sys_avail_min_gib": 71.93
+  },
+  {
+   "profile": "A",
+   "shot": "B06",
+   "desc": "對白近景 158 格（老師兩句）",
+   "kind": "warm-repeat",
+   "frames": 158,
+   "seed": 20261267,
+   "ok": true,
+   "status": "success",
+   "exec_s": 76.2,
+   "wall_s": 83.5,
+   "vram_peak_comfy_mib": 31135,
+   "vram_total_used_mib": 31698,
+   "comfy_rss_peak_gib": 0.0,
+   "comfy_private_peak_gib": 0.0,
+   "sys_avail_min_gib": 71.25
+  }
+ ],
+ "process_peak": {
+  "peak_wset_gib": 0.0,
+  "peak_pagefile_gib": 0.0
+ }
+}
