@@ -1,0 +1,112 @@
+{
+ "_comment": "一支片的全部設定。改這個檔就能做新片；make_film.py 不用改。範例是〈被狗吃掉的作業〉（2026-10-07 一個沒看過本專案的 agent 用本 repo 做出來的 7 鏡短片）。欄位說明見 README.md。",
+ "title": "被狗吃掉的作業",
+ "repo_dir": "../..",
+ "cine": "A cinematic film still from a Taiwanese coming-of-age movie, shot on Kodak Vision3 500T film with an anamorphic 50mm lens at f/2. Bright early-morning sun streams in low through the classroom windows, warm side light with a soft glowing rim light on hair, faint visible light beams in slightly hazy air, warm amber and soft teal color grade, shallow depth of field, subtle film grain. Full-frame image, NO black letterbox bars. ",
+ "set_sentence": "Use the classroom from <image{n}> as the set (same chalkboard, windows, desks and light), but only as the location.",
+ "frame_suffix": " Only one main character in focus. No text, no watermark, no captions, no writing on the chalkboard.",
+ "h3": {
+  "style": "a realistic cinematic live-action Taiwanese film shot on anamorphic lenses, 35mm grain, warm morning light",
+  "setting": "a Taiwanese elementary school classroom in the morning",
+  "soundscape": "Quiet classroom morning room tone, the soft rustle of paper and backpacks, faint birds outside.",
+  "camera": "The camera holds a static shot on a tripod.",
+  "constraints": [
+   "No new people appear that are not already in the first frame; no captions and no readable text; the chalkboard stays blank.",
+   "The camera stays locked on the tripod; no zoom, no pan.",
+   "LOCKED-OFF STATIC CAMERA on a tripod."
+  ]
+ },
+ "chars": {
+  "zhe": {
+   "name": "阿哲",
+   "look": "Azhe, a skinny 11-year-old Taiwanese schoolboy with a childish round face (clearly a young child, never a teenager), short messy black hair with a small cowlick on top, big expressive eyes, wearing a plain white short-sleeve school shirt with a navy-blue collar trim and navy-blue school shorts",
+   "voice_design": "A lively 11-year-old Taiwanese boy with a bright, unbroken child's voice, a little cheeky, natural Taiwanese Mandarin accent.",
+   "voice_sample": "老師早安，我今天有帶水壺，也有帶課本，可是我的鉛筆盒好像又放在家裡了。",
+   "h3_voice": "a bright, unbroken 11-year-old boy's voice",
+   "edge_voice": "zh-TW-HsiaoChenNeural",
+   "sub_color": "&H00A0E8FF"
+  },
+  "chen": {
+   "name": "陳老師",
+   "look": "Ms. Chen, a Taiwanese female teacher in her early forties with an oval face, shoulder-length black hair tied in a low ponytail, thin gold-rimmed glasses, wearing a mustard-yellow knit cardigan over a white blouse and dark grey trousers",
+   "voice_design": "A calm, composed Taiwanese woman in her early forties, an experienced and patient teacher with dry humor, clear natural Taiwanese Mandarin accent.",
+   "voice_sample": "好，各位同學早安，請把課本翻到第三十二頁，我們今天先把昨天的作業檢討完，再上新的單元。",
+   "h3_voice": "a calm, composed adult woman's voice",
+   "edge_voice": "zh-TW-HsiaoYuNeural",
+   "sub_color": "&H00FFE6B4"
+  }
+ },
+ "masters": {
+  "front": "A cinematic wide film still, shot on Kodak Vision3 500T film with an anamorphic lens. Inside an empty Taiwanese elementary school classroom in the early morning, seen from the students' desks looking toward the front of the room: a large green chalkboard with nothing written on it covers the front wall, a simple wooden teacher's desk stands in front of it with a plain light-blue notebook with a completely blank cover lying on the desk, and a row of large windows runs along the LEFT wall letting in low warm morning sunlight with soft light beams. Clean, uncluttered, realistic, warm amber color grade, subtle film grain. No people. No text, no watermark, no writing anywhere.",
+  "seats": "A cinematic wide film still, shot on Kodak Vision3 500T film with an anamorphic lens. Inside a Taiwanese elementary school classroom in the early morning, seen from the front corner of the room looking back at the students: rows of simple wooden school desks and chairs, with about six 11-year-old Taiwanese schoolchildren in plain white short-sleeve school shirts sitting quietly at desks in the back rows, all facing toward the camera side where the chalkboard is; a row of large windows runs along the RIGHT side of the image letting in low warm morning sunlight with soft light beams; the front-row desk in the middle is empty. Clean, uncluttered, realistic, warm amber color grade, subtle film grain. No text, no watermark, no writing anywhere."
+ },
+ "shots": [
+  {
+   "id": "S1", "refs": ["chen"], "scene": ["front", [0.20, 0.0, 1.0, 0.70]], "dur": 4.5,
+   "line": {"who": "chen", "text": "好，作業交上來。", "at": 0.6},
+   "frame": "Medium shot at eye level from the students' point of view, waist-up framing: the woman from <image1> stands at the front of the classroom from <image2>, in front of the green chalkboard, directly behind the wooden teacher's desk, both of her hands resting empty on the desk top. Exactly one notebook in the whole image: a plain light-blue notebook with a completely blank cover lies flat on the teacher's desk next to her right hand. Her hands hold nothing. She looks out toward the students with a calm, businesslike face. The windows are on the left side of the frame.",
+   "action": "The teacher looks out over the class and calmly gives a short instruction, then waits.",
+   "cut_in": 0.0, "tail": 1.2
+  },
+  {
+   "id": "S2", "refs": ["zhe"], "scene": ["seats", [0.20, 0.25, 0.80, 0.95]], "dur": 4.3,
+   "line": null,
+   "frame": "Medium shot from the front of the classroom from <image2>, facing the students: the boy from <image1> sits at the front-row wooden desk, bent over an open navy-blue school backpack on his lap, both hands digging inside it, with a panicked, wide-eyed face. Behind him, out of focus, a few seated classmates in the same white school shirts sit quietly at their wooden desks, all facing the front of the classroom. The windows are on the right side of the frame.",
+   "action": "The boy keeps both hands inside the open backpack on the desk and rummages through it, peeking inside, more and more anxious; nothing is pulled out or thrown and every object stays on the desk; his face turns pale with panic. He does not speak; his lips stay closed.",
+   "extra_constraints": ["The classmates in the background stay seated facing the front and barely move; they never speak."],
+   "amb": true, "amb_seed": 20261007,
+   "cut_in": 0.0, "cut_out": "full"
+  },
+  {
+   "id": "S3", "refs": ["zhe"], "scene": ["seats", [0.25, 0.20, 0.75, 0.90]], "dur": 4.6,
+   "line": {"who": "zhe", "text": "老師，我的作業被狗吃掉了。", "at": 0.6},
+   "frame": "Medium close-up from the front of the classroom from <image2>, facing the students: the boy from <image1> sits at his front-row wooden desk, raising one hand high, with a forced, overly innocent smile and nervous eyes looking toward the front of the room. Behind him, out of focus, a few seated classmates in the same white school shirts sit quietly at their wooden desks, all facing the front of the classroom. The windows are on the right side of the frame.",
+   "action": "The boy keeps his hand raised and, with a forced innocent smile, makes his excuse toward the front of the room.",
+   "extra_constraints": ["The classmates in the background stay seated facing the front and barely move; they never speak."],
+   "cut_in": 0.30, "tail": 0.9
+  },
+  {
+   "id": "S4", "refs": ["chen"], "scene": ["front", [0.35, 0.0, 0.95, 0.68]], "dur": 3.6,
+   "line": {"who": "chen", "text": "你家沒有養狗。", "at": 0.7},
+   "frame": "Close-up at eye level: the woman from <image1> in front of the green chalkboard of the classroom from <image2>, pushing up her gold-rimmed glasses with one finger, looking straight ahead with a completely flat, unimpressed expression. The windows are on the left side of the frame.",
+   "action": "The teacher lowers her hand from her glasses and answers flatly, without any expression.",
+   "cut_in": 0.35, "tail": 1.3
+  },
+  {
+   "id": "S5", "refs": ["zhe"], "scene": ["seats", [0.30, 0.20, 0.70, 0.80]], "dur": 4.0,
+   "line": {"who": "zhe", "text": "是……鄰居的狗。", "at": 0.6},
+   "frame": "Close-up from the front of the classroom from <image2>: the boy from <image1> at his desk, frozen for a moment, his eyes sliding to the side, a sheepish guilty face. Behind him, out of focus, a classmate sits at a desk. The windows are on the right side of the frame.",
+   "action": "The boy freezes, his eyes drift sideways, then he mumbles a weak correction with a guilty face.",
+   "cut_in": 0.25, "tail": 1.0
+  },
+  {
+   "id": "S6", "refs": ["chen"], "scene": ["front", [0.20, 0.0, 1.0, 0.70]], "dur": 5.0,
+   "line": {"who": "chen", "text": "那昨天放在我桌上的，是誰的作業？", "at": 0.6},
+   "frame": "Medium shot at eye level from the students' point of view: the woman from <image1> stands behind the wooden teacher's desk in front of the green chalkboard of the classroom from <image2>, holding up a plain light-blue notebook with a completely blank cover in front of her chest with one hand, the corner of her mouth curling into a small knowing smile. The windows are on the left side of the frame.",
+   "action": "The teacher keeps the light-blue notebook raised at her chest and asks her question with a small knowing smile.",
+   "cut_in": 0.30, "tail": 0.9
+  },
+  {
+   "id": "S7", "refs": ["zhe"], "scene": ["seats", [0.30, 0.20, 0.70, 0.80]], "dur": 4.0,
+   "line": {"who": "zhe", "text": "……是我的。", "at": 0.9},
+   "frame": "Close-up from the front of the classroom from <image2>: the boy from <image1> at his desk, staring at something in front of him, his face flushed red with embarrassment, shoulders starting to shrink down into his chair. Behind him, out of focus, a classmate sits at a desk. The windows are on the right side of the frame.",
+   "action": "The boy blushes deeply, admits it in a tiny voice, then slowly sinks down into his chair with an embarrassed smile.",
+   "cut_in": 0.45, "cut_out": "full"
+  }
+ ],
+ "seeds": {"frame_S1": 5303, "h3_S2": 778},
+ "music": {
+  "caption": "Genre: light playful school comedy underscore, purely instrumental film score, sneaky and mischievous mood, a little suspenseful, then a warm gentle resolve. BPM 96, key D major.\nVocal: NONE. No singing, no humming, no choir.\nArrangement: pizzicato strings, bassoon, marimba, glockenspiel, soft upright bass, light brushed snare.",
+  "seeds": [7, 23, 51]
+ },
+ "mix": {"say_lead": 0.2, "default_tail": 0.55, "music_under_lines": 0.30, "music_bed_rms": 0.035, "target_lufs": -15.5},
+ "ending": {
+  "closeups": ["S4", "S7"],
+  "header": "本片使用的 AI 工具（全部本機執行）",
+  "card_dur": 3.0, "title_dur": 3.5,
+  "cards": [
+   [["MiniMax H3", "影片生成"], ["Qwen-Image 2.1／Edit 2511", "角色與首幀"], ["MiniMax-Music3", "配樂生成"]],
+   [["BreezyVoice＋Breeze TTS 2", "配音"], ["faster-whisper・BS-RoFormer・RTX VSR", "校對／分離／放大"], ["本片畫面、配音與配樂皆由 AI 生成", ""]]
+  ]
+ }
+}

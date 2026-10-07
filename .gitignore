@@ -19,4 +19,5 @@ __pycache__/
 # 執行產物
 setup/smoke_out/
 pipeline/demo_local/out/
+pipeline/*/out/
 *.png.bak

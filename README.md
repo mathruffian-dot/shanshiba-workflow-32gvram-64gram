@@ -63,7 +63,8 @@ tools/                      全域工具（放到 C:\AI\tools）
   img25.py                  OpenAI Image 2.5 生圖／編輯（選用，雲端）
   pron_check.py／pron_compare.py  中文配音聲調審核
   ...（完整清單見 docs/06_安裝.md）
-pipeline/demo_local/        ⭐ 全本地示範片（裝好就能跑，不需要任何素材）
+pipeline/template_local/    ⭐ 做新片的範本：改 film.json → make_film.py 從角色做到成片＋自審
+pipeline/demo_local/        全本地示範片（4 鏡，安裝驗證用，不需要任何素材）
 pipeline/example_D-7/       原專案一支真實短片〈D-7〉的全套腳本（參考用：首幀用雲端 Image 2.5、舊配音流程，不能直接照跑）
 setup/                      安裝：模型下載清單（鎖定版本＋逐檔雜湊）、套件清單、smoke_test、硬體偵測
 sfx/                        58 個 Freesound CC0 音效（腳步、翻頁、門、球、歡呼…）
@@ -93,7 +94,7 @@ configs/profile.cmd         這個硬體版本的環境變數
 | 9 | 片尾（工具名單＋AI 生成標示） | `templates/ending/render_ending.py` | `templates/ending/README.md` | `ending.mp4` | |
 | 10 | 自審五遍（抽格、ASR、雜訊、黑畫面與響度、切點） | 參考 `pipeline/example_D-7/review.py`、`noise_scan.py`、`stt.py` | `docs/04_自審清單.md` | `review/` | ✅ 最後一定給人看成片 |
 
-`pipeline/demo_local/run_demo.py` 是上面 2、4、5、6、7、8 的最小可執行版本（4 鏡），寫自己的片可以從它改起。`pipeline/example_D-7/` 是原頻道一支 120 秒成片的完整腳本，可以參考剪接與自審的寫法；但它用雲端 Image 2.5 首幀和舊配音流程，**不能直接照跑**。
+**最快的做法：複製 [`pipeline/template_local/`](pipeline/template_local/README.md)，只改 `film.json`**，`make_film.py` 會把上面 2–10 步全部做完（已附一支 7 鏡範例片的設定，從零重跑驗證過）。`pipeline/demo_local/` 是 4 鏡的最小安裝驗證；`pipeline/example_D-7/` 是原頻道一支 120 秒成片的完整腳本，可參考剪接與自審寫法，但它用雲端 Image 2.5 首幀和舊配音流程，**不能直接照跑**。
 
 建議讓 AI agent 來跑：把 [agent/CLAUDE.md範本.md](agent/CLAUDE.md範本.md) 放進專案根目錄，它會照規則做、自審、寫紀錄。
 

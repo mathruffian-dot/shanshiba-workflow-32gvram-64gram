@@ -161,7 +161,7 @@ C:\AI\H3\venv\Scripts\python.exe <repo>\pipeline\demo_local\run_demo.py
 
 ## 6. 開始做片
 
-讀 `docs/02_端到端流程.md`、`docs/03_規則與踩坑.md`，把 `agent/CLAUDE.md範本.md` 放到使用者的專案根目錄改名 `CLAUDE.md`，再照 `pipeline/README.md` 開第一支片。
+讀 `docs/03_規則與踩坑.md`（規則）和 `pipeline/template_local/README.md`（做法），把 `agent/CLAUDE.md範本.md` 放到使用者的專案根目錄改名 `CLAUDE.md`。做新片：用 `agent/skills/shanshiba-drama` 寫劇本 → 複製 `pipeline/template_local/` 成新資料夾 → 把角色、場景、鏡表填進 `film.json` → `make_film.py` 分段跑，三個人工關卡（首幀總覽、每鏡抽格、成片）都要給使用者看。
 
 ## 常見問題
 

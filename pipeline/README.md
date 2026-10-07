@@ -1,5 +1,7 @@
 # pipeline：每支片的製作腳本
 
+> **做新片請用 [`template_local/`](template_local/README.md)**：複製資料夾、改 `film.json`、跑 `make_film.py`，全本地從角色做到成片＋自審。下面的 `example_D-7/` 是原頻道的完整腳本（雲端 Image 2.5 首幀、舊配音流程），留作參考。
+
 `example_D-7/` 是〈D-7〉（段考三種學生，2026-10-05，120 秒）實際用過的全套腳本，只把寫死的個人路徑改成 `C:\AI\tools` 慣例。
 
 ## 開新片
