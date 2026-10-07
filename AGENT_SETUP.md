@@ -113,7 +113,7 @@ C:\AI\tools\start_comfy.cmd
 C:\AI\H3\venv\Scripts\python.exe <repo>\setup\smoke_test.py
 ```
 `smoke_test.py` 會自己設計一個聲音、生一張首幀，跑完 Breeze → VoxCPM2 → faster-whisper → 聲調比對 → Qwen-Image 2.1 → Music 3 → BS-RoFormer → H3 → RTX VSR → FlashVSR，最後印出每一步 OK／FAIL 和秒數。
-- 全部 OK，且每步時間在 `docs/hardware.md` 列的範圍內（真實顯卡比 5090 慢是正常的），就算安裝完成。
+- 全部 OK，且每步時間在 `docs/hardware.md` 列的範圍內（真實顯卡比 5090 慢是正常的），就算安裝完成。原專案 2026-10-07 實跑：12 步全部 OK，共約 7.5 分鐘（RTX 5090）。
 - 打開 `setup\smoke_out\h3\clip.mp4` 看：畫面清楚、嘴型有跟著台詞動。
 
 ## 5. 跑全本地示範片

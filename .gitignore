@@ -14,3 +14,8 @@
 # 快取
 __pycache__/
 *.pyc
+
+# 執行產物
+setup/smoke_out/
+pipeline/demo_local/out/
+*.png.bak
