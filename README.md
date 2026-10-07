@@ -26,7 +26,7 @@ YouTube 頻道「山獅霸的多重宇宙」的完整製作做法：每支片 1�
 | [shanshiba-workflow-16gvram-64gram](https://github.com/mathruffian-dot/shanshiba-workflow-16gvram-64gram) | 16GB VRAM＋64GB RAM | RTX 4080／5070 Ti／5080 16GB | 64GB |
 | [shanshiba-workflow-16gvram-32gram](https://github.com/mathruffian-dot/shanshiba-workflow-16gvram-32gram) | 16GB VRAM＋32GB RAM | RTX 4080／5070 Ti／5080 16GB | 32GB |
 
-> ⚠️ **本 repo 預設給非商業用途**（教學、研究、個人創作）。用到的 **Qwen-Image 2.1、Breeze TTS 2 只能非商業使用**；要營利請照 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) 換掉這兩個（例如生圖改用雲端 Image 2.5）。另外**MiniMax H3 的授權排除美國、歐盟、英國、南韓**；MiniMax H3／Music 3 要求公開內容標示 AI 生成。本 repo 不含任何模型權重。
+> ⚠️ **本 repo 預設給非商業用途**（教學、研究、個人創作）。用到的 **Qwen-Image 2.1、Breeze TTS 2 只能非商業使用**；要營利請照 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) 換掉這兩個（例如生圖改用雲端 Image 2.5、角色參考音改用 VoxCPM2 聲音設計或真人錄音）。台詞配音用的 BreezyVoice 是 Apache-2.0，可商用。另外**MiniMax H3 的授權排除美國、歐盟、英國、南韓**；MiniMax H3／Music 3 要求公開內容標示 AI 生成。本 repo 不含任何模型權重。
 
 ## 2. 流程一覽
 
@@ -71,7 +71,7 @@ configs/profile.cmd         這個硬體版本的環境變數
 ## 4. 最快上手
 
 0. **AI agent 請先讀 [AGENT_SETUP.md](AGENT_SETUP.md)**，它會一步步帶你檢查硬體、安裝、下載、驗證。
-1. 照 [AGENT_SETUP.md](AGENT_SETUP.md) 裝好 ComfyUI＋H3、Voice 環境、Breeze TTS，把 `tools/` 複製到 `C:\AI\tools`。
+1. 照 [AGENT_SETUP.md](AGENT_SETUP.md) 裝好 ComfyUI＋H3、Voice 環境、Breeze TTS、BreezyVoice，把 `tools/` 複製到 `C:\AI\tools`。
 2. 先讀 [docs/hardware.md](docs/hardware.md)，再 `call configs\profile.cmd` 套用這個硬體版本的設定，然後執行 `tools\start_comfy.cmd`。
 3. 跑 `setup\smoke_test.py` 與 `pipeline\demo_local\run_demo.py` 確認全部正常。
 4. 把 `pipeline/example_D-7/` 複製成新片資料夾，改四張表：`gen_frames.py` 的 SHOTS、`voice_plan.py` 的 LINES、`plan_h3.py` 的 SHOTS、`assemble.py` 的 SEGS。
@@ -87,7 +87,7 @@ configs/profile.cmd         這個硬體版本的環境變數
 4. **單鏡 ≤12 秒**；15 秒會漂移、自己切鏡。
 5. **不說話的鏡頭給靜音引導音軌**，否則角色會自己嘟囔。
 6. **畫面上的中文一律後製疊字**，H3 會把字寫成亂碼。
-7. **台灣腔配音**：Breeze 設計聲音 → VoxCPM2 生成 → 跟台灣國語參考音比聲調挑最好的；念不準就換同音字。
+7. **台灣腔配音**：Breeze 設計角色聲音（一次）→ **BreezyVoice** 用它念每句台詞（每句 8 候選，約 2.5 秒一個）→ 聽寫全對＋跟台灣國語參考音比聲調自動挑；念不準的字直接標注音（`連假[:ㄐㄧㄚ4]`）。
 8. **低頭、轉身後臉會換人** → 用 Image 2.5 生尾幀鎖住。
 9. **先做最難的一鏡再批次**，不要整片生完才發現共通問題。
 10. **不合格就重拍到合格**，不靠剪掉躲；給人看並排影片，數字只當備註。
@@ -97,7 +97,7 @@ configs/profile.cmd         這個硬體版本的環境變數
 | 東西 | 原因 | 你要自己準備 |
 |---|---|---|
 | 角色定妝照、轉面圖、表情表 | 頻道角色資產 | 用 Image 2.5 為自己的角色做一組（見 [03_規則與踩坑.md](docs/03_規則與踩坑.md) §3） |
-| 配音參考音 | 含本人授權克隆聲音 | 自己錄或用 Breeze 設計 |
+| 配音參考音 | 含本人授權克隆聲音 | 自己錄或用 Breeze 設計，台詞一律 BreezyVoice |
 | 模型權重 | 檔案大、各有授權 | 照 [06_安裝.md](docs/06_安裝.md) 下載 |
 | 成片影片 | 檔案大 | 看頻道 |
 | OpenAI 金鑰（選用） | 預設不用；想改用雲端 Image 2.5 生首幀才需要 | 設環境變數 `OPENAI_API_KEY`，用 `tools/img25.py` |

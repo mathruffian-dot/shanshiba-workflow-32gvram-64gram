@@ -8,7 +8,7 @@ stage：chars → frames → voices → h3 → music → cut（不給就全部�
 做法都是本專案實測過的：
 - 角色：Qwen-Image 2.1 生「單張半身定妝照」（灰底、正面）。
 - 首幀：Qwen-Image-Edit 2511 附定妝照當參考（不訓練就能保持長相、又會照劇本演），直接出 1344×768。
-- 聲音：Breeze TTS 2 用文字描述設計聲音 → VoxCPM2 以它為參考念台詞（每句 3 候選）→ faster-whisper＋聲調比對（對照 edge-tts 標準台灣國語）挑最好的。
+- 聲音：Breeze TTS 2 用文字描述設計角色聲音 → BreezyVoice 以它為參考念台詞（每句 8 候選）→ faster-whisper＋聲調比對（對照 edge-tts 標準台灣國語）自動挑最好的。
 - 影片：H3 DMAD 4 步、只給首幀、台詞放進固定音軌（不說話的鏡頭給靜音）。
 - 配樂：MiniMax Music 3 純器樂；放大：RTX VSR。"""
 import json
@@ -27,6 +27,7 @@ T = Path(os.environ.get("AI_TOOLS", r"C:\AI\tools"))
 PYH3 = os.environ.get("PY_H3", r"C:\AI\H3\venv\Scripts\python.exe")
 PYV = os.environ.get("PY_VOICE", r"C:\AI\Voice\venv\Scripts\python.exe")
 PYB = os.environ.get("PY_BREEZE", r"C:\AI\BreezeTTS\venv\Scripts\python.exe")
+PYBV = os.environ.get("PY_BREEZYVOICE", r"C:\AI\BreezyVoice\venv\Scripts\python.exe")
 SEP = str(Path(PYV).parent / "audio-separator.exe")
 HOST = os.environ.get("COMFY_HOST", "http://127.0.0.1:8188")
 FONT = "C:/Windows/Fonts/msjhbd.ttc"
@@ -156,27 +157,23 @@ def voices():
             jobs.append(dict(name=f"tw_{i}", text=txt, instruction="A clear, neutral standard Taiwanese Mandarin news-reading voice, calm, precise tones.", seed=11))
     (OUT / "breeze.json").write_text(json.dumps(dict(out_dir="voice", jobs=jobs), ensure_ascii=False), encoding="utf-8")
     run([PYB, str(T / "breeze_batch.py"), "breeze.json"])
+    # 台詞：BreezyVoice 用設計好的聲音念，每句 8 個 seed → 自動挑（聽寫的拼音聲調要全對，再比台灣國語腔調分數）
+    # 念不準的字直接在台詞標注音，例如「連假[:ㄐㄧㄚ4]」（字幕用不含標記的原文）。
+    bv_jobs = [dict(name=f"line{i}", text=txt, ref_audio=f"voice/ref_{who}.wav", ref_text=CHARS[who]["voice_sample"], tw_ref=f"voice/tw_{i}.wav", seeds=8)
+               for i, (who, txt, _) in enumerate(lines)]
+    (OUT / "bv.json").write_text(json.dumps(dict(out_dir="voice/bv", jobs=bv_jobs), ensure_ascii=False, indent=1), encoding="utf-8")
+    run([PYBV, str(T / "breezyvoice_batch.py"), "bv.json"])
+    run([PYV, str(T / "breezyvoice_pick.py"), "bv.json"])
+    bp = json.loads((OUT / "voice" / "bv" / "picks.json").read_text(encoding="utf-8"))
     picks = {}
     for i, (who, txt, _) in enumerate(lines):
-        best = None
-        for seed in range(1, 9):                     # 至少抽 3 個；聽寫全對的才算數，最多抽到 8 個
-            if seed > 3 and best and best[0] < 5:
-                break
-            cand = OUT / "voice" / f"line{i}_v{seed}.wav"
-            if not cand.exists():
-                run([PYV, str(T / "gen_voice.py"), "--text", txt, "--ref", str(OUT / "voice" / f"ref_{who}.wav"), "--seed", str(seed), "--out", str(cand)])
-            r = run([PYV, str(T / "pron_compare.py"), str(cand), str(OUT / "voice" / f"tw_{i}.wav"), txt], check=False)
-            m = re.search(r"mean_dist ([\d.]+)", r.stdout)
-            st = run([PYV, str(T / "stt.py"), "--audio", str(cand), "--outdir", str(OUT / "voice" / f"stt_{i}_{seed}"), "--prompt", "以下是繁體中文的普通話。"], check=False)
-            heard = (OUT / "voice" / f"stt_{i}_{seed}" / "transcript.txt").read_text(encoding="utf-8").strip() if st.returncode == 0 else ""
-            ok = re.sub(r"[\W_]", "", heard).replace("烤", "考") == re.sub(r"[\W_]", "", txt)
-            score = (float(m.group(1)) if m else 9) + (0 if ok else 5)
-            if best is None or score < best[0]:
-                best = (score, cand, heard)
-        if best[0] >= 5:
-            raise SystemExit(f"台詞「{txt}」抽了 8 個候選，聽寫都不對（最好的聽成「{best[2]}」）。請把台詞改長一點或換說法再跑。")
-        picks[i] = dict(file=str(best[1]), heard=best[2], score=round(best[0], 2))
-        print("pick", txt, "→", best[1].name, best[2], flush=True)
+        p = bp[f"line{i}"]
+        if p["needs_review"]:
+            best = next(c for c in p["cands"] if c["file"] == p["pick"])
+            raise SystemExit(f"台詞「{txt}」8 個候選聽寫都不對（最好的聽成「{best['asr']}」）。念錯的字請在台詞標注音（例：假[:ㄐㄧㄚ4]）或換說法，再刪掉 voice/bv 重跑。")
+        best = next(c for c in p["cands"] if c["file"] == p["pick"])
+        picks[i] = dict(file=str(OUT / "voice" / "bv" / f"line{i}.wav"), heard=best["asr"], tw_score=best.get("tw_score"))
+        print("pick", txt, "→", p["pick"], best["asr"], flush=True)
     (OUT / "voice_picks.json").write_text(json.dumps(picks, ensure_ascii=False, indent=1), encoding="utf-8")
 
 

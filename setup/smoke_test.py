@@ -2,7 +2,7 @@
 用 H3 venv 執行（ComfyUI 要先啟動：call configs\\profile.cmd → tools\\start_comfy.cmd）：
   C:\\AI\\H3\\venv\\Scripts\\python.exe setup\\smoke_test.py [--quick]
 --quick 跳過 FlashVSR 與 LoRA 項目。結果寫 setup\\smoke_out\\report.json，並印出跟 docs\\hardware.md 對照用的時間。
-流程：Breeze 設計聲音 → VoxCPM2 用它克隆 → faster-whisper 聽寫 → 聲調比對 → Qwen-Image 2.1 生首幀 → Qwen 附參考圖 →
+流程：Breeze 設計聲音 → BreezyVoice 用它念台詞＋自動挑選 → VoxCPM2（備用引擎）→ faster-whisper 聽寫 → 聲調比對 → Qwen-Image 2.1 生首幀 → Qwen 附參考圖 →
 MiniMax Music 3 → BS-RoFormer 分離 → H3（DMAD 4 步，首幀＋配音當固定音軌）→ RTX VSR → FlashVSR"""
 import json
 import os
@@ -19,6 +19,7 @@ T = Path(os.environ.get("AI_TOOLS", r"C:\AI\tools"))
 PYH3 = os.environ.get("PY_H3", r"C:\AI\H3\venv\Scripts\python.exe")
 PYV = os.environ.get("PY_VOICE", r"C:\AI\Voice\venv\Scripts\python.exe")
 PYB = os.environ.get("PY_BREEZE", r"C:\AI\BreezeTTS\venv\Scripts\python.exe")
+PYBV = os.environ.get("PY_BREEZYVOICE", r"C:\AI\BreezyVoice\venv\Scripts\python.exe")
 SEP = str(Path(PYV).parent / "audio-separator.exe")
 HOST = os.environ.get("COMFY_HOST", "http://127.0.0.1:8188")
 QUICK = "--quick" in sys.argv
@@ -83,10 +84,19 @@ def main():
         name="line", text=LINE, instruction="A cheerful 12-year-old Taiwanese boy, natural Taiwanese Mandarin accent, standard pronunciation.", seed=11)]),
         ensure_ascii=False), encoding="utf-8")
     tw = step("breeze_line", [PYB, str(T / "breeze_batch.py"), "breeze_line.json"], "breeze/line.wav")
+    # 台詞配音＝BreezyVoice：用設計好的聲音念台詞（3 個 seed），再自動挑（聽寫＋對照台灣國語參考音；這裡用 Breeze 那句當參考，不需連網）
+    (OUT / "bv.json").write_text(json.dumps(dict(out_dir="bv", seeds=3, jobs=[dict(
+        name="line", text=LINE, ref_audio="breeze/design.wav", ref_text="大家好，我是阿福。今天天氣很好，我們一起去上課吧。", tw_ref="breeze/line.wav")]),
+        ensure_ascii=False), encoding="utf-8")
+    bv = step("breezyvoice", [PYBV, str(T / "breezyvoice_batch.py"), "bv.json"], "bv/cand/line_s1.wav") if ref else None
+    if bv and tw:
+        bv = step("breezyvoice_pick", [PYV, str(T / "breezyvoice_pick.py"), "bv.json"], "bv/line.wav")
     vox = step("voxcpm2", [PYV, str(T / "gen_voice.py"), "--text", LINE, "--ref", str(ref or ""), "--seed", "7", "--out", "voxcpm.wav"], "voxcpm.wav")
-    step("whisper", [PYV, str(T / "stt.py"), "--audio", "voxcpm.wav", "--outdir", "stt"], "stt/transcript.txt")
-    if vox and tw:
-        step("pron_compare", [PYV, str(T / "pron_compare.py"), "voxcpm.wav", "breeze/line.wav", LINE])
+    line_wav = bv or vox
+    if line_wav:
+        step("whisper", [PYV, str(T / "stt.py"), "--audio", str(line_wav), "--outdir", "stt"], "stt/transcript.txt")
+    if line_wav and tw:
+        step("pron_compare", [PYV, str(T / "pron_compare.py"), str(line_wav), "breeze/line.wav", LINE])
     # --- 圖、音樂、影片（ComfyUI）
     (OUT / "prompt.txt").write_text(PROMPT, encoding="utf-8")
     img = step("qwen_image", [PYH3, str(T / "gen_image.py"), "--prompt-file", "prompt.txt", "--seed", "5101", "--prefix", "smoke/first", "--out", "qwen"],
@@ -105,9 +115,9 @@ def main():
     (OUT / "lyr.txt").write_text("[Intro]\n" + "[Instrumental]\n" * 14 + "[Outro]\n[Instrumental]\n", encoding="utf-8")
     mus = step("music3", [PYH3, str(T / "gen_music3.py"), "--caption-file", "cap.txt", "--lyrics-file", "lyr.txt", "--seconds", "30", "--seed", "7",
                           "--prefix", "audio/MM3/smoke", "--out", "music"], lambda: newest(OUT / "music", {".flac"}))
-    if img and vox:
+    if img and line_wav:
         sr = 48000
-        r = subprocess.run(["ffmpeg", "-loglevel", "error", "-i", str(vox), "-ar", str(sr), "-ac", "1", "-f", "s16le", "-"], capture_output=True)
+        r = subprocess.run(["ffmpeg", "-loglevel", "error", "-i", str(line_wav), "-ar", str(sr), "-ac", "1", "-f", "s16le", "-"], capture_output=True)
         pcm = bytes(int(0.4 * sr) * 2) + r.stdout; dur = 4.4
         pcm = (pcm + bytes(int(dur * sr) * 2))[: int(dur * sr) * 2]
         with wave.open(str(OUT / "guide.wav"), "wb") as wf:

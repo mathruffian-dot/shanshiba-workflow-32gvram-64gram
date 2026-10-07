@@ -12,7 +12,7 @@
 | `劇本.md` | 你的劇本與鏡表 |
 | `blender/make_plan.py` | 機位與站位（不做預演可略） |
 | `gen_frames.py` | `REF`（角色定妝照路徑）、`KEEP`（角色外觀鎖定句）、`SHOTS`（每鏡首幀描述） |
-| `voice_plan.py` | `REFS`（各角色參考音）、`LINES`（台詞）、`TTS`（同音字替換） |
+| `voice_plan.py` | `REFS`（各角色參考音）、`LINES`（台詞）、`TTS`（同音字替換；**新片改用 BreezyVoice＋注音標記，見 docs/02 第 4–5 步**） |
 | `plan_h3.py` | `SUBJ`（角色英文描述與聲音）、`S(...)` 每鏡動作／台詞秒數／長度 |
 | `assemble.py` | `SEGS`（剪接順序與段落類型）、`VO`（旁白位置）、`build_audio` 的音效時間點 |
 | `music_scenes.py` | `SC`（每段配樂的風格描述與起訖段落） |
