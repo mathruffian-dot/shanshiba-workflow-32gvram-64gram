@@ -1,4 +1,5 @@
-"""偵測這台電腦的顯卡、記憶體、硬碟，告訴你該用三個 repo 的哪一個。只用 Python 標準函式庫，任何 Python 3.10+ 都能跑。
+"""偵測這台電腦的顯卡、記憶體、硬碟，告訴你該用四個 repo 的哪一個，以及每個元件建議在本機還是雲端（Colab）跑。
+只用 Python 標準函式庫，任何 Python 3.10+ 都能跑（Windows／Linux／macOS）。
 python setup/detect_hardware.py"""
 import ctypes
 import json
@@ -17,6 +18,7 @@ REPOS = [
     ("shanshiba-workflow-16gvram-64gram", 15, 60, "16GB VRAM + 64GB RAM"),
     ("shanshiba-workflow-16gvram-32gram", 15, 30, "16GB VRAM + 32GB RAM"),
 ]
+COLAB = "shanshiba-workflow-colab（本機跑不動 H3：H3 送 Google Colab G4 跑；需要 Google AI 方案或 Colab 運算單元）"
 
 
 def gpu():
@@ -30,6 +32,18 @@ def gpu():
 
 
 def ram_gb():
+    if platform.system() != "Windows":
+        try:
+            if platform.system() == "Darwin":
+                total = int(subprocess.run(["sysctl", "-n", "hw.memsize"], capture_output=True, text=True).stdout)
+                avail = total
+            else:
+                info = dict(l.split(":", 1) for l in open("/proc/meminfo"))
+                total = int(info["MemTotal"].split()[0]) * 1024; avail = int(info["MemAvailable"].split()[0]) * 1024
+            return dict(total_gb=round(total / 2**30, 1), available_now_gb=round(avail / 2**30, 1), commit_limit_gb=round(total / 2**30, 1))
+        except Exception:
+            return dict(total_gb=0, available_now_gb=0, commit_limit_gb=0)
+
     class M(ctypes.Structure):
         _fields_ = [("dwLength", ctypes.c_ulong), ("dwMemoryLoad", ctypes.c_ulong), ("ullTotalPhys", ctypes.c_ulonglong), ("ullAvailPhys", ctypes.c_ulonglong),
                     ("ullTotalPageFile", ctypes.c_ulonglong), ("ullAvailPageFile", ctypes.c_ulonglong), ("ullTotalVirtual", ctypes.c_ulonglong),
@@ -42,12 +56,20 @@ def ram_gb():
 
 def main():
     g, r = gpu(), ram_gb()
-    disk = shutil.disk_usage("C:\\")
+    disk = shutil.disk_usage("C:\\" if platform.system() == "Windows" else "/")
     info = dict(os=platform.platform(), gpu=g, ram=r, disk_C_free_gb=round(disk.free / 2**30))
     vram = g.get("vram_gb", 0); ram = r["total_gb"]
     pick = next((x for x in REPOS if vram >= x[1] and ram >= x[2]), None)
-    info["recommendation"] = (f"{pick[0]}（{pick[3]}）" if pick else
-                              "低於最低需求（16GB VRAM＋32GB RAM）：H3 跑不動，請勿安裝")
+    info["recommendation"] = f"{pick[0]}（{pick[3]}）" if pick else COLAB
+    # 每個元件在哪跑（cloud/colab_h3.py；make_film.py 的 H3_BACKEND 不設時也用同一個判斷）
+    nv = "error" not in g
+    info["plan"] = {
+        "劇本／剪接／字幕（CPU）": "本機",
+        "首幀": "Image 2.5（不用顯卡，要 OpenAI API 或 Codex 訂閱）" if vram < 12 else "本機 Qwen-Image（12GB 以上；16GB 以上較順）",
+        "配音（BreezyVoice／VoxCPM2／whisper）": "本機" if nv and vram >= 8 else "雲端（cloud/colab_h3.py full-setup）",
+        "H3 影片": "本機" if pick else "雲端 G4（cloud/colab_h3.py batch …）",
+        "全部都跑不動時": "全雲端：python cloud/colab_h3.py full-setup，再 film／smoke",
+    }
     notes = []
     if vram >= 30 and ram < 60:
         notes.append("32GB 顯卡但記憶體不到 64GB：用 16gvram-32gram 的設定（--reserve-vram 不需要，但記憶體規則照它）")

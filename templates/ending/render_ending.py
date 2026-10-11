@@ -11,8 +11,10 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageChops
 
 HERE = Path(__file__).resolve().parent
 W, H, FPS = 1920, 1080, 24
-FONT_TITLE = "C:/Windows/Fonts/kaiu.ttf"        # 標楷體：大標題
-FONT_BOLD = "C:/Windows/Fonts/msjhbd.ttc"       # 微軟正黑粗體：名單
+sys.path.insert(0, str(HERE.parents[1] / "tools"))
+from fonts import font  # noqa: E402  (Windows 字型；Linux 用文鼎楷書／Noto CJK)
+FONT_TITLE = font("kai")        # 標楷體：大標題
+FONT_BOLD = font("jhbd")        # 微軟正黑粗體：名單
 GLOW, CORE = (255, 190, 60), (255, 246, 215)
 
 

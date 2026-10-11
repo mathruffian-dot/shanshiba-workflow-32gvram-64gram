@@ -10,6 +10,7 @@
    - **Breeze TTS 2**（BreezeBlue Research and Non-Commercial License v1.1，**自己架設產生的聲音也算**）：本 repo 只用它「設計角色參考音」；每句台詞由 BreezyVoice（Apache-2.0）念。條款另禁止用其產出訓練／微調／蒸餾其他模型；拿它設計出來的聲音當 BreezyVoice 的零樣本參考音是否違約，條文沒寫清楚。要營利請把角色參考音換成可商用來源（VoxCPM2 聲音設計或真人錄音）。
    - **YuE2**（CC BY-NC 4.0，選用的歌曲模型）。
 2. **MiniMax H3 地區限制**：授權不允許在**美國、歐盟、英國、南韓**使用，條文（第 I.5、V.4 條）也涵蓋在這些地區散布或展示 H3 本身與其產出。公開影片在這些地區看得到，屬灰色地帶，請自行評估。
+   **用 Google Colab 跑 H3（cloud/）時特別注意**：實測 Colab 的 G4 機器 30 次全在美國或歐盟（荷蘭）。授權沒有定義「使用」看使用者還是機器所在地；權重在那些機器上被複製、執行，照字面比較可能不在授權範圍內。是否使用由使用者自行評估、風險自負；想確定可依授權第 II 條聯絡 MiniMax。另外 Colab 本身有使用條款（不得挖礦、不得當代理伺服器等），本工具不開網頁介面、不用外連通道，ComfyUI 只在機器內部被程式呼叫。
 3. **AI 生成標示**：MiniMax H3、MiniMax Music 3 的使用規範要求公開發布的內容**清楚標示為機器生成**；商業產品上要顯著標示「MiniMax H3」「MiniMax-Music3」。
 4. **不得冒充真人**：VoxCPM2、Breeze、H3 都禁止未經本人同意模仿真人的臉或聲音；BreezyVoice 的參考音也請只用你有權利的聲音。
 
@@ -52,6 +53,9 @@
 | python-audio-separator | MIT（README 請使用者標註 UVR 專案） | 建議在片尾或說明欄標註 | https://github.com/nomadkaraoke/python-audio-separator |
 | edge-tts | LGPL-3.0（套件）；**微軟朗讀服務沒有公開授權第三方使用** | 本 repo 只用它產生「發音對照」參考音、不放進成片；離線替代為 Breeze（同樣非商用） | https://github.com/rany2/edge-tts |
 | Blender | GPL（只約束程式本身；算出的圖與 .blend 歸使用者） | 無 | https://www.blender.org/about/license/ |
+| Google Colab CLI（google-colab-cli） | Apache-2.0 | `cloud/` 透過它開 Colab 機器；本 repo 不含它的程式碼，`cloud/colab_cli_windows_patch.py` 只在使用者電腦上修改已安裝的套件（包住 `import termios`） | https://github.com/googlecolab/google-colab-cli |
+| Google Colab 服務 | Google 服務條款＋Colab 使用限制 | 運算單元依各人方案計費；不得挖礦、當代理伺服器等；本工具不開網頁介面、不用外連通道 | https://research.google.com/colaboratory/faq.html |
+| Noto Sans/Serif CJK、AR PL UKai（Linux 字型，`cloud/vm/install_full.sh` 用 apt 安裝） | SIL OFL 1.1／Arphic Public License | 不在 repo 內；`tools/fonts.py` 只指向系統字型路徑 | https://github.com/notofonts/noto-cjk |
 | `sfx/` 音效 58 個（Freesound） | CC0 1.0（每個檔的編號、網址、授權確認見 `sfx/manifest.json`） | 公有領域，可商用、免標示；本 repo 直接附檔 | https://freesound.org |
 | POUND0423/AI-drama-pound | MIT（Copyright (c) 2026 POUND0423） | `agent/skills/shanshiba-drama/` 改寫自此，已附原授權全文 | https://github.com/POUND0423/AI-drama-pound |
 

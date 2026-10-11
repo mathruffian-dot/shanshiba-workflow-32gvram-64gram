@@ -21,3 +21,4 @@ setup/smoke_out/
 pipeline/demo_local/out/
 pipeline/*/out/
 *.png.bak
+setup/smoke_out_colab/

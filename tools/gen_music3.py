@@ -3,10 +3,11 @@ Usage: C:\\AI\\H3\\venv\\Scripts\\python.exe C:\\AI\\tools\\gen_music3.py --capt
 Instrumental: lyrics file with section tags only ([Intro] [Verse] [Chorus] [Instrumental] [Outro]) and no text under them.
 License: MiniMax-Music3 Community License (check LICENSE: attribution + AI disclosure; revenue cap) - verify before commercial use."""
 import argparse, json, shutil, time, urllib.request
+import os
 from pathlib import Path
 
-HOST = "http://127.0.0.1:8188"
-COMFY_DIR = Path(r"C:\AI\H3\ComfyUI-0.36.0")
+HOST = os.environ.get("COMFY_HOST", "http://127.0.0.1:8188")
+COMFY_DIR = Path(os.environ.get("COMFY_DIR", r"C:\AI\H3\ComfyUI-0.36.0"))
 DIT = "minimax_music3_dit_int8_convrot.safetensors"
 TE = "minimax_music3_text_encoder_pruned_int8_convrot.safetensors"
 VAE = "minimax_music3_dav.safetensors"

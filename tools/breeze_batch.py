@@ -5,10 +5,11 @@ Existing outputs are skipped. Log -> <out_dir>/breeze_log.jsonl."""
 import json
 import sys
 import time
+import os
 from pathlib import Path
 
-REPO = Path(r"C:\AI\BreezeTTS\breeze-tts")
-MODEL = Path(r"C:\AI\BreezeTTS\breeze-tts-2")
+REPO = Path(os.environ.get("AI_ROOT", r"C:\AI")) / "BreezeTTS" / "breeze-tts"  # AI_ROOT = install root (default C:\AI; Linux/Colab e.g. /content/AI)
+MODEL = Path(os.environ.get("AI_ROOT", r"C:\AI")) / "BreezeTTS" / "breeze-tts-2"
 sys.path.insert(0, str(REPO))
 
 import soundfile as sf  # noqa: E402

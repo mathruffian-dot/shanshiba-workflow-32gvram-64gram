@@ -30,10 +30,11 @@ import json
 import shutil
 import time
 import urllib.request
+import os
 from pathlib import Path
 
-DEFAULT_HOST = "http://127.0.0.1:8188"
-COMFY_DIR = Path(r"C:\AI\H3\ComfyUI-0.36.0")
+DEFAULT_HOST = os.environ.get("COMFY_HOST", "http://127.0.0.1:8188")
+COMFY_DIR = Path(os.environ.get("COMFY_DIR", r"C:\AI\H3\ComfyUI-0.36.0"))
 
 PRESETS = {
     "qwen21": dict(

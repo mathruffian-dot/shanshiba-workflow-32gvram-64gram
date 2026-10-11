@@ -17,7 +17,7 @@ import sys
 import time
 from pathlib import Path
 
-VOICE_DIR = Path(r"C:\AI\Voice")
+VOICE_DIR = Path(os.environ.get("AI_ROOT", r"C:\AI")) / "Voice"  # AI_ROOT = install root (default C:\AI)
 DEFAULT_REF = VOICE_DIR / "references" / "default.wav"
 OUTPUT_DIR = VOICE_DIR / "output"
 MODEL_PATH = VOICE_DIR / "models" / "VoxCPM2"

@@ -10,9 +10,10 @@ Writes <outdir>/transcript.txt, transcript.srt and transcript.json.
 import argparse
 import json
 import sys
+import os
 from pathlib import Path
 
-MODEL_CACHE = Path("C:/AI/Voice/models/whisper")
+MODEL_CACHE = Path(os.environ.get("AI_ROOT", r"C:\AI")) / "Voice" / "models" / "whisper"  # AI_ROOT = install root (default C:\AI)
 DEFAULT_PROMPT = "繁體中文，教學、AI 影片製作、ComfyUI、MiniMax H3、Blender。"
 
 
@@ -23,6 +24,22 @@ def _add_cuda_dll_dirs():
     roots = []
     for sp in site.getsitepackages() + [site.getusersitepackages()]:
         roots.append(Path(sp) / "nvidia")
+    if os.name != "nt":  # Linux/Colab: LD_LIBRARY_PATH is only read at start-up, so preload the pip CUDA 12 libs (2026-10-10)
+        import ctypes
+        libs = [so for root in roots if root.is_dir()
+                for pat in ("cublas/lib/libcublasLt.so.*", "cublas/lib/libcublas.so.*", "cuda_nvrtc/lib/libnvrtc.so.*", "cudnn/lib/libcudnn*.so.*")
+                for so in sorted(root.glob(pat))]
+        for _ in range(3):  # cudnn sub-libraries depend on each other: retry until no progress
+            left = []
+            for so in libs:
+                try:
+                    ctypes.CDLL(str(so), mode=ctypes.RTLD_GLOBAL)
+                except OSError:
+                    left.append(so)
+            if len(left) in (0, len(libs)):
+                break
+            libs = left
+        return
     for root in roots:
         if not root.is_dir():
             continue

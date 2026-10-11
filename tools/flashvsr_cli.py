@@ -6,12 +6,13 @@ import json
 import subprocess
 import sys
 import time
+import os
 from pathlib import Path
 
 import numpy as np
 import torch
 
-COMFY = Path(r"C:\AI\H3\ComfyUI-0.36.0")
+COMFY = Path(os.environ.get("COMFY_DIR", r"C:\AI\H3\ComfyUI-0.36.0"))
 sys.path.insert(0, str(COMFY))
 src, d = Path(sys.argv[1]), Path(sys.argv[2]); d.mkdir(parents=True, exist_ok=True)
 NODE = COMFY / "custom_nodes" / "ComfyUI-FlashVSR_Ultra_Fast"

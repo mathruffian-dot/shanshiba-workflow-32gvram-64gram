@@ -36,9 +36,56 @@ PYH3 = os.environ.get("PY_H3", r"C:\AI\H3\venv\Scripts\python.exe")
 PYV = os.environ.get("PY_VOICE", r"C:\AI\Voice\venv\Scripts\python.exe")
 PYB = os.environ.get("PY_BREEZE", r"C:\AI\BreezeTTS\venv\Scripts\python.exe")
 PYBV = os.environ.get("PY_BREEZYVOICE", r"C:\AI\BreezyVoice\venv\Scripts\python.exe")
-SEP = str(Path(PYV).parent / "audio-separator.exe")
+SEP = str(Path(PYV).parent / ("audio-separator.exe" if os.name == "nt" else "audio-separator"))
 HOST = os.environ.get("COMFY_HOST", "http://127.0.0.1:8188")
 SR, FPS = 48000, 24
+sys.path.insert(0, str(REPO / "tools"))
+from fonts import font, SUB_FONT_NAME  # noqa: E402  (Windows 字型／Linux 用 Noto CJK)
+UPSCALE = os.environ.get("UPSCALE", "rtxvsr" if os.name == "nt" else "lanczos")   # rtxvsr（只有 Windows）｜flashvsr｜lanczos
+
+
+def local_h3_ok():
+    """本機能不能跑 H3：NVIDIA 顯卡 ≥15GB 且記憶體 ≥30GB（三份硬體版 repo 的最低配置）。"""
+    try:
+        vram = int(subprocess.run(["nvidia-smi", "--query-gpu=memory.total", "--format=csv,noheader,nounits"],
+                                  capture_output=True, text=True, timeout=20).stdout.split()[0]) / 1024
+    except Exception:
+        return False
+    try:
+        if os.name == "nt":
+            import ctypes
+            class M(ctypes.Structure):
+                _fields_ = [("l", ctypes.c_ulong), ("load", ctypes.c_ulong), ("total", ctypes.c_ulonglong)] + [(f"x{i}", ctypes.c_ulonglong) for i in range(6)]
+            m = M(); m.l = ctypes.sizeof(M); ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(m)); ram = m.total / 2**30
+        else:
+            ram = os.sysconf("SC_PAGE_SIZE") * os.sysconf("SC_PHYS_PAGES") / 2**30
+    except Exception:
+        ram = 0
+    return vram >= 15 and ram >= 30
+
+
+# H3 在哪跑：local＝本機 ComfyUI；colab＝整批送到 Google Colab G4（cloud/colab_h3.py）；
+# both＝本機＋Colab 一起跑（共用佇列，cloud/hybrid_h3.py，⚠ 尚未實測）。不設就自動判斷（local／colab）。
+H3_BACKEND = os.environ.get("H3_BACKEND") or ("local" if local_h3_ok() else "colab")
+
+
+def render_h3(dirs):
+    """dirs 裡每個資料夾都有 spec.json；成品寫回同一個資料夾（clip.mp4、meta.json…）。"""
+    if not dirs:
+        return
+    if H3_BACKEND == "both":
+        sys.path.insert(0, str(REPO / "cloud")); from hybrid_h3 import run_hybrid   # noqa: E402
+        miss = run_hybrid(dirs, PYH3, T)
+        if miss:
+            sys.exit(f"[h3] 這些鏡頭沒做出來：{' '.join(d.name for d in miss)}")
+    elif H3_BACKEND == "colab":
+        print(f"[h3] {len(dirs)} 鏡送到 Colab（cloud/colab_h3.py batch）", flush=True)
+        run([sys.executable, REPO / "cloud" / "colab_h3.py", "batch"] + [d / "spec.json" for d in dirs])
+    elif os.environ.get("H3_PARALLEL") == "2":           # 全雲端模式（colab_h3.py film 設定）：H3 這一步改用 2 個 ComfyUI 錯開跑
+        run([PYH3, REPO / "cloud" / "vm" / "parallel_h3.py"] + dirs)
+    else:
+        for d in dirs:
+            run([PYH3, T / "h3_shot.py", d / "spec.json", "--out", d])
 CHARS, SHOTS = CFG["chars"], CFG["shots"]
 LINES = [(s["id"], s["line"]) for s in SHOTS if s.get("line")]      # (鏡, {who, text, tts?, at})
 MIX = CFG.get("mix", {})
@@ -170,7 +217,7 @@ def sheet(files, dst, cols=3):
     if not fs:
         return
     W, H = 672, 384; rows = (len(fs) + cols - 1) // cols
-    im = Image.new("RGB", (W * cols, H * rows)); f = ImageFont.truetype("C:/Windows/Fonts/msjhbd.ttc", 28)
+    im = Image.new("RGB", (W * cols, H * rows)); f = ImageFont.truetype(font("jhbd"), 28)
     for i, p in enumerate(fs):
         t = Image.open(p).convert("RGB").resize((W, H)); ImageDraw.Draw(t).text((8, 6), Path(p).stem, font=f, fill=(255, 255, 0), stroke_width=3, stroke_fill=0)
         im.paste(t, ((i % cols) * W, (i // cols) * H))
@@ -239,7 +286,7 @@ def h3_spec(s, secs, dialogue):
 def h3():
     """每鏡 H3（DMAD 4 步、只給首幀）。看得到臉的鏡頭一律給固定音軌：有台詞放配音，沒台詞放靜音（否則角色會自己嘟囔）。"""
     picks = json.loads((OUT / "voice_picks.json").read_text(encoding="utf-8")) if LINES else {}
-    only = os.environ.get("ONLY", "").split()
+    only = os.environ.get("ONLY", "").split(); todo = []
     for s in SHOTS:
         if only and s["id"] not in only:
             continue
@@ -257,7 +304,8 @@ def h3():
             w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR); w.writeframes(bytes(buf))
         spec = h3_spec(s, secs, dlg); spec["audio"] = {"fixed": {"file": str(od / "guide.wav")}}
         (od / "spec.json").write_text(json.dumps(spec, ensure_ascii=False, indent=1), encoding="utf-8")
-        run([PYH3, T / "h3_shot.py", od / "spec.json", "--out", od])
+        todo.append(od)
+    render_h3(todo)
     sheet_clips()
 
 
@@ -284,7 +332,7 @@ def sheet_clips():
 @stage("amb")
 def amb():
     """有動作音效的鏡頭（amb: true）：用同一張首幀另拍一支「H3 原生音效」版，聽寫確認沒有人聲後，只取它的音軌當環境音。"""
-    res = {}
+    res = {}; todo = []
     picks = json.loads((OUT / "voice_picks.json").read_text(encoding="utf-8")) if LINES else {}
     for s in SHOTS:
         if not s.get("amb"):
@@ -294,7 +342,12 @@ def amb():
             spec = h3_spec(s, shot_secs(s, picks), [])
             spec["seed"] = int(s.get("amb_seed", spec["seed"]))      # 不寫 audio 欄位＝H3 原生音效
             (od / "spec.json").write_text(json.dumps(spec, ensure_ascii=False, indent=1), encoding="utf-8")
-            run([PYH3, T / "h3_shot.py", od / "spec.json", "--out", od])
+            todo.append(od)
+    render_h3(todo)
+    for s in SHOTS:
+        if not s.get("amb"):
+            continue
+        od = OUT / "h3" / f"{s['id']}_amb"
         run([PYV, T / "stt.py", "--audio", od / "clip.mp4", "--outdir", od / "stt"], check=False)
         heard = (od / "stt" / "transcript.txt").read_text(encoding="utf-8").strip() if (od / "stt" / "transcript.txt").exists() else ""
         speech = len(re.findall(r"[\u4e00-\u9fff]", heard))
@@ -359,7 +412,7 @@ def music():
     for sd_ in m.get("seeds", [7, 23, 51]):
         sd = md / f"s{sd_}"; src = next(sd.glob("*.flac"))
         if not list(sd.glob("*Instrumental*.wav")):
-            run([SEP, src, "--model_filename", "model_bs_roformer_ep_317_sdr_12.9755.ckpt", "--model_file_dir", r"C:\AI\Voice\models\separator",
+            run([SEP, src, "--model_filename", "model_bs_roformer_ep_317_sdr_12.9755.ckpt", "--model_file_dir", Path(os.environ.get("AI_ROOT", r"C:\AI")) / "Voice" / "models" / "separator",
                  "--output_dir", sd, "--output_format", "WAV"])
         voc = load(next(sd.glob("*Vocals*.wav"))); ins = load(next(sd.glob("*Instrumental*.wav")))
         ratio = float(np.sqrt((voc ** 2).mean()) / (np.sqrt((ins ** 2).mean()) + 1e-9)); d = len(ins) / SR
@@ -380,11 +433,18 @@ def ending():
     from PIL import Image
     ed = OUT / "ending"; (ed / "frames").mkdir(parents=True, exist_ok=True)
     cards = []
+    up_name = {"flashvsr": "FlashVSR", "lanczos": "lanczos"}.get(UPSCALE)        # 片尾名單照實際做法寫（2026-10-10 新 agent 測試指出）
     for i, tools in enumerate(e["cards"]):
         sid = e["closeups"][i % len(e["closeups"])]
         Image.open(OUT / "first" / f"{sid}.png").convert("RGB").save(ed / "frames" / f"close{i + 1}.png")
+        if up_name:
+            tools = [[t[0].replace("RTX VSR", up_name), t[1]] for t in tools]
         cards.append(dict(image=f"frames/close{i + 1}.png", tools=tools))
-    cfg = {"_base": str(ed), "title": e.get("title", CFG["title"]), "header": e.get("header", "本片使用的 AI 工具"), "card_dur": e.get("card_dur", 3.3),
+    header = e.get("header", "本片使用的 AI 工具")
+    if "本機" in header and (os.name != "nt" or H3_BACKEND in ("colab", "both")):
+        header = "本片使用的 AI 工具（" + ("在 Google Colab 執行" if os.name != "nt" else
+                                       "影片在本機與 Google Colab 生成" if H3_BACKEND == "both" else "影片在 Google Colab 生成") + "）"
+    cfg = {"_base": str(ed), "title": e.get("title", CFG["title"]), "header": header, "card_dur": e.get("card_dur", 3.3),
            "title_dur": e.get("title_dur", 7.5), "out": "ending.mp4", "cards": cards}
     (ed / "config.json").write_text(json.dumps(cfg, ensure_ascii=False, indent=1), encoding="utf-8")
     run([PYH3, REPO / "templates" / "ending" / "render_ending.py", ed / "config.json"])
@@ -404,7 +464,14 @@ def cut():
         src = OUT / "h3" / r["id"] / "clip.mp4"; v = vsr / f"{r['id']}.mp4"
         if v.exists() and v.stat().st_mtime < src.stat().st_mtime:
             v.unlink()                               # 重拍過：重新放大（upscale_vsr.py 不覆寫舊檔）
-        if not v.exists():
+        if UPSCALE == "lanczos":                     # Linux／Colab 沒有 RTX VSR：直接用下面 ffmpeg 的 lanczos 放大
+            v = src
+        elif UPSCALE == "flashvsr":
+            fv = vsr / r["id"]
+            if not (fv / "clip.mp4").exists() or (fv / "clip.mp4").stat().st_mtime < src.stat().st_mtime:
+                run([PYH3, T / "flashvsr_cli.py", src, fv])
+            v = fv / "clip.mp4"
+        elif not v.exists():
             run([PYH3, T / "upscale_vsr.py", "--source", src, "--output", v])
         p = seg / f"{r['id']}.mp4"
         run(["ffmpeg", "-y", "-loglevel", "error", "-ss", f"{r['src_in']:.3f}", "-i", v, "-frames:v", str(round(r["dur"] * FPS)), "-an",
@@ -449,7 +516,7 @@ def cut():
            "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, "
            "Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\n")
     for k, c in CHARS.items():
-        hdr += f"Style: {k},Microsoft JhengHei,58,{c.get('sub_color', '&H00FFFFFF')},&H000000FF,&H00101010,&H80000000,-1,0,0,0,100,100,1,0,1,4,1,2,60,60,70,1\n"
+        hdr += f"Style: {k},{SUB_FONT_NAME},58,{c.get('sub_color', '&H00FFFFFF')},&H000000FF,&H00101010,&H80000000,-1,0,0,0,100,100,1,0,1,4,1,2,60,60,70,1\n"
     ev = "\n[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n"
     caps = sorted([(l, r) for r in e["shots"] for l in r["lines"]], key=lambda x: x[0]["film_start"])
     for i, (l, r) in enumerate(caps):
@@ -481,7 +548,9 @@ STAGES = dict(chars=chars, masters=masters, frames=frames, voices=voices, h3=h3,
 
 if __name__ == "__main__":
     names = [a for i, a in enumerate(ARGS) if a in STAGES]
-    if not comfy_ok():
+    need = {"chars", "masters", "frames", "music"} | ({"h3", "amb"} if H3_BACKEND in ("local", "both") else set())
+    print(f"[make_film] H3_BACKEND={H3_BACKEND}  UPSCALE={UPSCALE}", flush=True)
+    if need & set(names or STAGES) and not comfy_ok():
         sys.exit(f"ComfyUI not running at {HOST}: call configs\\profile.cmd, then C:\\AI\\tools\\start_comfy.cmd")
     for name in (names or list(STAGES)):
         STAGES[name]()

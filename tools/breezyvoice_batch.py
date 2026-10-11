@@ -21,7 +21,7 @@ import sys
 import time
 from pathlib import Path
 
-BV = Path(r"C:\AI\BreezyVoice")
+BV = Path(os.environ.get("AI_ROOT", r"C:\AI")) / "BreezyVoice"  # AI_ROOT = install root (default C:\AI)
 SPEC = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else None   # resolve before chdir
 os.chdir(BV / "code")
 for p in (BV / "winstub", BV / "code", BV / "code" / "third_party" / "Matcha-TTS"):

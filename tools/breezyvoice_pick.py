@@ -15,7 +15,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-sys.path.insert(0, r"C:\AI\tools")
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 from stt import _add_cuda_dll_dirs, MODEL_CACHE  # noqa: E402
 _add_cuda_dll_dirs()
 import soundfile as sf  # noqa: E402

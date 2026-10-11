@@ -25,7 +25,8 @@ PYH3 = os.environ.get("PY_H3", r"C:\AI\H3\venv\Scripts\python.exe")
 PYV = os.environ.get("PY_VOICE", r"C:\AI\Voice\venv\Scripts\python.exe")
 PYB = os.environ.get("PY_BREEZE", r"C:\AI\BreezeTTS\venv\Scripts\python.exe")
 PYBV = os.environ.get("PY_BREEZYVOICE", r"C:\AI\BreezyVoice\venv\Scripts\python.exe")
-SEP = str(Path(PYV).parent / "audio-separator.exe")
+SEP = os.environ.get("SEPARATOR", str(Path(PYV).parent / ("audio-separator.exe" if os.name == "nt" else "audio-separator")))
+AI_ROOT = Path(os.environ.get("AI_ROOT", r"C:\AI"))   # install root (Linux/Colab e.g. /content/AI)
 HOST = os.environ.get("COMFY_HOST", "http://127.0.0.1:8188")
 QUICK = "--quick" in sys.argv
 LINE = "老師，考卷是熱的。"
@@ -141,11 +142,14 @@ def main():
         clip = None
     free_comfy()
     if mus:
-        step("separator", [SEP, str(mus), "--model_filename", "model_bs_roformer_ep_317_sdr_12.9755.ckpt", "--model_file_dir", r"C:\AI\Voice\models\separator",
+        step("separator", [SEP, str(mus), "--model_filename", "model_bs_roformer_ep_317_sdr_12.9755.ckpt", "--model_file_dir", str(AI_ROOT / "Voice" / "models" / "separator"),
                            "--output_dir", "sep", "--output_format", "WAV"], lambda: newest(OUT / "sep", {".wav"}))
     if clip:
         (OUT / "vsr_1080p.mp4").unlink(missing_ok=True)
-        step("rtx_vsr", [PYH3, str(T / "upscale_vsr.py"), "--source", str(clip), "--output", "vsr_1080p.mp4"], "vsr_1080p.mp4")
+        if os.name == "nt":                      # RTX VSR (nvvfx) exists only on Windows; Linux/Colab uses FlashVSR or lanczos
+            step("rtx_vsr", [PYH3, str(T / "upscale_vsr.py"), "--source", str(clip), "--output", "vsr_1080p.mp4"], "vsr_1080p.mp4")
+        else:
+            print("SKIP rtx_vsr        (Windows only)", flush=True)
         if not QUICK:
             step("flashvsr", [PYH3, str(T / "flashvsr_cli.py"), str(clip), "flashvsr"], "flashvsr/clip.mp4")
     (OUT / "report.json").write_text(json.dumps(rows, ensure_ascii=False, indent=1), encoding="utf-8")
