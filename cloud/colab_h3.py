@@ -4,13 +4,15 @@ Needs: the Colab CLI (uv tool install google-colab-cli; Windows also: python clo
 once with the Google account that has the Google AI plan (or Colab pay-as-you-go compute units). Standard library only.
 
   python cloud/colab_h3.py check                       # CLI works? balance? which GPUs?
-  python cloud/colab_h3.py start                       # G4 + ComfyUI + H3 (about 3.5-4 min), 2 ComfyUI instances
+  python cloud/colab_h3.py start                       # DEFAULT = full install, same as the full 32G repo (voice, Qwen, Music 3, H3, FlashVSR; ~10.5 min)
+  python cloud/colab_h3.py start --h3-only             # only ComfyUI + H3 (~3.7 min), 2 ComfyUI instances: local prep + cloud H3, or hybrid
   python cloud/colab_h3.py batch a/spec.json b/spec.json ...   # upload -> render on the VM -> download clips next to each spec
   python cloud/colab_h3.py keepalive --minutes 30      # keep the VM while you review (Colab reclaims it after ~20 min idle)
   python cloud/colab_h3.py stop                        # always stop when done - an idle G4 still costs 8.9 units/hour
-  python cloud/colab_h3.py full-setup                  # NO local GPU: install the whole stack on the VM (voice, Qwen, Music 3...)
-  python cloud/colab_h3.py smoke                       # after full-setup: run setup/smoke_test.py on the VM, download smoke_out/
-  python cloud/colab_h3.py film pipeline/template_local [stage ...]   # after full-setup: run make_film.py on the VM, sync out/ back
+  python cloud/colab_h3.py full-setup                  # same as the default start (kept as an alias)
+  python cloud/colab_h3.py smoke                       # after the full install: run setup/smoke_test.py on the VM, download smoke_out/
+  python cloud/colab_h3.py film pipeline/template_local [stage ...]   # after the full install: run make_film.py on the VM, sync out/ back
+  python cloud/hybrid_h3.py out/h3/S01 out/h3/S02 ...  # local GPU + Colab together (measured 2026-10-11: 34 shots 17.9 min vs 32.6 min local)
 
 Measured 2026-10-10 (Colab, Google AI Pro): G4 = RTX PRO 6000 Blackwell 96 GB, 8.90 compute units/hour; one 90-frame DMAD shot 42 s
 with models kept loaded; 2 staggered instances = 123 shots/hour (0.073 units/shot). L4 / A100 are slower AND cost more units per shot.
@@ -147,6 +149,10 @@ def cmd_check(a):
 
 
 def cmd_start(a):
+    """預設＝完整安裝（等同第一份 repo 完整版：語音、生圖、配樂、H3、放大全部裝，約 10.5 分鐘、約 1.5 單元；使用者 2026-10-11 指定）。
+    --h3-only＝只裝 ComfyUI＋H3（約 3.7 分鐘），給「本機準備、雲端只跑 H3」與本機＋Colab 一起跑（hybrid_h3.py）用。"""
+    if not getattr(a, "h3_only", False):
+        return cmd_full_setup(a)
     fresh = new_session(a.name, a.gpu)
     if not fresh and "SETUP_DONE" in vm(a.name, "import os\nprint(open('/content/setup_h3.log').read() if os.path.exists('/content/setup_h3.log') else '')"):
         print("[colab] 已經準備好了（沿用這台）", flush=True)
@@ -219,7 +225,7 @@ def cmd_batch(a):
                   f"nohup python /content/repo/cloud/vm/run_batch.py {batch} > /content/jobs/{batch}.log 2>&1 &")
     t0 = time.time(); seen = 0
     while True:
-        time.sleep(45)
+        time.sleep(int(os.environ.get("COLAB_POLL", "15")))     # 2026-10-11 實測：45 秒輪詢每批多耗損約 30 秒 → 預設 15
         txt = vm(a.name, f"import os\np='/content/jobs/{batch}/progress.jsonl'\nprint(open(p).read() if os.path.exists(p) else '')\n"
                          f"l='/content/jobs/{batch}.log'\nprint('LOGTAIL', open(l).read()[-800:] if os.path.exists(l) else '')")
         ev = [json.loads(l) for l in txt.splitlines() if l.startswith("{")]
@@ -267,7 +273,10 @@ def cmd_status(a):
 
 
 def cmd_full_setup(a):
-    new_session(a.name, a.gpu)
+    fresh = new_session(a.name, a.gpu)
+    if not fresh and '"full": true' in vm(a.name, "import os\nprint(open('/content/h3_state.json').read() if os.path.exists('/content/h3_state.json') else '')"):
+        print("[colab] 全套環境已經裝好了（沿用這台）", flush=True)
+        return
     tgz = repo_bundle(full=True)
     upload(a.name, tgz, "/content/repo.tgz")
     vm_sh(a.name, "cd /content/repo && tar xzf /content/repo.tgz && echo ok")
@@ -330,6 +339,9 @@ def main():
     for c in ("start", "batch", "full-setup"):
         p = sub.add_parser(c)
         p.add_argument("--gpu", default="G4", help="G4 (default, fastest AND cheapest per shot) | A100 | L4")
+        if c in ("start", "batch"):
+            p.add_argument("--h3-only", action="store_true",
+                           help="only ComfyUI+H3 (~3.7 min) instead of the default full install (~10.5 min, same as the full 32G repo)")
         if c != "full-setup":
             p.add_argument("--instances", type=int, default=2, help="ComfyUI instances on the VM (2 = best throughput on G4)")
             p.add_argument("--encoder", default="heretic", choices=["heretic", "nvfp4"])

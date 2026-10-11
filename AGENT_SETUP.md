@@ -18,7 +18,7 @@ python setup\detect_hardware.py
 
 如果推薦的不是目前這份 repo，**停下來告訴使用者**，請他換對應的 repo。四份的流程一樣，差在 `docs/hardware.md` 和 `configs/profile.cmd`；每一份都有 `cloud/`，所以本機版的人也可以把 H3 送到 Colab 加速。
 
-> **用 Colab 時（cloud/）**：本手冊第 1–3 節只需要做你本機要跑的部分（例如只裝語音環境），H3 的環境由 `python cloud/colab_h3.py start` 在 Colab 上自動裝好；本機什麼都跑不動就只要裝 Colab CLI，然後 `full-setup`。**登入 `colab usage` 一定要讓使用者自己在終端機操作**（瀏覽器授權、貼授權碼），agent 不要經手授權碼。先告訴使用者 Colab 的 G4 機房在美國／歐盟、H3 授權排除這些地區，由使用者決定是否使用（`cloud/README.md` 開頭）。
+> **用 Colab 時（cloud/）**：本手冊第 1–3 節只需要做你本機要跑的部分（例如只裝語音環境），Colab 上的環境由 `python cloud/colab_h3.py start` 自動裝好（**預設完整安裝，同第一份完整版**；只要 H3 時加 `--h3-only` 比較快）；本機什麼都跑不動就只要裝 Colab CLI，然後 `start`。**登入 `colab usage` 一定要讓使用者自己在終端機操作**（瀏覽器授權、貼授權碼），agent 不要經手授權碼。先告訴使用者 Colab 的 G4 機房在美國／歐盟、H3 授權排除這些地區，由使用者決定是否使用（`cloud/README.md` 開頭）。
 
 再讀 `docs/hardware.md`，了解這個配置的預期速度、顯存、記憶體和風險。
 

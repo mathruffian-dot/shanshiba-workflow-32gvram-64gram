@@ -31,22 +31,24 @@
    ```
 5. 確認：`python cloud/colab_h3.py check` 會顯示餘額。
 
+> **預設 `start`＝完整安裝**（2026-10-11 起）：跟第一份 repo 完整版（32GB 顯卡＋64GB 記憶體）一樣，語音三環境、ComfyUI（H3、Qwen、Music 3、FlashVSR）、中文字型全部裝，約 10.5 分鐘、約 1.5 單元；G4 有 96GB 顯存，完整版的設定都跑得動。只要 H3 的人加 `--h3-only`（約 3.7 分鐘）。
+
 ## 2. 只有 H3 上雲端（本機能做首幀和配音）
 
 ```
-python cloud/colab_h3.py start                     # 開 G4、裝 ComfyUI＋H3（約 3.5–4 分鐘）、開 2 個 ComfyUI
+python cloud/colab_h3.py start --h3-only           # 開 G4、只裝 ComfyUI＋H3（約 3.5–4 分鐘）、開 2 個 ComfyUI
 python cloud/colab_h3.py batch S01/spec.json S02/spec.json ...   # 打包上傳 → 雲端跑 → 成品下載回各 spec 旁邊
 python cloud/colab_h3.py keepalive --minutes 20    # （選用）審片時保住機器
 python cloud/colab_h3.py stop                      # 用完一定要關
 ```
 - `batch` 吃的就是 `tools/h3_shot.py` 的分鏡 JSON；首幀、配音、參考圖等檔案會自動一起打包（相對路徑以 spec 所在資料夾為準）。成品放在 spec 旁邊：檔名是 `spec.json` 就放同一個資料夾，否則放在同名資料夾。
 - **多鏡範本自動判斷**：`pipeline/template_local/make_film.py` 偵測到本機顯卡跑不動 H3（不到 15GB 顯存或 30GB 記憶體）時，h3／amb 兩步會自動整批送到 Colab；也可以用 `set H3_BACKEND=colab`（或 `local`、`both`＝本機＋Colab 一起跑，見 §3b）強制。只跑 h3 時本機不必開 ComfyUI。
-- 沒開機就直接 `batch` 會自動先 `start`；加 `--stop-after` 跑完自動關機。
+- 沒開機就直接 `batch` 會自動先 `start`（預設完整安裝；只要 H3 就 `batch --h3-only …`）；加 `--stop-after` 跑完自動關機。
 
 ## 3. 全雲端（本機什麼都跑不動）
 
 ```
-python cloud/colab_h3.py full-setup                # G4 上裝全套：語音三環境、ComfyUI（H3、Qwen、Music 3、FlashVSR）、中文字型
+python cloud/colab_h3.py start                     # 預設＝完整安裝：語音三環境、ComfyUI（H3、Qwen、Music 3、FlashVSR）、中文字型（舊名 full-setup 也可以）
 python cloud/colab_h3.py smoke                     # 跑 setup/smoke_test.py，結果下載到 setup/smoke_out_colab/
 python cloud/colab_h3.py film pipeline/template_local chars masters frames   # 在雲端跑 make_film.py 指定階段，out/ 同步回本機
 python cloud/colab_h3.py film pipeline/template_local voices h3 amb edl music ending cut review
@@ -61,17 +63,18 @@ python cloud/colab_h3.py stop
 - 注意：雲端跑出來的 `out/*.json`（`voice_picks`、`amb`、`music_pick`、`edl`）裡存的是 `/content/...` 的雲端路徑；要在本機接著跑 `edl`／`cut` 得重跑前面那幾段，建議全程在雲端做完。
 - smoke_test 在 Linux 上自動跳過 `rtx_vsr`（只有 Windows 有），其餘全部通過；Linux 的放大用 lanczos（`UPSCALE=lanczos`，預設）或 FlashVSR（`UPSCALE=flashvsr`）。片尾名單會依實際做法自動寫成「在 Google Colab 執行」、放大工具照實列名。
 
-## 3b. 本機＋Colab 一起跑（本機有顯卡、也有 Google AI 訂閱）⚠ 尚未實測
+## 3b. 本機＋Colab 一起跑（本機有顯卡、也有 Google AI 訂閱）
 
 ```
 set H3_BACKEND=both                                # Linux/Mac：export H3_BACKEND=both
 python pipeline/template_local/make_film.py h3 amb # 或直接：python cloud/hybrid_h3.py out/h3/S01 out/h3/S02 ...
 ```
-- **做法**（`cloud/hybrid_h3.py`）：所有鏡頭放進同一個佇列。本機從前面一支一支拿、馬上開跑；Colab 開機約 3.5 分鐘後加入，每次從後面拿一小批（預設 4 支）交給 `colab_h3.py batch`，做完再拿。不事先對半分，因為兩邊速度不同、雲端晚開始。雲端失敗的鏡頭放回佇列給本機重跑；做完自動 `stop`（`HYBRID_KEEP=1` 不關，審片後重抽可以接著用）。
-- **估算（30 鏡、DMAD 90 格；未實測）**：只用本機 5090 約 24 分；只用 Colab 約 18 分（含開機）；一起跑約 11 分、約 1.7 單元。
+- **做法**（`cloud/hybrid_h3.py`）：所有鏡頭放進同一個佇列。本機從前面一支一支拿、馬上開跑；Colab（只裝 H3）開機約 3.5 分鐘後加入，每次從後面拿一批（預設最多 8 支）交給 `colab_h3.py batch`，做完再拿。不事先對半分，因為兩邊速度不同、雲端晚開始。**佇列快空時依兩邊實測速度估算雲端該拿幾支**（讓兩邊差不多同時做完，少於 2 支就不再派雲端）。雲端失敗的鏡頭放回佇列給本機重跑；做完在背景 `stop`（`HYBRID_KEEP=1` 不關，審片後重抽可以接著用）。
+- **2026-10-11 實測**（直式短片 34 鏡、3370 格、DMAD 4 步，RTX 5090＋G4、每批 8 支）：**17.9 分鐘**完成（本機 15 支、雲端 19 支、失敗 0）；同一輪本機每格 0.58 秒 → 全部本機推算 32.6 分鐘，**省 45%**；Colab **1.97 單元**（含開機、關機）。G4 開機 216 秒（本機同時先做了 4 支）；每批 8 支約 304–314 秒，其中上傳、解壓、輪詢、下載約 70 秒。
+- **這次修進工具的坑**：①最後一批雲端拿走 3 支、本機只剩 1 支 → 本機做完空等約 140 秒 → 改成依速度估算尾巴的分配；②每 45 秒輪詢一次 → 改 15 秒（`COLAB_POLL`）；③每批 4 支耗損占比太高 → 預設 8 支；④關機算進等待 → 改背景關機；⑤本機要用自己正式版的 `h3_shot.py` → `HYBRID_TOOLS` 指定資料夾；⑥機房每次不同（美國俄亥俄、荷蘭），都在授權排除地區；⑦中途要停：本機連 `h3_shot.py` 子程序和 ComfyUI 佇列一起清（`POST /queue {"clear": true}`、`POST /interrupt`），Colab 上的批次要另外 `stop`。
 - **什麼時候值得**：鏡頭少於 `HYBRID_MIN`（預設 8）支會自動全部本機跑（不值得等雲端開機）；約 20 支以上才明顯快。少量重抽直接本機跑。
 - **限制**：接力鏡頭（spec 有 `first_clip`）等兩邊做完才由本機照順序跑；本機顯卡跑 H3 時不能同時配音（配音要先做完）；雲端部分一樣有上面的 H3 授權地區問題。本機要先開 ComfyUI。
-- 環境變數：`HYBRID_CHUNK`（雲端每批幾支，預設 4）、`HYBRID_MIN`、`HYBRID_KEEP=1`、`COLAB_NAME`。
+- 環境變數：`HYBRID_CHUNK`（雲端每批最多幾支，預設 8）、`HYBRID_MIN`（預設 8）、`HYBRID_KEEP=1`、`HYBRID_TOOLS`、`COLAB_NAME`、`COLAB_POLL`。
 
 ## 4. 實測：該租哪張卡
 
