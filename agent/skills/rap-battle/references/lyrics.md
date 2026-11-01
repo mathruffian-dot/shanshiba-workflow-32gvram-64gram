@@ -7,7 +7,7 @@
 [Verse]                                   ← 12–16 句主歌（嗆對方＋捧自己）
 [Melodic Hook]                            ← 選用：4 句唱的副歌（rap→唱→rap，同一個人聲）
 [Verse]                                   ← 回到饒舌
-[Final Build: drums double, rapper shouts harder and harder]   ← 最後 4–7 句殺招段
+[Final Build: starts stripped back with no drums and a quiet restrained voice, adds one layer every two lines, voice rises step by step, full power only on the last line]   ← 最後約 8 句殺招段，情緒慢慢堆
 [Hard stop: one huge hit on the downbeat, then silence]        ← A：停在拍上
 [Crowd: OHHH] / [Outro: the beat rides out 4 bars with DJ scratches, no vocals]   ← B：收尾
 [End]
@@ -30,6 +30,7 @@
 
 - **嗆對方＋捧自己**，一句一個事實或梗；後出場的 B **每一句都接 A 丟出的點反嗆**。
 - **殺句**：兩人最後一句都要是「殺招」——短、狠、押韻、可以單獨截成短影音。A 的結尾直接用殺句收，**不要寫「麥克風給你」**；B 的殺句要一句比一句重，接住 A 的殺句反打。
+- **殺句的情緒要慢慢堆，不能一進去就全力**（使用者 2026-11-01）：殺招段約 8 句，分四步。①收：抽掉鼓和主樂器，人聲壓低；②起：鼓回來，咬字加重但不喊；③推：每兩句加一層、音量音高一句比一句高；④殺：前一拍抽空，最後一句全片最大聲。全程同一個 BPM，不准加速。
 - 結尾要有勝負感，不要「兩個人都一樣好」（定論交給 DJ 口白）。
 - 典故太難懂就換現場梗；數字、年份能用就用（字幕會轉阿拉伯數字）。
 - 政策題材的反派：見 `design.md`（不怪罪、不威脅）。
@@ -68,6 +69,7 @@
 
 - [ ] 押法至少 4 種、每 4 句換韻
 - [ ] 兩人最後一句都是殺招；A 沒有「麥克風給你」
+- [ ] 殺招段有四步：收、起、推、殺（情緒慢慢堆）
 - [ ] B 的每個反嗆都對到 A 的點（附對照表）
 - [ ] 唱段像流行副歌（有唱段的話）
 - [ ] 破音字、數字都處理過讀音
