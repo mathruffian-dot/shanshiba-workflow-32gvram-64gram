@@ -7,7 +7,7 @@
 [Verse]                                   ← 12–16 句主歌（嗆對方＋捧自己）
 [Melodic Hook]                            ← 選用：4 句唱的副歌（rap→唱→rap，同一個人聲）
 [Verse]                                   ← 回到饒舌
-[Final Build: starts stripped back with no drums and a quiet restrained voice, adds one layer every two lines, voice rises step by step, full power only on the last line]   ← 最後約 8 句殺招段，情緒慢慢堆
+[Breakdown: no drums, whispered rap]＋[Build-up: soft kick, low voice]＋[Build-up: full drums, louder and louder]＋[Drop: shouted]   ← 最後約 8 句殺招段分四段標，情緒慢慢堆（短標籤才有效）
 [Hard stop: one huge hit on the downbeat, then silence]        ← A：停在拍上
 [Crowd: OHHH] / [Outro: the beat rides out 4 bars with DJ scratches, no vocals]   ← B：收尾
 [End]
