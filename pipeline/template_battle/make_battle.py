@@ -1083,9 +1083,9 @@ def srt():
     def ts(t):
         t = max(0.0, t); h, r = divmod(t, 3600); m, s = divmod(r, 60)
         return f"{int(h):02d}:{int(m):02d}:{int(s):02d},{int(round((s - int(s)) * 1000)):03d}"
-    rows = [(l["start"], l["end"], f"{names[l['who']]}：{l['text'].replace('　', '，')}") for l in ev["lines"]]
+    rows = [(l["start"], l["end"], f"{names[l['who']]}：{l['text'].replace('　', '，').replace('？，', '？').replace('！，', '！')}") for l in ev["lines"]]
     if ev["beats3"]:
-        rows.append((ev["beats3"][0]["t"], ev["beats3"][-1]["t"] + 2.0, f"{names['J']}：" + "".join(b["text"] for b in ev["beats3"])))
+        rows.append((ev["beats3"][0]["t"], ev["beats3"][-1]["t"] + 2.0, f"{names['J']}：" + timeline()["dj"]["text"]["end"]))   # 字幕檔照實際念的（end_beats 只是畫面大字）
     rows.sort()
     p = OUT / "cut" / f"{CFG['title']}_v{VER}.srt"; p.parent.mkdir(exist_ok=True)
     p.write_text("\n".join(f"{i}\n{ts(a)} --> {ts(b)}\n{t}\n" for i, (a, b, t) in enumerate(rows, 1)), encoding="utf-8")

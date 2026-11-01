@@ -31,7 +31,8 @@ REPO = Path(__file__).resolve().parents[1]
 EXCLUDED = {"US", "GB", "KR", "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT",
             "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE"}     # MiniMax H3 licence I.5: US, EU, UK, Republic of Korea
 FILE_KEYS = ["first_frame", "last_frame", "first_clip"]
-RETRY = ("Connection was lost", "Timeout waiting for reply", "Read timed out", "ConnectionError", "RemoteDisconnected")
+RETRY = ("Connection was lost", "Timeout waiting for reply", "Read timed out", "ConnectionError", "RemoteDisconnected",
+         "503 Server Error", "Service Unavailable", "502 Server Error")   # 2026-11-01：Colab kernel 偶爾回 503
 
 
 def colab_bin():
@@ -80,17 +81,25 @@ def balance():
     return float(m.group(1)) if m else None
 
 
-def upload(name, local, remote):
-    out = cx(["upload", "-s", name, local, remote], timeout=1800)
-    if "Uploaded" not in out:
-        sys.exit(f"上傳失敗：{local}\n{out[-800:]}")
+def upload(name, local, remote, tries=4):
+    for k in range(tries):                                      # 2026-11-01〈人性之辯〉：96 MB 上傳被 ConnectionReset 中斷 → 重試
+        out = cx(["upload", "-s", name, local, remote], timeout=1800)
+        if "Uploaded" in out:
+            return
+        print(f"[colab] 上傳失敗（第 {k + 1} 次），重試：{out.strip()[-160:]}", flush=True)
+        time.sleep(10 * (k + 1))
+    sys.exit(f"上傳失敗：{local}\n{out[-800:]}")
 
 
 def download(name, remote, local):
     Path(local).parent.mkdir(parents=True, exist_ok=True)
-    out = cx(["download", "-s", name, remote, local], timeout=3600)
-    if "Downloaded" not in out:
-        sys.exit(f"下載失敗：{remote}\n{out[-800:]}")
+    for k in range(4):
+        out = cx(["download", "-s", name, remote, local], timeout=3600)
+        if "Downloaded" in out:
+            return
+        print(f"[colab] 下載失敗（第 {k + 1} 次），重試：{out.strip()[-160:]}", flush=True)
+        time.sleep(10 * (k + 1))
+    sys.exit(f"下載失敗：{remote}\n{out[-800:]}")
 
 
 def repo_bundle(full=False):
@@ -229,6 +238,9 @@ def cmd_batch(a):
         time.sleep(int(os.environ.get("COLAB_POLL", "15")))     # 2026-10-11 實測：45 秒輪詢每批多耗損約 30 秒 → 預設 15
         txt = vm(a.name, f"import os\np='/content/jobs/{batch}/progress.jsonl'\nprint(open(p).read() if os.path.exists(p) else '')\n"
                          f"l='/content/jobs/{batch}.log'\nprint('LOGTAIL', open(l).read()[-800:] if os.path.exists(l) else '')")
+        if "LOGTAIL" not in txt:                                # 2026-11-01〈人性之辯〉：CLI 回 503 的錯誤文字含 Traceback，被誤判成 VM 批次出錯 → 中斷、成品沒下載
+            print(f"[batch] 查進度沒拿到回應（VM 上照常在跑），下一輪再查：{txt.strip()[-160:]}", flush=True)
+            continue
         ev = [json.loads(l) for l in txt.splitlines() if l.startswith("{")]
         for e in ev[seen:]:
             if e["event"] == "job":
