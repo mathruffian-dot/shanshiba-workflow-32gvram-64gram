@@ -1,0 +1,16 @@
+[
+  {
+    "url": "https://huggingface.co/Alissonerdx/Minimax-H3-ComfyUI/resolve/8cfc2964aa872e3d18dd90bf7ae5c4cdf8303184/loras/minimax_h3_character_swap_v1.1_ref2va_fro.safetensors",
+    "sha256": "ab21167bed71db99ac09527ad1f26f5f3517687ebf2e1f1bd5e91cc0bdf9b9c3",
+    "size": 80673112,
+    "destination": "C:/AI/H3/ComfyUI-0.36.0/models/loras/minimax_h3_character_swap_v1.1_ref2va_fro.safetensors",
+    "name": "minimax_h3_character_swap_v1.1_ref2va_fro.safetensors"
+  },
+  {
+    "url": "https://huggingface.co/Alissonerdx/Minimax-H3-ComfyUI/resolve/8cfc2964aa872e3d18dd90bf7ae5c4cdf8303184/loras/minimax_h3_head_swap_v1.0_r32.safetensors",
+    "sha256": "ea97bd1a8178460661055784d63b4cb560732196fd15d5d7f33bfd214b65ab00",
+    "size": 310177072,
+    "destination": "C:/AI/H3/ComfyUI-0.36.0/models/loras/minimax_h3_head_swap_v1.0_r32.safetensors",
+    "name": "minimax_h3_head_swap_v1.0_r32.safetensors"
+  }
+]

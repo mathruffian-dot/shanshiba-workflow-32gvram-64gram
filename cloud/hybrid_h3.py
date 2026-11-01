@@ -29,7 +29,10 @@
   推算全部本機約 37 分 → 快約 55%；兩個帳號各扣約 2.0 單元。G4 開機看機房：美國 216 秒、荷蘭 8.5 分（下載模型慢），
   開機慢的那台只在後段出力 → 鏡頭少（< 20 支）時第二台不太划算，越長的片越值得。
 中途要停：本機要連 h3_shot.py 子程序與 ComfyUI 佇列一起清（POST /queue {"clear": true} 與 POST /interrupt）；
-          停掉這支程式後 Colab 上的批次還在算，要另外 python cloud/colab_h3.py stop。"""
+          停掉這支程式後 Colab 上的批次還在算，要另外 python cloud/colab_h3.py stop。
+HYBRID_KEEP=1 做完要手動關：第一台 `colab_h3.py stop`；第二台以後的 session 名稱是 h3_2、h3_3…，而且要在那個帳號的家目錄下關
+（set USERPROFILE=<家目錄> 再 `colab_h3.py --name h3_2 stop`），只跑 `colab_h3.py stop` 會回「Session 'h3' not found」、那台照扣。
+關完用 `colab_h3.py status` 確認 Active assignments: 0（2026-10-30〈電流之戰〉漏關第二台的教訓）。"""
 import collections
 import json
 import os
