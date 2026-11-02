@@ -407,6 +407,10 @@ def render_fx(cfg, shots, ev, src, dst, wav, post):
     flash = set(cfg.get("flash_scenes", []))
     cuts = [b["start"] for a, b in zip(shots, shots[1:]) if a["scene"] != b["scene"] and b["scene"] in flash]
     (Path(post) / "fx_events.json").write_text(json.dumps({**ev, "cuts": cuts, "punches": punches}, ensure_ascii=False, indent=1), encoding="utf-8")
+    for a in attacks:                                        # 押韻字不疊到別人的鏡頭（〈瑜亮之戰〉v6「三押！」殘留到孔明反應鏡）
+        nx = next((s for s in shots if a["t"] < s["start"] < a["t"] + 1 and a["who"] not in s.get("subj", [])), None)
+        if nx:
+            a["until"] = min(a["until"], nx["start"])
     tabs = {k: speaker_tab(names[k], col[k]) for k in names}
     bugs = {lab: round_bug(lab, names[who], col[who]) for _, _, lab, who in rounds}
     shot_at = lambda t: next((s for s in shots if s["start"] <= t < s["end"]), None)
