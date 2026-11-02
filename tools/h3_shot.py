@@ -327,18 +327,15 @@ def req(path, data=None, timeout=60):
 # ON automatically for shots >= 7 s (H3_VEDA_MIN_SEC) when the server has the node (local 5090: 4.5 s shot +10% slower, 12 s shot -29%);
 # spec "veda": true/false or env H3_VEDA=1/0 forces it.
 VEDA_PREDICTOR = os.environ.get("H3_VEDA_PREDICTOR", "minimax_h3_r2va_veda_preview_fp8.safetensors")
-VEDA_MIN_SEC = float(os.environ.get("H3_VEDA_MIN_SEC", "7"))   # auto-on only for shots >= 7 s; spec "veda": true/false or H3_VEDA=1/0 forces
 _VEDA_AVAILABLE = None
 
 
 def use_veda(spec):
     global _VEDA_AVAILABLE
-    if spec.get("veda") is False or os.environ.get("H3_VEDA", "") == "0":
-        return False
-    forced = spec.get("veda") is True or os.environ.get("H3_VEDA", "") == "1"
-    if not forced and float(spec.get("duration", 0)) < VEDA_MIN_SEC:   # short shots: no gain (local 5090 +10% slower at 4.5 s)
-        return False
-    if not forced and spec.get("control"):   # with Fun ControlNet (skeleton/depth) Veda smeared fast arms and lost the crossed-leg pose (2026-10-16)
+    # 2026-11-02 OFF by default: Veda makes the WHOLE frame flash at frames 51 / 119 / 187 (+18-25 luma levels, decays over ~4 frames).
+    # ep1-3 of the Confucius series: 10 of 17 Veda shots flash, 0 of 121 non-Veda shots; same shot + same seed with Veda off has no flash (84 -> 103 s, +23%).
+    # Only spec "veda": true or H3_VEDA=1 turns it on; run flashcheck.py on the clip if you do.
+    if not (spec.get("veda") is True or os.environ.get("H3_VEDA", "") == "1"):
         return False
     if _VEDA_AVAILABLE is None:
         try:
