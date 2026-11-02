@@ -1038,12 +1038,49 @@ def cut():
 
 
 # ------------------------------------------------------------------------------------------------ 自審
+def audio_checks():
+    """使用者抓過的聲音問題自動查（review 會印）：濾掉 300 Hz 以下（手機喇叭放不出來）的單聲道音量破洞、突然掉音；最後一句之後人聲還在唱；對齊低分句。"""
+    import librosa
+    import numpy as np
+    from scipy.signal import butter, sosfilt
+    sr = 16000; m = timeline()["marks"]
+    y = sosfilt(butter(4, 300, "hp", fs=sr, output="sos"), librosa.load(str(OUT / "audio" / "mix.wav"), sr=sr, mono=True)[0])
+    db = lambda a: 20 * np.log10(np.sqrt(np.mean(a ** 2)) + 1e-7)
+    h = int(0.05 * sr); end = int(m["music_end"] * sr)
+    low = [db(y[i:i + h]) < -42 for i in range(0, end, h)]; holes = []; i = 0
+    while i < len(low):
+        j = i
+        while j < len(low) and low[j]:
+            j += 1
+        if (j - i) * 0.05 >= 0.1 and i > 0:
+            holes.append((round(i * 0.05, 2), round(j * 0.05, 2)))
+        i = max(j, i + 1)
+    e = [db(y[int(t * sr):int((t + 0.5) * sr)]) for t in np.arange(0, m["music_end"], 0.5)]
+    drops = [(round(k * 0.5, 1), round(e[k - 1] - e[k], 1)) for k in range(1, len(e)) if e[k - 1] - e[k] >= 8]
+    rep = dict(holes=holes, drops=drops, tail={}, low_ok={})
+    for k in R:
+        al = json.loads((OUT / "song" / f"align_{k}.json").read_text(encoding="utf-8")); rows = al["rows"]
+        v = librosa.load(al["vocals"], sr=sr, mono=True)[0]
+        sung = np.median([db(v[int(x["start"] * sr):int(x["end"] * sr)]) for x in rows if x["end"] - x["start"] > 0.3])
+        t0 = rows[-1]["end"] + 0.3; on = [t for t in np.arange(t0, len(v) / sr - 1, 1.0) if db(v[int(t * sr):int((t + 1) * sr)]) > sung - 8]
+        if len(on) >= 2:
+            rep["tail"][k] = (round(float(on[0]), 1), round(float(on[-1]) + 1, 1))
+        rep["low_ok"][k] = [(round(x["start"], 1), x["text"]) for x in rows if 0 <= x.get("ok", 1) < 0.3]
+    (OUT / "review" / "audio_check.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
+    print("⚠ 音量／人聲檢查（每一條都要交代，見 review-checklist 第 H 節）：", flush=True)
+    print("  音量破洞（300 Hz 以上，秒）：", holes, flush=True)
+    print("  突然掉音（秒，掉幾 dB）：", drops, flush=True)
+    print("  最後一句之後人聲還在唱（歌曲時間）：", rep["tail"], flush=True)
+    print("  對齊低分句（一定要查，不准當成聽寫不準）：", rep["low_ok"], flush=True)
+
+
 @stage("review")
 def review():
     """每秒一格接觸表（時間碼・鏡號・當下歌詞）＋H3 自己切鏡偵測（用到的範圍內）＋響度。最後一定要人看完整成片。"""
     import numpy as np
     from PIL import Image, ImageDraw, ImageFont
     sys.path.insert(0, str(REPO / "tools")); from fonts import font   # noqa: E401
+    audio_checks()
     shots, end_still = resolve_shots(); tl = timeline()
     video = OUT / "cut" / f"{CFG['title']}_v{VER}_1920x1080.mp4"
     rv = OUT / "review" / f"fc_v{VER}"; rv.mkdir(parents=True, exist_ok=True)
