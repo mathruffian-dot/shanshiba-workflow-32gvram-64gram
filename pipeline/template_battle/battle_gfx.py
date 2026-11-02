@@ -222,12 +222,13 @@ def build_events(cfg, tl):
             ct = char_times(l); seq = "".join(c for c, _ in ct)
             k = seq.rfind(rh) if rh else -1
             hits = [ct[k + j][1] for j in range(len(rh))] if k >= 0 else []
-            lines.append(dict(who=who, text=l["show"], start=l["start"] - 0.05, end=l["end"] + 0.25, rh=l.get("rhyme_show", rh), hits=hits,
+            lines.append(dict(who=who, text=l["show"], start=l.get("show_start", l["start"]) - 0.05, end=l["end"] + 0.25, rh=l.get("rhyme_show", rh), hits=hits,
                               words=l["words"]))
             atk = l.get("atk")
             atk = (i % 2 == 1) if atk is None else atk
             if (atk or i == len(L) - 1) and hits:
-                attacks.append(dict(who=who, t=hits[-1], n="kill" if i == len(L) - 1 else len(rh)))
+                attacks.append(dict(who=who, t=hits[-1], n="kill" if i == len(L) - 1 else len(rh),
+                                    until=L[i + 1]["start"] if i + 1 < len(L) and L[i + 1].get("atk") is False else 1e9))   # 下一句是「收」的段落：押韻字不留到那句
     pos, text = tl["dj"]["pos"], tl["dj"]["text"]
     for key, (a, b) in pos.items():
         if key == "end":
@@ -304,7 +305,7 @@ def big_word(text, k, g):
     return im
 
 
-COMBO = {"kill": "殺招！", 1: "押韻！", 2: "雙押！", 3: "三押！"}
+COMBO = {"kill": "殺招！", 1: "押韻！", 2: "雙押！", 3: "三押！", 4: "四押！", 5: "五押！", 6: "六押！"}
 
 
 def combo_badge(n, g, k):
@@ -475,7 +476,7 @@ def render_fx(cfg, shots, ev, src, dst, wav, post):
                 img.alpha_composite(bw, (70, 90 + b["row"] * 165))
         for a in attacks:
             k = (t - a["t"]) * FPS
-            if 0 <= k < 24:
+            if 0 <= k < 24 and t < a["until"]:
                 b = combo_badge(a["n"], glow[a["who"]], k); img.alpha_composite(b, ((W - b.width) // 2, SUB_Y - 190))
         if len(cache) > 4000:
             cache.clear()

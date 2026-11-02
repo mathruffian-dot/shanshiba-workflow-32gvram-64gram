@@ -211,6 +211,16 @@ def sep_stems(src, d):
     return voc, ins
 
 
+def vocal_gaps(voc, rows, min_gap=3.0):
+    """逐句之間有沒有「人聲還在唱、歌詞卻沒對到」的空檔（Suno 常自己把副歌多唱一遍；〈瑜亮之戰〉v1 誤當器樂段，字幕和唱的人都漏了）。"""
+    import librosa
+    import numpy as np
+    v, sr = librosa.load(str(voc), sr=16000)
+    rms = lambda a, b: float(np.sqrt(np.mean(v[int(a * sr):int(b * sr)] ** 2)))
+    sung = float(np.median([rms(x["start"], x["end"]) for x in rows if x["end"] - x["start"] > 0.3]))
+    return [(round(x["end"], 1), round(n["start"], 1)) for x, n in zip(rows, rows[1:]) if n["start"] - x["end"] >= min_gap and rms(x["end"] + 0.2, n["start"] - 0.2) > sung * 0.4]
+
+
 def last_word_end(voc, word_end):
     """最後一個字唱完：強制對齊的最後一個詞結束時間（實測跟人工標的差 0–0.07 秒），人聲還很大聲就往後延，最多 0.3 秒。
     不用「人聲變小的時刻」：Suno 常在最後一句後面自己加觀眾喊聲、ad-lib，會被當成還在唱（實測晚 14 秒）。"""
@@ -268,6 +278,8 @@ def songs():
         print(k, r["name"], json.dumps({q: v for q, v in rep[k].items() if q != "low"}, ensure_ascii=False), flush=True)
         for b in rep[k]["low"]:
             print("   低分句（去聽這句有沒有唱錯）：", b, flush=True)
+        for g in vocal_gaps(voc, rows):
+            print(f"   ⚠ {g[0]}–{g[1]} 秒人聲還在唱，但歌詞沒對到（Suno 多唱一遍？）→ 把那幾句補進歌詞，字幕和鏡頭才不會漏", flush=True)
     if abs(rep["A"]["bpm"] - rep["B"]["bpm"]) > 2:
         print(f"⚠ 兩首 BPM 不同（{rep['A']['bpm']} / {rep['B']['bpm']}）：A 停在拍上→1 小節→B 會接不準，建議重生成同一個 BPM", flush=True)
     (d / "songs_report.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
@@ -453,6 +465,7 @@ def audio():
         for ln, r in zip(lines_of(k), D[k]["rows"]):
             out.append({"who": k, "section": r["section"], "text": r["text"], "show": show_text(ln), "rhyme": ln.get("rhyme", ""),
                         "rhyme_show": rhyme_show(ln), "atk": ln.get("atk"), "start": round(r["start"] + off, 3),
+                        **({"show_start": round(r["show_start"] + off, 3)} if r.get("show_start") else {}),
                         "end": round(min(r["end"], cap) + off, 3),
                         "words": [{"w": w["w"], "s": round(w["s"] + off, 3), "e": round(min(w["e"], cap) + off, 3)} for w in r["words"]]})
         return out
@@ -879,7 +892,7 @@ def segment(s, seg_dir, vsr_dir):
         src, mode = first, "still" if s.get("still") else "stand-in"
     else:
         src, mode = None, "slate"
-    if src is not None and out.exists() and out.stat().st_mtime > src.stat().st_mtime and abs(dur(out) - n / FPS) < 0.05:
+    if src is not None and out.exists() and out.stat().st_mtime > src.stat().st_mtime and abs(dur(out) - n / FPS) < 0.5 / FPS:   # 差 1 格就重做：容許 0.05 秒時舊片段少 1 格沒重剪，累積到畫面比聲音早 3 格（〈瑜亮之戰〉v2 抓到）
         return out, mode
     if mode == "slate":
         sh_(["ffmpeg", "-y", "-v", "error", "-f", "lavfi", "-i", f"color=c=0x303030:s=1920x1080:r=24", "-vf",
