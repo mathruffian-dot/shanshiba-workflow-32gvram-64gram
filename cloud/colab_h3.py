@@ -144,8 +144,8 @@ def new_session(name, gpu):
     cc = m.group(1) if m else "?"
     print(f"[colab] 機房：{m.group(2).strip() if m else '?'}（{cc}）", flush=True)
     if cc in EXCLUDED:
-        print("  ⚠ 這個機房在 MiniMax H3 授權排除的地區（美國／歐盟／英國／南韓）。授權沒有定義『使用』看人還是看機器；"
-              "要不要在這裡跑 H3 由你自己評估、風險自負。替代：台灣或日本機房的雲端 GPU（見 cloud/README.md）。", flush=True)
+        print("  ⚠ 警語：這個機房在 MiniMax H3 授權排除的地區（美國／歐盟／英國／南韓）。授權沒有定義『使用』看人還是看機器，"
+              "照字面可能不在授權範圍內，風險由你自負（不是法律意見）。工具照常繼續；想避開可改用台灣或日本機房的雲端 GPU（見 cloud/README.md）。", flush=True)
     vm(name, "import os; os.makedirs('/content/repo', exist_ok=True); print('ok')")
     return True
 
