@@ -31,11 +31,11 @@ def req(path, data=None, params=""):
 def submit(who, tag="a1"):
     r = CFG["rappers"][who]
     lyr = (HERE / "out" / "songtext" / f"suno_{who}_lyrics.txt").read_text(encoding="utf-8")
-    style = r["suno_style"]
+    style = os.environ.get("SUNO_STYLE") or r["suno_style"]     # 換人聲時用環境變數覆蓋風格
     if len(style) > 1000:
         sys.exit(f"風格 {len(style)} 字元，超過 Suno 上限 1000")
     inp = {"custom_mode": True, "instrumental": False, "model": "V6", "title": r.get("suno_title", f"{CFG['title']}_{r['name']}"),
-           "lyrics": lyr, "style": style, "negative_tags": r.get("suno_negative", ""), "vocal_gender": r.get("vocal_gender", "m"),
+           "lyrics": lyr, "style": style, "negative_tags": os.environ.get("SUNO_NEG") or r.get("suno_negative", ""), "vocal_gender": r.get("vocal_gender", "m"),
            "duration": int(r.get("suno_duration", 120))}
     res = req("/jobs/createTask", {"model": "ai-music-api/generate", "input": inp})
     print(res)

@@ -22,6 +22,10 @@ SUB_Y = 935
 INK, GOLD = (246, 244, 236), (255, 206, 96)
 CLOSE = ("ECU", "CU", "MCU")
 PUNCH = 1.18
+import os as _os
+_CFG0 = json.loads((HERE / "battle.json").read_text(encoding="utf-8")) if (HERE / "battle.json").exists() else {}
+LANG = _CFG0.get("lang", "zh")
+SUBS = _os.environ.get("SUBS", "bi")                      # 英文對決：bi＝英文大字＋中文小字｜en＝只有英文
 
 
 def _fonts(cfg):
@@ -114,11 +118,15 @@ def card(cfg, key, out):
     col, _ = colors(cfg)
     acc = lambda a: {"A": col["A"], "B": col["B"], "J": col["J"], "ink": INK, "gold": GOLD}.get(a, GOLD)
     if key == "title":
-        w, h = 1080, 300; im, d = _panel(w, h, GOLD)
+        en = cfg.get("title_en")
+        w, h = 1180, (380 if en else 300); im, d = _panel(w, h, GOLD)
         _t(d, (w / 2, 34), cfg["title"], font(112), GOLD, "ma")
-        _t(d, (w / 2 - 44, 196), R["A"]["name"], font(56), col["A"], "ra")
-        _t(d, (w / 2, 196), "vs", font(56), INK, "ma")
-        _t(d, (w / 2 + 44, 196), R["B"]["name"], font(56), col["B"], "la")
+        y = 196
+        if en:
+            _t(d, (w / 2, 172), en, font(62), INK, "ma"); y = 276
+        _t(d, (w / 2 - 44, y), R["A"]["name"], font(56), col["A"], "ra")
+        _t(d, (w / 2, y), "vs", font(56), INK, "ma")
+        _t(d, (w / 2 + 44, y), R["B"]["name"], font(56), col["B"], "la")
         return _save(im, out)
     if key == "vs":
         w, h = 1560, 150; im, d = _panel(w, h, GOLD)
@@ -215,28 +223,65 @@ def char_times(line):
 def build_events(cfg, tl):
     """字幕句、攻擊、片尾三拍大字。攻擊＝每位饒舌手第 2、4、6…句（押回去的那句；或歌詞那句寫 "atk": true/false）＋最後一句＝殺招。"""
     lines, attacks = [], []
+    en = LANG == "en"
+    nz = lambda w: re.sub(r"[^a-z]", "", w.lower().replace("\u00e9", "e"))
     for who in ("A", "B"):
         L = tl[who]
         for i, l in enumerate(L):
             rh = l.get("rhyme", "")
-            ct = char_times(l); seq = "".join(c for c, _ in ct)
-            k = seq.rfind(rh) if rh else -1
-            hits = [ct[k + j][1] for j in range(len(rh))] if k >= 0 else []
-            lines.append(dict(who=who, text=l["show"], start=l.get("show_start", l["start"]) - 0.05, end=l["end"] + 0.25, rh=l.get("rhyme_show", rh), hits=hits,
-                              words=l["words"]))
+            if en:                                           # 英文：韻腳＝一個字，用對齊的最後一個相同的字的開口時間
+                ws = [w for w in l["words"] if rh and nz(w["w"]) == nz(rh.split()[-1])]
+                hits = [ws[-1]["s"]] if ws else []
+            else:
+                ct = char_times(l); seq = "".join(c for c, _ in ct)
+                k = seq.rfind(rh) if rh else -1
+                hits = [ct[k + j][1] for j in range(len(rh))] if k >= 0 else []
+            lines.append(dict(who=who, text=l["show"], zh=l.get("zh", ""), start=l.get("show_start", l["start"]) - 0.05, end=l["end"] + 0.25,
+                              rh=l.get("rhyme_show", rh), hits=hits, words=l["words"]))
             atk = l.get("atk")
             atk = (i % 2 == 1) if atk is None else atk
             if (atk or i == len(L) - 1) and hits:
-                attacks.append(dict(who=who, t=hits[-1], n="kill" if i == len(L) - 1 else len(rh),
+                attacks.append(dict(who=who, t=hits[-1], n="kill" if i == len(L) - 1 else (l.get("combo", 1) if en else len(rh)),
                                     until=L[i + 1]["start"] if i + 1 < len(L) and L[i + 1].get("atk") is False else 1e9))   # 下一句是「收」的段落：押韻字不留到那句
     pos, text = tl["dj"]["pos"], tl["dj"]["text"]
     for key, (a, b) in pos.items():
         if key == "end":
             continue
-        parts = [x for x in re.findall(r"[^！？。]+[！？。]?", text[key]) if x.strip()]   # DJ 長句照句末標點拆段，時間依字數比例分
+        mf = HERE / "out" / "voice" / "ming" / f"dj_{key}.json"
+        if en and mf.exists():                               # 英文 DJ：每句的實際起訖（ming_en.py 接句子時記下的）
+            ms = json.loads(mf.read_text(encoding="utf-8"))
+            k_n = min([(b0, k2) for k2, (b0, _) in pos.items() if b0 > a], default=(1e9, None))
+            nxt = k_n[0]                                     # 下一段 DJ 口白（含片尾 end：它沒有字幕行，不會自動截短）
+            cut = min([nxt + s["at"][2] for s in cfg["shots"] if isinstance(s["at"], list) and s["at"][:2] == ["dj", k_n[1]]] + [nxt])
+            # 審核回饋 #3：收尾遠景 E01 排在片尾口白前 0.4 秒切進來 → 字幕要在「畫面切鏡」前消失，不是在口白前（以前只看口白，疊了 4 格）
+            for j, m in enumerate(ms):                       # 每段最後一句多留 1.2 秒（結論句「Can you prove it?」只有 0.6 秒），但不跨進下一段口白
+                lines.append(dict(who="J", text=m["en"], zh=m["zh"], start=a + m["start"] - 0.05,
+                                  end=min(a + m["end"] + (1.2 if j == len(ms) - 1 else 0.15), nxt - 0.25, cut - 0.08), rh="", hits=[]))
+            continue
+        parts = []                                           # DJ 長句照標點拆段，太長再照逗號拆（字才不會縮小，〈向日葵之戰〉使用者看不清）
+        for x in re.findall(r"[^！？。；：]+[！？。；：]?", text[key]):
+            cur = ""
+            for y in re.findall(r"[^，]+，?", x):
+                if cur and len(cur) + len(y) > 17:
+                    parts.append(cur); cur = ""
+                cur += y
+            if cur.strip():
+                parts.append(cur)
         n_all = sum(len(x) for x in parts); t0 = a
+        af = HERE / "out" / "voice" / "ming" / "dj_align.json"; times = None
+        if af.exists():                                      # 有逐字對齊（換了口白檔要重跑）就照實際念到的字出字幕
+            drop = "，。！？；：、《》「」 "; times = []
+            for w, st, en_ in json.loads(af.read_text(encoding="utf-8")).get(key, []):
+                cs = [c for c in w if c not in drop]
+                times += [(max(st, 0) + (en_ - st) * j / max(1, len(cs)), en_) for j in range(len(cs))]
+            if len(times) != sum(1 for x in parts for c in x if c not in drop):
+                times = None
+        k = 0
         for x in parts:
-            t1 = t0 + (b - a) * len(x) / n_all
+            if times:
+                m = sum(1 for c in x if c not in drop); t0, t1 = a + times[k][0], a + times[k + m - 1][1]; k += m
+            else:
+                t1 = t0 + (b - a) * len(x) / n_all
             lines.append(dict(who="J", text=x, start=t0 - 0.05, end=t1 + 0.1, rh="", hits=[])); t0 = t1
     beats3 = []
     if "end" in pos:
@@ -280,12 +325,59 @@ def render_sub(text, rh, who, lit, pops, now, col, glow):
     return im
 
 
+def render_sub_en(text, zh, rh, who, lit, pops, now, col, glow, targets):
+    """英文字幕（大）＋中文（小，SUBS=en 時不顯示）：韻腳字用己方顏色、唱到時砸下來；目標字加紙白淡紫底線（DJ 顏色）。"""
+    size = 60
+    while font(size).getlength(text) > 1700 and size > 36:
+        size -= 2
+    f = font(size); zf = font(40)
+    tw = f.getlength(text); zw = zf.getlength(zh) if zh else 0
+    im = Image.new("RGBA", (int(max(tw, zw)) + 120, 200), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+    x0 = (im.width - tw) / 2; y0 = 22
+    low = text.lower()
+    pos = low.rfind(rh.lower()) if rh else -1
+    if pos >= 0 and lit:                                     # 韻腳字另外畫：先畫前後文字，避免放大時疊在原本的字上
+        d.text((x0, y0), text[:pos], font=f, fill=(255, 255, 255, 255), stroke_width=6, stroke_fill=(0, 0, 0, 255))
+        d.text((x0 + f.getlength(text[:pos + len(rh)]), y0), text[pos + len(rh):], font=f, fill=(255, 255, 255, 255), stroke_width=6,
+               stroke_fill=(0, 0, 0, 255))
+    else:
+        d.text((x0, y0), text, font=f, fill=(255, 255, 255, 255), stroke_width=6, stroke_fill=(0, 0, 0, 255))
+    for m in re.finditer(r"[A-Za-z\u00e9\u00c9'-]+", text):
+        w = re.sub(r"[^a-z]", "", m.group().lower().replace("\u00e9", "e"))
+        if w in targets:
+            a_ = x0 + f.getlength(text[:m.start()]); b_ = a_ + f.getlength(m.group())
+            yy = y0 + size + 6
+            d.rounded_rectangle([a_, yy, b_, yy + 7], radius=3, fill=col["J"] + (255,), outline=(0, 0, 0, 255), width=1)
+    if pos >= 0 and lit:
+        word = text[pos:pos + len(rh)]
+        k = (now - pops[0]) * FPS if pops else 99
+        sc = 1.0 + 0.45 * max(0.0, 1 - k / 6) if 0 <= k < 6 else 1.0
+        fs = font(int(size * sc)); xw = x0 + f.getlength(text[:pos])
+        xx = xw; yy = y0 - int((sc - 1) * size * 0.9)
+        cc = (255, 255, 255) if 0 <= k < 4 else col[who]
+        g = Image.new("RGBA", im.size, (0, 0, 0, 0))
+        ImageDraw.Draw(g).text((xx, yy), word, font=fs, fill=glow[who] + (255,), stroke_width=10, stroke_fill=glow[who] + (255,))
+        im.alpha_composite(g.filter(ImageFilter.GaussianBlur(9)))
+        d.text((xx, yy), word, font=fs, fill=cc + (255,), stroke_width=6, stroke_fill=(0, 0, 0, 255))
+    if zh:
+        d.text(((im.width - zw) / 2, y0 + size + 22), zh, font=zf, fill=(236, 232, 222, 255), stroke_width=5, stroke_fill=(0, 0, 0, 255))
+    return im
+
+
+def gfx_textw(text):
+    size = 60
+    while font(size).getlength(text) > 1700 and size > 36:
+        size -= 2
+    return font(size).getlength(text)
+
+
 def speaker_tab(name, c):
-    f = font(30); w = int(f.getlength(name)) + 36
-    im = Image.new("RGBA", (w, 54), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
-    d.rounded_rectangle([0, 0, w - 1, 53], radius=10, fill=c + (235,))
+    big = LANG != "en"
+    f = font(30 if big else 24); hh = 54 if big else 40; w = int(f.getlength(name)) + (36 if big else 26)
+    im = Image.new("RGBA", (w, hh), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+    d.rounded_rectangle([0, 0, w - 1, hh - 1], radius=10, fill=c + (235,))
     dark = sum(c) > 560
-    d.text((18, 9), name, font=f, fill=(40, 20, 0, 255) if dark else (255, 255, 255, 255))
+    d.text((18 if big else 13, 9 if big else 6), name, font=f, fill=(40, 20, 0, 255) if dark else (255, 255, 255, 255))
     return im
 
 
@@ -297,8 +389,9 @@ def round_bug(label, name, c):
 
 
 def big_word(text, k, g):
-    sc = 1.0 + 0.9 * max(0.0, 1 - k / 6); f = font(int(118 * sc)); w = int(f.getlength(text)) + 60
-    im = Image.new("RGBA", (w, int(190 * sc)), (0, 0, 0, 0)); gl = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    base = 84 if LANG == "en" else 118
+    sc = 1.0 + 0.9 * max(0.0, 1 - k / 6); f = font(int(base * sc)); w = int(f.getlength(text)) + 60
+    im = Image.new("RGBA", (w, int(base * 1.6 * sc)), (0, 0, 0, 0)); gl = Image.new("RGBA", im.size, (0, 0, 0, 0))
     ImageDraw.Draw(gl).text((30, 12), text, font=f, fill=g + (255,), stroke_width=16, stroke_fill=g + (255,))
     im.alpha_composite(gl.filter(ImageFilter.GaussianBlur(12)))
     ImageDraw.Draw(im).text((30, 12), text, font=f, fill=(255, 244, 200, 255), stroke_width=8, stroke_fill=(40, 18, 0, 255))
@@ -306,10 +399,11 @@ def big_word(text, k, g):
 
 
 COMBO = {"kill": "殺招！", 1: "押韻！", 2: "雙押！", 3: "三押！", 4: "四押！", 5: "五押！", 6: "六押！"}
+COMBO_EN = {"kill": "KILL SHOT!", 1: "RHYME!", 2: "DOUBLE!", 3: "TRIPLE!"}
 
 
 def combo_badge(n, g, k):
-    txt = COMBO.get(n, f"{n}押！"); sc = 1.0 + 1.2 * max(0.0, 1 - k / 5); f = font(int(64 * sc))
+    txt = (COMBO_EN.get(n, "RHYME!") if LANG == "en" else COMBO.get(n, f"{n}押！")); sc = 1.0 + 1.2 * max(0.0, 1 - k / 5); f = font(int(64 * sc))
     im = Image.new("RGBA", (int(f.getlength(txt)) + 60, int(130 * sc)), (0, 0, 0, 0)); gl = Image.new("RGBA", im.size, (0, 0, 0, 0))
     ImageDraw.Draw(gl).text((30, 10), txt, font=f, fill=g + (255,), stroke_width=14, stroke_fill=g + (255,))
     im.alpha_composite(gl.filter(ImageFilter.GaussianBlur(10)))
@@ -366,7 +460,7 @@ def punch_plan(shots, lines):
     """長演唱鏡（> 3.3 秒、單人、沒字卡）在鏡內每句開頭交替推近（ERB 約 2 秒一刀，不用多生 H3）。"""
     plan = []
     for sh in shots:
-        if sh["kind"] != "sing" or sh["end"] - sh["start"] <= 3.3 or len(sh["subj"]) > 1 or sh.get("gfx") or sh.get("card"):
+        if sh["kind"] != "sing" or sh["end"] - sh["start"] <= 3.3 or len(sh["subj"]) > 1 or sh.get("gfx") or sh.get("card") or sh.get("dist") == "CU":   # 特寫再推會切到頭頂（〈向日葵之戰〉P11、Z19）
             continue
         starts = sorted(l["start"] + 0.05 for l in lines if sh["start"] + 0.6 < l["start"] + 0.05 < sh["end"] - 0.8)
         if not starts:
@@ -388,11 +482,12 @@ def render_fx(cfg, shots, ev, src, dst, wav, post):
     font(10, cfg)
     col, glow = colors(cfg)
     R, DJ = cfg["rappers"], cfg["dj"]
-    names = {"A": R["A"]["name"], "B": R["B"]["name"], "J": DJ.get("short", DJ["name"])}
+    names = {"A": R["A"].get("short", R["A"]["name"]) if LANG == "en" else R["A"]["name"], "B": R["B"].get("short", R["B"]["name"]) if LANG == "en" else R["B"]["name"], "J": DJ.get("short", DJ["name"])}
     tl = json.loads((Path(post).parent / "audio" / "timeline.json").read_text(encoding="utf-8"))
     rounds = [(tl["A"][0]["start"] - 0.6, tl["marks"]["a_end"], "ROUND 1", "A"),
               (tl["B"][0]["start"] - 0.6, tl["B"][-1]["end"] + 1.0, "ROUND 2", "B")]
     lines, attacks, beats3 = ev["lines"], ev["attacks"], ev["beats3"]
+    targets = {re.sub(r"[^a-z]", "", w.lower().replace("\u00e9", "e")) for w in cfg.get("targets", [])}
     punches = punch_plan(shots, lines)
     cap = cv2.VideoCapture(str(src))
     for p_ in punches:                                       # 推近中心＝那段中間格最大的臉
@@ -403,7 +498,17 @@ def render_fx(cfg, shots, ev, src, dst, wav, post):
             if fs_:
                 x, y, w_, h_ = max(fs_, key=lambda f: f[2] * f[3]); cx, cy = x + w_ / 2, y + h_ * 0.7
         p_["cx"], p_["cy"] = float(cx), float(cy)
+        # 審核回饋 #4：推近不能切到頭頂（舊 A11 在 102 秒推近，頭頂被裁掉）。整段取 5 格量「髮頂」＝臉框上緣再往上 0.45 個臉高，
+        # 裁切框上緣不得低於髮頂上方 3%；整段找不到臉就不推近。
+        tops = []
+        for k in range(5):
+            cap.set(cv2.CAP_PROP_POS_FRAMES, int((p_["t0"] + (p_["t1"] - p_["t0"]) * (k + 0.5) / 5) * FPS)); ok, frk = cap.read()
+            fk = faces(frk) if ok else []
+            if fk:
+                x, y, w_, h_ = max(fk, key=lambda f: f[2] * f[3]); tops.append(y - 0.45 * h_)
+        p_["ymax"] = float(max(0.0, min(tops) - 0.03 * H)) if tops else None
     cap.release()
+    punches = [p_ for p_ in punches if p_["ymax"] is not None]
     flash = set(cfg.get("flash_scenes", []))
     cuts = [b["start"] for a, b in zip(shots, shots[1:]) if a["scene"] != b["scene"] and b["scene"] in flash]
     (Path(post) / "fx_events.json").write_text(json.dumps({**ev, "cuts": cuts, "punches": punches}, ensure_ascii=False, indent=1), encoding="utf-8")
@@ -438,7 +543,7 @@ def render_fx(cfg, shots, ev, src, dst, wav, post):
         for p_ in punches:
             if p_["t0"] <= t < p_["t1"]:
                 hh, ww = int(H / PUNCH), int(W / PUNCH)
-                x0 = int(min(max(p_["cx"] - ww / 2, 0), W - ww)); y0 = int(min(max(p_["cy"] - hh / 2, 0), H - hh))
+                x0 = int(min(max(p_["cx"] - ww / 2, 0), W - ww)); y0 = int(min(max(p_["cy"] - hh / 2, 0), H - hh, p_["ymax"]))
                 fr = np.asarray(Image.fromarray(fr[y0:y0 + hh, x0:x0 + ww].astype(np.uint8)).resize((W, H), Image.LANCZOS), np.float32)
                 break
         shake = (0, 0); zoom = 1.0; ab = 0
@@ -466,10 +571,20 @@ def render_fx(cfg, shots, ev, src, dst, wav, post):
                 key = (l["text"], lit, tuple(int((t - h) * FPS) if 0 <= (t - h) * FPS < 6 else -1 for h in l["hits"]))
                 sp = cache.get(key)
                 if sp is None:
-                    sp = render_sub(l["text"], l["rh"], l["who"], lit, l["hits"], t, col, glow); cache[key] = sp
+                    if LANG == "en":
+                        sp = render_sub_en(l["text"], l.get("zh", "") if SUBS != "en" else "", l["rh"], l["who"], lit, l["hits"], t, col, glow,
+                                           targets)
+                    else:
+                        sp = render_sub(l["text"], l["rh"], l["who"], lit, l["hits"], t, col, glow)
+                    cache[key] = sp
                 sx = (W - sp.width) // 2
-                img.alpha_composite(sp, (sx, SUB_Y - 80 + shake[1] // 2))
-                tb = tabs[l["who"]]; img.alpha_composite(tb, (max(10, sx + 60 - tb.width - 14), SUB_Y + 14 + shake[1] // 2))
+                if LANG == "en":
+                    sy = H - sp.height - 6 + shake[1] // 2
+                    img.alpha_composite(sp, (sx, sy))
+                    tb = tabs[l["who"]]; img.alpha_composite(tb, (max(10, sx + (sp.width - int(gfx_textw(l["text"]))) // 2), max(0, sy - 40)))
+                else:
+                    img.alpha_composite(sp, (sx, SUB_Y - 80 + shake[1] // 2))
+                    tb = tabs[l["who"]]; img.alpha_composite(tb, (max(10, sx + 60 - tb.width - 14), SUB_Y + 14 + shake[1] // 2))
         for t0, t1, lab, who in rounds:
             if t0 <= t <= t1:
                 img.alpha_composite(bugs[lab], (36, 30))
@@ -477,7 +592,7 @@ def render_fx(cfg, shots, ev, src, dst, wav, post):
             k = (t - b["t"]) * FPS
             if k >= 0:
                 bw = big_word(b["text"], k, glow["J"]) if k < 6 else cache.setdefault(("bw", b["text"]), big_word(b["text"], 99, glow["J"]))
-                img.alpha_composite(bw, (70, 90 + b["row"] * 165))
+                img.alpha_composite(bw, (70, (40 + b["row"] * 115) if LANG == "en" else (90 + b["row"] * 165)))
         for a in attacks:
             k = (t - a["t"]) * FPS
             if 0 <= k < 24 and t < a["until"]:

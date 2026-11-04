@@ -79,6 +79,13 @@ python cloud/colab_h3.py stop
 | `flash_scenes` | 切進這些地點時閃白（其他插入鏡直接切） |
 | `locked` | 鏡頭鎖死不推近的鏡號 |
 | `crowd_sfx` | 觀眾歡呼音效資料夾（預設 `sfx/歡呼`） |
+| `tail_ring` | 預設 `true`：殺句後留殘響、補伴奏破洞、B 前奏淡入，不會突然切斷 |
+| `verdict_bed` | 預設 `true`：DJ 收尾口白很長時，用 A 的前奏伴奏壓低墊底 |
+| `lang` | `zh`（預設）｜`en`：英文對決的對齊、聽寫、H3 台詞語言 |
+| `bpm` | 抓拍子的先驗（慢歌要給，不然會抓成兩倍速） |
+| `film_look_insert`、`arena_only` | 插入鏡專用的電影感句；`no_text` 裡只屬於擂台的句子（插入鏡會拿掉，空景才不會畫出饒舌手或舞台地板） |
+| `rappers.B.end_on_hold`、`rappers.B.keep_stop` | 最後一句後面有長音、自己收掉：唱到底就結束，不換伴奏分軌；最後一個音跟音樂一起停：人聲慢一點收，那個空檔不補 |
+| `rappers.<A\|B>.align_from` | 前奏有 Suno 自己加的喊話時，對齊前把這秒數之前靜音 |
 | `shots[]` | 每一鏡，見下表 |
 
 每一鏡（`shots[]`）：
@@ -96,6 +103,23 @@ python cloud/colab_h3.py stop
 | `gfx`、`card` | 這鏡要疊的字卡代號、直排名牌（`A`／`B`／`K`） |
 | `still`、`custom` | 首幀靜態慢推、自己做的影片檔 |
 | `last_first`、`calm`、`draft`、`cons`、`seed_bump`、`frame_seed_bump` | 尾幀＝首幀（防切鏡）、慢動作、`false`＝14 步、額外限制句、換 H3 seed、換首幀 seed |
+
+## 自審與修歌工具
+
+都在本資料夾執行（Voice venv）。怎麼用、什麼時候用，見技能 `references/review-checklist.md` 第 H 節。
+
+| 工具 | 用途 |
+|---|---|
+| `lyric_audit.py [A B]` | 全曲逐句聽寫，用拼音比。對齊分數高不代表字唱對 |
+| `gap_check.py <A\|B>` | 列人聲無聲段並比對原唱：原唱有聲、成品沒聲的一定要修 |
+| `level_scan.py` | 全片音量掃描，抓突然變小聲或破洞 |
+| `motion_check.py` | 每鏡動作量。尾幀＝首幀常把人鎖死 |
+| `finger_sheet.py [--clips] [鏡號]` | 手部放大表。`--clips` 看 H3 成片：首幀 5 根，拍動作時可能多長一根 |
+| `voice_diff.py 檔案…` | 候選人聲跟前面各場比聲紋、音高（`BATTLE_FILMS`＝放各場對決的資料夾） |
+| `suno_replace.py submit …` | Suno 局部重唱，只換唱歪的那幾個字（`SUNO_SRC=標籤:第幾版`、`SUNO_PROMPT`、`SUNO_PART`） |
+| `run_shared.py stage…` | 跟別的工作共用 GPU 時跑 `make_battle.py`，不卸載別人的模型 |
+
+換了歌要先跑 `audio` 再跑 `specs`、`cut`；漏跑的話 `make_battle.py` 會停下來提醒。
 
 ## 輸出（`out/`）
 
