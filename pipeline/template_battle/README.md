@@ -118,6 +118,9 @@ python cloud/colab_h3.py stop
 | `voice_diff.py 檔案…` | 候選人聲跟前面各場比聲紋、音高（`BATTLE_FILMS`＝放各場對決的資料夾） |
 | `suno_replace.py submit …` | Suno 局部重唱，只換唱歪的那幾個字（`SUNO_SRC=標籤:第幾版`、`SUNO_PROMPT`、`SUNO_PART`） |
 | `run_shared.py stage…` | 跟別的工作共用 GPU 時跑 `make_battle.py`，不卸載別人的模型 |
+| `colab_only.py [鏡號…]` | 本機 H3 被別的工作佔著時只用 Colab 拍：多帳號（`COLAB_HOMES`）共用佇列、失敗重試一輪、做完關機；看到同名 VM 已開著就不碰（確定是自己的才設 `COLAB_REUSE=1`） |
+| `dj_align.py` | DJ 口白逐字對齊，鏡頭切點與 DJ 字幕都用它；換口白檔要重跑 |
+| `resing_lines.py <A|B> <窗開始> <窗結束> <候選…>` | 局部重唱候選逐句聽寫比對（人聲、混音各一次），量窗外時間差與多唱 |
 
 換了歌要先跑 `audio` 再跑 `specs`、`cut`；漏跑的話 `make_battle.py` 會停下來提醒。
 
