@@ -246,6 +246,9 @@ def build_prompt(spec):
 def lint(prompt, duration=None):
     """Return (errors, warnings) against the official Ref2VA format."""
     E, W = [], []
+    ctrl = sorted({hex(ord(c)) for c in prompt if ord(c) < 32 and c not in "\n\r\t"})
+    if ctrl:  # 2026-11-06 Ep9: a bad regex replacement left \x01\x02 in 23 lines; H3 babbled instead of reading them
+        E.append(f"control characters in prompt: {ctrl}")
     heads = [(m.group(1), m.group(2), m.start()) for m in re.finditer(r"^([a-z_]+)(:?)[ \t]*$", prompt, re.M) if m.group(1) in SECTIONS]
     names = [h[0] for h in heads]
     if names != SECTIONS:
