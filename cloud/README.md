@@ -78,6 +78,7 @@ python pipeline/template_local/make_film.py h3 amb # 或直接：python cloud/hy
 - **什麼時候值得**：鏡頭少於 `HYBRID_MIN`（預設 8）支會自動全部本機跑（不值得等雲端開機）；約 20 支以上才明顯快。少量重抽直接本機跑。
 - **限制**：接力鏡頭（spec 有 `first_clip`）等兩邊做完才由本機照順序跑；本機顯卡跑 H3 時不能同時配音（配音要先做完）；雲端部分一樣有上面的 H3 授權地區問題。本機要先開 ComfyUI。
 - 環境變數：`HYBRID_CHUNK`（雲端每批最多幾支，預設 8）、`HYBRID_MIN`（預設 8）、`HYBRID_KEEP=1`、`HYBRID_TOOLS`、`COLAB_NAME`、`COLAB_POLL`、`HYBRID_COLAB_HOMES`（兩個以上帳號，見下）。
+- **同一個帳號開兩台 G4 也可以（2026-11-06 實測，Google AI 方案帳號）**：`colab new -s <名稱> --gpu G4` 用不同名稱連開兩台，各約 5 秒 READY，兩台都是完整的 RTX PRO 6000 96 GB（機房可能不同，例如一台荷蘭一台美國）；`colab usage` 顯示扣費率 20.1 單元／小時（兩台合計，單台約 10）。用 `colab_h3.py --name h3_2 ...` 就能在同一個家目錄開第二台；記得兩台都要各自 stop。
 - **兩個 Colab 帳號同時跑（2026-10-29 實測）**：Colab CLI 的登入憑證放在家目錄（`~/.config/colab-cli/token.json`），一個家目錄＝一個帳號。第二個帳號：建一個空資料夾（例如 `C:\colab_home2`），在 cmd 跑 `set USERPROFILE=C:\colab_home2`、`set HOME=C:\colab_home2`、`colab usage`，瀏覽器登入第二個帳號（一次就好）。之後 `set HYBRID_COLAB_HOMES=default;C:\colab_home2`（Linux／macOS 用 `:` 分隔）→ 本機 1 個 ComfyUI＋每台 G4 各 2 個，各扣各自帳號的單元。實測 38 支 3–4.5 秒短鏡：**16.5 分鐘**（本機 10、兩台雲端 10＋18；推算全部本機約 37 分），兩個帳號各扣約 2.0 單元。G4 開機看機房：美國 216 秒、荷蘭 8.5 分（下載模型慢）→ 鏡頭少於約 20 支時開第二台不太划算。
 
 ## 4. 實測：該租哪張卡
