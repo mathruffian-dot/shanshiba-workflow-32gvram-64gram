@@ -1,4 +1,5 @@
 """只用 Colab 跑 H3（本機 ComfyUI 被別的 session 佔著時用，完全不碰本機佇列）。
+開跑前先用 cloud/colab_plan.py 算要開幾台，告訴使用者、等使用者同意（2026-11-06 起）；同一帳號開兩台＝COLAB_HOMES 寫兩次同一個家目錄。
 每個帳號開一台 G4（各 2 個 ComfyUI）→ 大家從同一個佇列一批一批拿 → 下載回 out/h3/<鏡>/ → 立刻關機並確認。
 失敗的鏡放回佇列，最多重試一輪；還是失敗就列出來。
 用法：python colab_only.py [鏡號…]    （不給鏡號＝全部還沒有 clip.mp4、或 spec 比 clip 新的鏡）
