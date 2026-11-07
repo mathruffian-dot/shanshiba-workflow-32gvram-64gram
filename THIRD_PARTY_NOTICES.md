@@ -32,6 +32,7 @@
 | **Ming-3.0-TTS 0.5B**（inclusionAI 螞蟻集團；drbaph 的 ComfyUI 單檔轉檔）＋ComfyUI-Ming-3-tts 節點（Saganaki22） | MIT（程式、權重、轉檔、節點） | 可以 | 保留授權；參考音須有權利 | https://huggingface.co/inclusionAI 、https://huggingface.co/drbaph/Ming-3.0-tts-ComfyUI 、https://github.com/Saganaki22/ComfyUI-Ming-3-tts |
 | g2pW 注音模型（G2PWModel-v2-onnx，BreezyVoice 第一次執行時自動下載）＋bert-base-chinese tokenizer | Apache-2.0 | 可以 | 保留授權 | https://github.com/GitYCC/g2pW |
 | Whisper large-v3（openai）／faster-whisper-large-v3（Systran 轉檔） | Apache-2.0／MIT | 可以 | 保留授權 | https://huggingface.co/Systran/faster-whisper-large-v3 |
+| **MMS_FA 強制對齊模型**（torchaudio `pipelines.MMS_FA`，Meta MMS；第一次執行自動下載。`tools/pron_check.py` 聲調審核、`tools/vc_swap.py` 換字找位置用，只算時間、不產生聲音） | **CC-BY-NC 4.0** | **不可以**（非商用） | 標示出處；要營利請改用可商用的對齊器 | https://pytorch.org/audio/stable/generated/torchaudio.pipelines.MMS_FA.html |
 | BS-RoFormer `model_bs_roformer_ep_317_sdr_12.9755`（viperx 訓練） | **未標示授權** | 不明 | 只附下載連結，不轉散布，自行評估 | https://github.com/ZFTurbo/Music-Source-Separation-Training/blob/main/docs/pretrained_models.md |
 | FlashVSR v1.1 | Apache-2.0（含 Wan2.1 VAE，Apache-2.0） | 可以 | 保留授權 | https://huggingface.co/JunhaoZhuang/FlashVSR-v1.1 |
 | 動作 LoRA：JOKER141 Combat-Base-V2、GunFu、Motion-Continuity-Repair；RunningHubAI speed-slider-1.1 | **未標示授權**（等同保留所有權利）；同時是 H3 衍生作品 | 不明 | 只附連結、不轉散布；至少須遵守 H3 授權 | https://huggingface.co/JOKER141 、https://huggingface.co/RunningHubAI/rh-h3-speed-slider-1.1-lora |

@@ -108,6 +108,7 @@ tools/                      全域工具（放到 C:\AI\tools）
   make_whitemodel.py        舞蹈／武打：原片 → 灰色白模影片，當 H3 動作參考
   make_narration.py         口播／旁白：BreezyVoice 一次念 2–3 句、停頓照標點、自動挑候選
   cosy_vc.py                換聲：Seedance 等雲端影片的台詞換成角色音色，字的時間不變（選用）
+  vc_swap.py                換字：念錯的字用 Ming 角色聲音重念、接回原位置再整句換聲，不重拍影片（選用）
   start_comfy.cmd           啟動 ComfyUI
   img25.py                  OpenAI Image 2.5 生圖／編輯（選用，雲端）
   pron_check.py／pron_compare.py  中文配音聲調審核
