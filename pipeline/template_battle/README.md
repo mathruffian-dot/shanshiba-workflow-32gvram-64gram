@@ -111,6 +111,7 @@ python cloud/colab_h3.py stop
 | 工具 | 用途 |
 |---|---|
 | `lyric_audit.py [A B]` | 全曲逐句聽寫，用拼音比。對齊分數高不代表字唱對 |
+| `poly_check.py [--audio]` | 破音字：歌詞與 DJ 口白逐字查教育部辭典（簡編本＋修訂本）找前後文該念的音，檢查同音字對不對；`--audio` 用 DJ 錄音比各種念法 → `out/review/poly_check.md` |
 | `gap_check.py <A\|B>` | 列人聲無聲段並比對原唱：原唱有聲、成品沒聲的一定要修 |
 | `level_scan.py` | 全片音量掃描，抓突然變小聲或破洞 |
 | `motion_check.py` | 每鏡動作量。尾幀＝首幀常把人鎖死 |
