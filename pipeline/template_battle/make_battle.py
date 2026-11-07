@@ -394,6 +394,34 @@ def audio():
         g = np.sqrt(np.mean(q["mix"][w0:cut] ** 2)) / (np.sqrt(np.mean(q["inst"][w0:cut] ** 2)) + 1e-9)
         m[:cut - x] = q["inst"][:cut - x] * g
         m[cut - x:cut] = q["inst"][cut - x:cut] * g * np.linspace(1, 0, x)[:, None] + q["mix"][cut - x:cut] * np.linspace(0, 1, x)[:, None]
+        # 伴奏分軌在 Suno 喊話處會整段挖空（〈Bravo 之戰〉v1 2:00 空掉 1.5 秒、−65 dB；〈瑜亮之戰〉1:56、0:08）：
+        # 原曲那裡有聲音、伴奏分軌沒聲音的格子，用前一小節（不行再前兩小節）同拍位的伴奏補，前後 20 ms 交叉
+        from scipy.signal import butter, sosfilt
+        hop = int(0.05 * SR); bar = int(4 * q["period"] * SR); xf = int(0.02 * SR)
+        hp = butter(2, 300, "hp", fs=SR, output="sos")
+        env = lambda a: np.sqrt(np.convolve(sosfilt(hp, a[:cut - x].mean(1)) ** 2, np.ones(hop) / hop, "same"))[::hop]
+        ei, em = env(m), env(q["mix"])
+        hole = (ei < np.median(ei) * 0.12) & (em > np.median(em) * 0.3)
+        i = 0; runs = []
+        while i < len(hole):
+            if hole[i]:
+                j = i
+                while j < len(hole) and hole[j]:
+                    j += 1
+                runs.append((i, j)); i = j
+            else:
+                i += 1
+        for i, j in runs:
+            a0, a1 = max(0, i * hop - 5 * hop), min(cut - x, j * hop + 3 * hop)   # 洞的邊緣能量是漸變的，門檻抓不到，前後多補一點
+            for kb in (1, 2):
+                s0 = a0 - kb * bar
+                if s0 >= 0 and env(m)[s0 // hop:(s0 + a1 - a0) // hop].min(initial=1e9) >= np.median(ei) * 0.3:
+                    w = np.ones((a1 - a0, 1), np.float32); w[:xf] = np.linspace(0, 1, xf)[:, None]; w[-xf:] = np.linspace(1, 0, xf)[:, None]
+                    m[a0:a1] = m[a0:a1] * (1 - w) + m[s0:s0 + a1 - a0] * w
+                    print(f"{k} 前奏伴奏破洞 {a0 / SR:.2f}–{a1 / SR:.2f} 秒（歌曲時間）用前 {kb} 小節補", flush=True)
+                    break
+            else:
+                print(f"⚠ {k} 前奏伴奏破洞 {a0 / SR:.2f}–{a1 / SR:.2f} 秒補不到，要人聽", flush=True)
         return m
 
     A, B = D["A"], D["B"]

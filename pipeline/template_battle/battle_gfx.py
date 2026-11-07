@@ -592,7 +592,7 @@ def render_fx(cfg, shots, ev, src, dst, wav, post):
             k = (t - b["t"]) * FPS
             if k >= 0:
                 bw = big_word(b["text"], k, glow["J"]) if k < 6 else cache.setdefault(("bw", b["text"]), big_word(b["text"], 99, glow["J"]))
-                img.alpha_composite(bw, (70, (40 + b["row"] * 115) if LANG == "en" else (90 + b["row"] * 165)))
+                img.alpha_composite(bw, (70, (40 + b["row"] * 115) if LANG == "en" else ((90 + b["row"] * 165) if len(beats3) <= 3 else (50 + b["row"] * 145))))   # 4 行時收緊，第 4 行不碰投票卡（〈Bravo 之戰〉v2）
         for a in attacks:
             k = (t - a["t"]) * FPS
             if 0 <= k < 24 and t < a["until"]:
