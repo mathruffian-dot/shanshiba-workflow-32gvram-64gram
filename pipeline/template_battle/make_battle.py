@@ -418,7 +418,18 @@ def audio():
                 spans[-1][1] = max(spans[-1][1], a1)
             else:
                 spans.append([a0, a1])
-        e_m = env(m); xf = int(0.04 * SR)
+        # 〈Bravo 之戰〉v4 使用者：2:00「還是要跳」→ 不再只補洞的那 1.7 秒（洞的頭尾在小節中間，換來源的地方正好在音符上），
+        # 改成從洞前的小節線換到洞後的小節線（整小節換，交叉淡化在小節線前 40 ms 做完，下拍的重音都是完整的）
+        one = int(round(q["one"] * SR)); xf = int(0.04 * SR)
+        lines_ = [one - k_ * bar for k_ in range(0, 64) if one - k_ * bar >= 0]
+        whole = []
+        for a0, a1 in spans:
+            b0 = max([l_ for l_ in lines_ if l_ <= a0] or [a0]); b1 = min([l_ for l_ in lines_ if l_ >= a1] or [a1])
+            if b1 > cut - x:                                  # 洞後的小節線超過前奏 → 只換到前奏結束前
+                b1 = a1
+            whole.append([max(0, b0 - xf), b1])
+        spans = whole
+        e_m = env(m)
         chroma = lambda a: librosa.feature.chroma_stft(y=a.mean(1), sr=SR, hop_length=2048).mean(1) if len(a) > 4096 else np.zeros(12)
         for a0, a1 in spans:
             # 補的來源不再固定「前一小節」（和弦常不一樣，〈Bravo 之戰〉v3 2:00 聽起來跳接）：前後各一小節的和弦最像的那個小節數

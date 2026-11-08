@@ -6,7 +6,9 @@
   3. 窗頭、窗尾各自量拍子差（伴奏＝原曲減人聲，起音包絡相關，1 ms 精度），窗內照兩端線性對齊（FFT 重取樣，最多差零點幾 %，聽不出來）；
   4. 窗頭、窗尾各自量伴奏音量，窗內線性補（最多 ±3 dB）；
   5. 相鄰兩個窗直接互接（不經過定稿），等功率交叉 40 ms；
-  6. 報告每個接點：搬到哪、人聲音量、兩端拍子差；接完再量一次跟定稿的拍子差（要 ≤3 ms）。
+  6. 報告每個接點：搬到哪、人聲音量、兩端拍子差；接完再量一次跟定稿的拍子差（要 ≤3 ms）；
+     兩版同一個字時間不一樣（一版接點後才開口、另一版接點前就唱完）會警告「可能少一個字」——〈Bravo 之戰〉v4「張揚」的「揚」就是這樣被切掉，
+     這種要只剪人聲（用分好的人聲，在同一個母音的長音裡剪掉多出來的長度、交叉 30 ms，再疊回原版伴奏），音樂不剪。
 用法（Voice venv）：python splice_resing.py plan.json
 plan.json：{"base": "out/suno/<歌>_s2_v1.mp3", "out": "song/B.wav",
             "windows": [{"take": "out/suno/<歌>_rb1_v1.mp3", "t0": 28.1, "t1": 38.9, "lag_ms": -22}, …]}
@@ -126,7 +128,16 @@ def main():
         here = max(L["src"].vdb(t + lag_of(L, t)), R["src"].vdb(t + lag_of(R, t)))
         g = float(grid[int(np.argmin(score))]); new = g if min(score) <= here - 5 else t
         L["b"] = R["a"] = new
-        rep.append(dict(seam=f"{L['name']}→{R['name']}", old=round(t, 2), new=round(new, 2), voc_old=round(here), voc_new=round(min(min(score), here))))
+        # 字的時間兩版不一樣（〈Bravo 之戰〉v4：rb9a 的「揚」在接點後 0.08 秒才開口 → 被切掉）
+        # 判斷法：接點前後 0.4 秒兩版的音高曲線，兩版都有聲的格子音高差的中位數 > 1.5 半音＝兩版這裡唱的不是同一個字（或時間錯開）
+        def pitch(S, seg):
+            a = new - 0.4 + lag_of(seg, new); y = S.voc[max(0, int(a * SR)):int((a + 0.8) * SR)].mean(1)
+            f0, _, _ = librosa.pyin(librosa.resample(y, orig_sr=SR, target_sr=22050), fmin=70, fmax=800, sr=22050, frame_length=1024, hop_length=441)
+            return 12 * np.log2(f0 / 100)
+        pa, pb = pitch(L["src"], L), pitch(R["src"], R); m_ = min(len(pa), len(pb)); both = ~np.isnan(pa[:m_]) & ~np.isnan(pb[:m_])
+        dp = float(np.median(np.abs(pa[:m_][both] - pb[:m_][both]))) if both.sum() >= 5 else 0.0
+        rep.append(dict(seam=f"{L['name']}→{R['name']}", old=round(t, 2), new=round(new, 2), voc_old=round(here), voc_new=round(min(min(score), here)),
+                        word_risk=dp > 1.5, pitch_diff=round(dp, 1)))
     # 4. 依段落表重組，等功率交叉
     out = np.zeros((n, 2), np.float32); out_i = np.zeros((n, 2), np.float32); x = int(XF * SR); hx = x // 2
     for k, s in enumerate(segs):
@@ -165,7 +176,8 @@ def main():
         t = r_["new"]; lb = lag_at(base, O, t - 2.0, t - 0.05, 0); la = lag_at(base, O, t + 0.05, t + 2.0, 0)
         r_.update(after_lag_ms=[lb[0], la[0]])
         print(f"  接點 {r_['seam']}：{r_['old']:.2f} → {r_['new']:.2f} 秒，人聲 {r_['voc_old']} → {r_['voc_new']} dB；接完拍子差 前 {lb[0]} ms／後 {la[0]} ms"
-              + ("  ⚠ 拍子沒對齊" if max(abs(lb[0]), abs(la[0])) > 3 else "") + ("  ⚠ 接點還在字上，要人聽" if r_["voc_new"] > -30 else ""))
+              + ("  ⚠ 拍子沒對齊" if max(abs(lb[0]), abs(la[0])) > 3 else "") + ("  ⚠ 接點還在字上，要人聽" if r_["voc_new"] > -30 else "")
+              + (f"  ⚠ 接點前後兩版唱的不一樣（音高差 {r_['pitch_diff']} 半音）：可能少一個字或重複一個字，逐字對" if r_["word_risk"] else ""))
     (dst.parent / f"{dst.stem}_splice.json").write_text(json.dumps(dict(windows=[{k: v for k, v in w.items()} for w in W], seams=rep),
                                                                   ensure_ascii=False, indent=1), encoding="utf-8")
 
