@@ -1228,6 +1228,15 @@ def audio_checks():
     print("  突然掉音（秒，掉幾 dB）：", drops, flush=True)
     print("  最後一句之後人聲還在唱（歌曲時間）：", rep["tail"], flush=True)
     print("  對齊低分句（一定要查，不准當成聽寫不準）：", rep["low_ok"], flush=True)
+    dj_wav = OUT / "audio" / "dj.wav"
+    if dj_wav.exists():                                        # DJ 口白句尾被砍（〈Bravo 之戰〉v5 使用者 2026-11-08「DJ 講話的尾句都斷掉」）
+        import soundfile as sf
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from dj_tail_check import hard_cuts
+        yd, srd = sf.read(str(dj_wav), dtype="float32", always_2d=True)
+        rep["dj_tail"] = hard_cuts(yd.mean(1), srd)
+        (OUT / "review" / "audio_check.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
+        print("  DJ 句尾被砍／停頓後的碎片（成片秒數；插停頓要切在 dj_tail_check.tail_end）：", rep["dj_tail"] or "無", flush=True)
 
 
 @stage("review")

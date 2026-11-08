@@ -119,6 +119,8 @@ python cloud/colab_h3.py stop
 | `voice_diff.py 檔案…` | 候選人聲跟前面各場比聲紋、音高（`BATTLE_FILMS`＝放各場對決的資料夾） |
 | `suno_replace.py submit …` | Suno 局部重唱，只換唱歪的那幾個字（`SUNO_SRC=標籤:第幾版`、`SUNO_PROMPT`、`SUNO_PART`） |
 | `splice_resing.py plan.json` | 重唱候選接回定稿（人聲連音樂整段換）：接點自動搬到兩版都沒在唱的空隙、窗頭窗尾各自對拍子、伴奏音量補平，報告接完拍子差（要 ≤3 ms）與「接點還在字上」的地方 |
+| `dj_pause.py <key> 字=秒 ...` | DJ 口白在指定字後面插停頓（切在句尾真正結束的地方，不照對齊器字尾切），`dj_align.json` 一起往後推；要在 DJ 對嘴鏡生成前做 |
+| `dj_tail_check.py <wav>...` | 查 DJ 口白「句尾被砍成靜音」「停頓後冒出的小碎片」；`make_battle.py review` 會自動對 `dj.wav` 跑 |
 | `run_shared.py stage…` | 跟別的工作共用 GPU 時跑 `make_battle.py`，不卸載別人的模型 |
 | `colab_only.py [鏡號…]` | 本機 H3 被別的工作佔著時只用 Colab 拍：多帳號（`COLAB_HOMES`）共用佇列、失敗重試一輪、做完關機；看到同名 VM 已開著就不碰（確定是自己的才設 `COLAB_REUSE=1`） |
 | `dj_align.py` | DJ 口白逐字對齊，鏡頭切點與 DJ 字幕都用它；換口白檔要重跑 |
