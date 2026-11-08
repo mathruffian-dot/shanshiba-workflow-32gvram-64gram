@@ -72,8 +72,19 @@ def ensure_comfy():
     raise SystemExit(f"[ming] ComfyUI 三分鐘內沒起來，看 {LOG}")
 
 
+# OpenCC t2s 會把「活著、看著、睡著、著急、穿著」的「著」原樣留下，可是簡體的「著」只念 zhù（著作）→ Ming 把「活著」念成「活住」
+# （〈Bravo 之戰〉DJ 兩處，使用者 2026-11-08 聽出來）。簡體裡 zhe／zháo／zhuó 都寫「着」，只有下面這些 zhù 的詞寫「著」。
+ZHU_WORDS = ("著作", "著名", "著称", "著述", "著录", "著者", "著书", "著有", "名著", "原著", "巨著", "专著", "论著", "编著", "合著",
+             "译著", "遗著", "新著", "拙著", "大著", "土著", "显著", "卓著", "昭著", "彰著", "撰著")
+
+
+def fix_zhe(s):
+    keep = {i for w in ZHU_WORDS for m in re.finditer(w, s) for i in range(m.start(), m.end())}
+    return "".join("着" if c == "著" and i not in keep else c for i, c in enumerate(s))
+
+
 def ming_text(t):
-    return T2S.convert(re.sub(r"\[:[^\]]*\]", "", t))      # 去注音標記；[Sigh] 等英文標籤保留
+    return fix_zhe(T2S.convert(re.sub(r"\[:[^\]]*\]", "", t)))      # 去注音標記；[Sigh] 等英文標籤保留
 
 
 def pick_text(t):

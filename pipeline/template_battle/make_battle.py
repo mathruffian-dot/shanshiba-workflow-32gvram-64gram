@@ -411,17 +411,33 @@ def audio():
                 runs.append((i, j)); i = j
             else:
                 i += 1
-        for i, j in runs:
-            a0, a1 = max(0, i * hop - 5 * hop), min(cut - x, j * hop + 3 * hop)   # 洞的邊緣能量是漸變的，門檻抓不到，前後多補一點
-            for kb in (1, 2):
-                s0 = a0 - kb * bar
-                if s0 >= 0 and env(m)[s0 // hop:(s0 + a1 - a0) // hop].min(initial=1e9) >= np.median(ei) * 0.3:
-                    w = np.ones((a1 - a0, 1), np.float32); w[:xf] = np.linspace(0, 1, xf)[:, None]; w[-xf:] = np.linspace(1, 0, xf)[:, None]
-                    m[a0:a1] = m[a0:a1] * (1 - w) + m[s0:s0 + a1 - a0] * w
-                    print(f"{k} 前奏伴奏破洞 {a0 / SR:.2f}–{a1 / SR:.2f} 秒（歌曲時間）用前 {kb} 小節補", flush=True)
-                    break
+        spans = []
+        for i, j in runs:                                     # 洞的邊緣能量是漸變的，門檻抓不到，前後多補一點；重疊的洞併成一個（v3 一個洞補了 5 次）
+            a0, a1 = max(0, i * hop - 5 * hop), min(cut - x, j * hop + 3 * hop)
+            if spans and a0 <= spans[-1][1]:
+                spans[-1][1] = max(spans[-1][1], a1)
             else:
-                print(f"⚠ {k} 前奏伴奏破洞 {a0 / SR:.2f}–{a1 / SR:.2f} 秒補不到，要人聽", flush=True)
+                spans.append([a0, a1])
+        e_m = env(m); xf = int(0.04 * SR)
+        chroma = lambda a: librosa.feature.chroma_stft(y=a.mean(1), sr=SR, hop_length=2048).mean(1) if len(a) > 4096 else np.zeros(12)
+        for a0, a1 in spans:
+            # 補的來源不再固定「前一小節」（和弦常不一樣，〈Bravo 之戰〉v3 2:00 聽起來跳接）：前後各一小節的和弦最像的那個小節數
+            ctx = lambda s: np.concatenate([chroma(m[max(0, s - bar):s]), chroma(m[s + a1 - a0:min(cut - x, s + a1 - a0 + bar)])])
+            ok = [kb for kb in (1, 2, 3, 4, 6, 8) if a0 - kb * bar >= 0 and e_m[(a0 - kb * bar) // hop:(a0 - kb * bar + a1 - a0) // hop].min(initial=1e9) >= np.median(ei) * 0.3]
+            if not ok:
+                print(f"⚠ {k} 前奏伴奏破洞 {a0 / SR:.2f}–{a1 / SR:.2f} 秒補不到，要人聽", flush=True); continue
+            def bands(a):                                    # 低／中／高頻音量（dB）：前奏前段常常只有大鍵琴、沒有鼓，和弦像也不能拿來補
+                S_ = np.abs(librosa.stft(a.mean(1), n_fft=2048, hop_length=1024)) ** 2; f_ = librosa.fft_frequencies(sr=SR, n_fft=2048)
+                return np.array([10 * np.log10(S_[(f_ >= lo_) & (f_ < hi_)].mean() + 1e-12) for lo_, hi_ in ((20, 150), (150, 2000), (5000, 11000))])
+            near = lambda s: np.concatenate([m[max(0, s - bar):s], m[s + a1 - a0:min(cut - x, s + a1 - a0 + bar)]])
+            here, here_b = ctx(a0), bands(near(a0))
+            sc = {kb: float(np.corrcoef(here, ctx(a0 - kb * bar))[0, 1]) - 0.05 * float(np.mean(np.abs(bands(m[a0 - kb * bar:a0 - kb * bar + a1 - a0]) - here_b)))
+                  for kb in ok}
+            kb = max(sc, key=sc.get); s0 = a0 - kb * bar
+            w = np.ones((a1 - a0, 1), np.float32); w[:xf] = np.sin(np.linspace(0, np.pi / 2, xf))[:, None]; w[-xf:] = np.cos(np.linspace(0, np.pi / 2, xf))[:, None]
+            m[a0:a1] = m[a0:a1] * (1 - w) + m[s0:s0 + a1 - a0] * w
+            print(f"{k} 前奏伴奏破洞 {a0 / SR:.2f}–{a1 / SR:.2f} 秒（歌曲時間）用前 {kb} 小節補（和弦相似－音色差 {sc[kb]:.2f}；"
+                  + "、".join(f"{q_}:{v:.2f}" for q_, v in sc.items()) + "）", flush=True)
         return m
 
     A, B = D["A"], D["B"]
@@ -524,11 +540,25 @@ def audio():
         r = int(0.15 * SR); a0, a1 = max(0, i0 - r), min(len(mix), i0 + len(v) + r)
         env = np.ones(a1 - a0, np.float32) * 0.56; env[:r] = np.linspace(1, 0.56, r); env[-r:] = np.linspace(0.56, 1, r)
         mix[a0:a1] *= env[:, None]
-    if "verdict" in pos and CFG.get("verdict_bed", True):    # 定論口白很長：B 的尾奏淡出後墊 A 前奏的伴奏（鬼魅管風琴）當底，−14 dB
-        bed_src = A["inst"][:max(int(4 * SR), int((A["rows"][0]["start"] - 0.5) * SR))]
+    if "verdict" in pos and CFG.get("verdict_bed", True):    # 定論口白很長：B 的尾奏淡出後墊 A 前奏的伴奏當底，−14 dB
+        # 〈Bravo 之戰〉v3 使用者聽出 3:49、3:55、3:58「跳接斷掉」：舊做法把 A 整段前奏直接循環（前奏中途鼓進來、有過門、
+        # 循環點沒對小節還帶到開頭 0.2 秒的靜音）。改成：前奏裡挑「每拍音量差 ≤6 dB、最安靜」的 2 小節（對小節線），等功率交叉 40 ms 循環。
+        bar_a = int(round(4 * A["period"] * SR)); lim = int((A["rows"][0]["start"] - 0.5) * SR); one = int(round(A["one"] * SR))
+        starts = [one - k_ * bar_a for k_ in range(1, 64) if one - k_ * bar_a >= 0 and one - k_ * bar_a + 2 * bar_a + int(0.05 * SR) <= lim] or [0]   # 小節線（從第一句的拍往回數）
+        def beat_db(s):
+            seg = mA[s:s + 2 * bar_a].mean(1); n_ = len(seg) // 8
+            return np.array([20 * np.log10(np.sqrt(np.mean(seg[i * n_:(i + 1) * n_] ** 2)) + 1e-9) for i in range(8)])
+        cand = [(float(np.ptp(beat_db(s))), float(beat_db(s).mean()), s) for s in starts]
+        steady = [c for c in cand if c[0] <= 6] or [min(cand)]
+        spread, lvl, s_loop = min(steady, key=lambda c: c[1])
+        print(f"定論墊底：A 前奏 {s_loop / SR:.2f}–{(s_loop + 2 * bar_a) / SR:.2f} 秒（2 小節，每拍差 {spread:.1f} dB）循環", flush=True)
+        xl = int(0.04 * SR); unit = mA[s_loop:s_loop + 2 * bar_a + xl].copy()
         v0, v1 = int(max(music_end - 3.0, pos["verdict"][0]) * SR), int((pos["verdict"][1] + 0.8) * SR)
         if v1 > v0:
-            bed = np.resize(bed_src, (v1 - v0, 2)) * 0.2
+            bed = np.zeros((v1 - v0 + len(unit), 2), np.float32); fi = np.sin(np.linspace(0, np.pi / 2, xl))[:, None]; fo = fi[::-1]
+            for p_ in range(0, v1 - v0, 2 * bar_a):
+                u = unit.copy(); u[:xl] *= fi if p_ else 1; u[-xl:] *= fo; bed[p_:p_ + len(u)] += u
+            bed = bed[:v1 - v0] * 0.2
             f = int(2.0 * SR); bed[:f] *= np.linspace(0, 1, f)[:, None]; bed[-f:] *= np.linspace(1, 0, f)[:, None]
             if v1 > len(mix):
                 pad = v1 - len(mix) + SR
