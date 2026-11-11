@@ -33,7 +33,7 @@
 
 - 首幀：本機 Qwen-Image-Edit 2511 附角色定妝照（`gen_image.py --model qwen-edit --ref`），**每一鏡提示詞都照抄角色完整外觀描述**；做法見 `docs/07_本地角色與首幀.md`。（原頻道用雲端 Image 2.5，有 OpenAI 金鑰才用。）
 - 影片：本機 H3，只給首幀；需要時加尾幀。`"draft": true`（DMAD 4 步）是定稿。**spec 的 `action` 照官方 `h3-prompt-writing` 結構寫 50–120 字具體動作過程**（首幀定錨→開始→發展→結果，身體部位、幅度、次數；見 `docs/02` 6.「動作寫法」）；動作鏡首幀畫動作開始前的姿勢；人要動時不要拿首幀當尾幀。舞蹈／武打用白模動作參考（`tools/make_whitemodel.py`）。
-- 配音：角色參考音定了就不換；**畫面內台詞預設讓 H3 拿角色參考音自己念**（spec `"audio": {"voice_ref": {...}}`；兩三人對話可同鏡：`audio.voice_refs` 各給參考音，最多 3 位），逐鏡聽寫比對原文、抽 2 個 seed；念錯抽不出來、數字日期難字才改用 `C:\AI\tools\make_breezyvoice.cmd jobs.json`（BreezyVoice，每句 8 候選自動挑，念不準的字標注音 `連假[:ㄐㄧㄚ4]`）當固定音軌，`needs_review` 的句子請人聽。
+- 配音：角色參考音定了就不換；**畫面內台詞預設讓 H3 拿角色參考音自己念**（spec `"audio": {"voice_ref": {...}}`；兩三人對話可同鏡：`audio.voice_refs` 各給參考音，最多 3 位），逐鏡聽寫比對原文、抽 2 個 seed；只錯一兩個字（聲調、破音字）先用 `tools/vc_swap.py` 換字（不重拍、嘴型不動）；念錯抽不出來、數字日期難字才改用 `C:\AI\tools\make_ming.cmd jobs.json`（**Ming-3.0-TTS，MIT 可營利**，每句 4 候選自動挑、自動轉簡體）當固定音軌，`NEEDS_REVIEW` 的句子請人聽。BreezyVoice（`make_breezyvoice.cmd`）為再備案。
 - 配樂：MiniMax Music 3 純器樂。
 - 放大：近景 RTX VSR、全景 FlashVSR。遠景裡臉 < 50 px 的重要角色，放大前先跑 `tools/face_refine.py`（選用、要另裝，見 `docs/06_安裝.md`；先 `--track` 確認選到對的人）。舞蹈等大動作主角仍拍腰上以上。
 - 雲端影片服務（Seedance 等）：使用者明說才用。Seedance 2.5 一律用 `tools/sd25_shot.py`（720p，吃 H3 同一份 spec）：**有台詞的鏡一定給角色參考音**（參考模式），角色沒有參考音才讓 2.5 自己生聲音。

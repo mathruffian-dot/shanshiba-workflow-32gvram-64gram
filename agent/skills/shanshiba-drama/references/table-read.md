@@ -58,12 +58,12 @@ python tools/assemble_read.py <片資料夾>/preview/shots.json
 
 - 每個角色一份參考音（你有權使用的真人錄音，10–20 秒、乾淨、平常講話語氣），定了就不換。角色要吼、喊口令的戲，**另錄一份兇的參考音**（平常語氣的參考音念兇的口令會偏溫和）。
 - H3 spec 寫 `audio.voice_ref`；兩三人對話同鏡就寫 `audio.voice_refs`（各給參考音，最多 3 位）；鏡長用 `h3_sec`。
-- 跑完聽寫比對原文 → 念錯／改用詞的換 seed 再抽 2 次 → 還是錯：**請配音的人錄那一句**，當固定音軌（`audio.fixed`）給 H3 對嘴、只重跑那一鏡；沒人能錄才用 BreezyVoice 固定音軌（`tools/make_breezyvoice.cmd`，這時才需要第 5 節的讀音修法）。
+- 跑完聽寫比對原文 → 念錯／改用詞的換 seed 再抽 2 次 → 還是錯：**請配音的人錄那一句**，當固定音軌（`audio.fixed`）給 H3 對嘴、只重跑那一鏡；只錯一兩個字先用 `tools/vc_swap.py` 換字；沒人能錄才用 Ming-3.0-TTS 固定音軌（`tools/make_ming.cmd`，這時才需要第 5 節的讀音修法；BreezyVoice 為再備案）。
 - 寫劇本時就避開 H3 容易改掉的說法（例：「二十四號」會被念成「二十四日」）。
 
 ## 5. （選用）TTS 讀本：使用者要先「聽」一遍時才做
 
-- 每句台詞一個 job，用該角色**定稿參考音**（`ref_audio`＋`ref_text`），每句 2–3 個 seed 就好：`tools/make_breezyvoice.cmd jobs.json`（格式見 `tools/breezyvoice_batch.py` 開頭）。有裝 Breeze TTS 2 也可用 `tools/breeze_batch.py`（**產出不可營利**，讀本只內部聽沒關係）。
+- 每句台詞一個 job，用該角色**定稿參考音**（`ref_audio`＋`ref_text`），每句 2–4 個 seed 就好：`tools/make_ming.cmd jobs.json`（Ming-3.0-TTS，格式見 `tools/make_ming.py` 開頭；BreezyVoice `tools/make_breezyvoice.cmd` 也可）。有裝 Breeze TTS 2 也可用 `tools/breeze_batch.py`（**產出不可營利**，讀本只內部聽沒關係）。
 - 把挑中的音檔寫進 shots.json 的 `"wav"`（相對 shots.json），再跑同一支 `assemble_read.py`：有 `wav` 的句子照實際音長排、試映影片有聲音。
 - **念錯的字要修**（讀本是使用者第一次聽到台詞，念錯會被當成劇本問題）：
   - 例：Breeze 會把「颱風」的「颱」念成四聲（像「泰」）→ 配音輸入寫「**抬**風」（字幕照原字）。「防災」被念成「放發」→ 輸入「防**栽**」。

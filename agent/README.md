@@ -12,7 +12,7 @@
 > ⚠️ `shanshiba-drama` 已在 2026-10-23 更新到原頻道現行版；`blender-previs` 寫於專案早期（2026-08～09），references 裡還有幾處舊說法，用的時候以 `docs/` 為準：
 > - 「Seedance 2.5、每段 30 秒」→ 本機 H3、單鏡 ≤12 秒、對話靠切鏡
 > - 「山獅霸」「角色資產/山獅霸/角色設定.md」→ 原頻道的例子，請換成你自己的角色設定檔
-> - 「voice-clone 技能」→ BreezyVoice（`make_breezyvoice.cmd`）
+> - 「voice-clone 技能」→ Ming-3.0-TTS（`make_ming.cmd`，MIT 可營利；BreezyVoice `make_breezyvoice.cmd` 為再備案）
 > - 首幀 → 本 repo 預設 Qwen-Image-Edit 2511 附定妝照（原頻道用雲端 Image 2.5）；定稿用 DMAD 4 步
 > - 「14 步＋EasyCache」→ 定稿不開 EasyCache
 
