@@ -510,6 +510,11 @@ def generate(spec, prompt, base, out):
         subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", str(lst), "-i", str(raw), "-r", str(FPS),
                         "-map", "0:v", "-map", "1:a", "-c:v", "libx264", "-crf", "12", "-preset", "slow", "-pix_fmt", "yuv420p",
                         "-c:a", "copy", str(out / "clip.mp4")], check=True)
+        # The PNG frames are only needed to encode clip.mp4 (crf 12) and fill a disk fast (~36 MB per second of 768p video, every seed kept).
+        # Delete them once clip.mp4 exists. H3_KEEP_PNG=1 keeps them (e.g. lossless frame experiments).
+        if os.environ.get("H3_KEEP_PNG") != "1" and (out / "clip.mp4").stat().st_size > 0:
+            shutil.rmtree(COMFY / "output" / "h3_shot_png" / tag, ignore_errors=True)
+            (out / "frames.txt").unlink(missing_ok=True)
     else:
         print(json.dumps(e.get("status", {}), ensure_ascii=False)[:3000])
     meta = {"ok": ok, "length": length, "seed": spec.get("seed", 42), "wall_s": round(time.time() - t0, 1), "tag": tag, "veda": "96" in g}
