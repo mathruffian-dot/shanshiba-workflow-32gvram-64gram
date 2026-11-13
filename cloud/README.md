@@ -11,7 +11,9 @@
 - 實測 Colab **G4 開機 30 次：美國 18 次（俄亥俄 17、拉斯維加斯 1）、歐盟荷蘭 12 次，從沒分到亞洲**；L4／A100 偶爾分到新加坡，但跑 H3 又慢又貴。
 - 授權**沒有定義「使用」看使用者所在地還是機器所在地**；照字面，權重在美國／歐盟機器上被複製、執行，比較可能被認為不在授權範圍內。
 - **本工具預設照常使用這些機房，不會擋、也不會換機器**，`colab_h3.py` 只在每次開機時顯示機房國家與警語；風險由你自負（這裡不是法律意見）。想確定可以照授權第 II 條寫信問 MiniMax。
-- 想避開的替代做法：台灣或日本機房的雲端 GPU（例如台灣 GPUtw 的 RTX 5090／RTX PRO 6000、RunPod 日本 AP-JP-1），用同一套 `cloud/vm/setup_h3.py` 自己裝即可（未在本 repo 實測）。
+- 想避開的替代做法：台灣或日本機房的雲端 GPU，例如台灣 GPUtw 的 RTX 5090／RTX PRO 6000、RunPod 日本 AP-JP-1。
+  - RunPod 有一鍵工具 `cloud/runpod_h3.py`（見第 9 節）。
+  - 2026-11-13 查詢時，RunPod 亞洲機房的 5090／PRO 6000 都沒有空機，實測分到的是冰島、羅馬尼亞。
 
 ## 1. 準備（一次）
 
@@ -175,5 +177,46 @@ python pipeline/template_local/make_film.py h3 amb # 或直接：python cloud/hy
 | `vm/setup_h3.py` | Colab | ComfyUI 0.40＋H3＋DMAD＋Veda（2026-10-16），開 1–3 個 ComfyUI（預設 2 個、錯開） |
 | `vm/run_batch.py` | Colab | 把一批鏡頭分給各個 ComfyUI 跑，寫進度、打包成品 |
 | `vm/install_full.sh` | Colab | 全雲端：語音三環境＋ComfyUI 全套＋字型＋全部模型 |
+| `runpod_h3.py` | 你的電腦 | RunPod：查庫存、租 5090／PRO 6000、安裝、批次跑 H3、下載、刪機（標準函式庫＋系統內建 ssh） |
+| `vm/runpod_prep.sh` | RunPod | 在 `setup_h3.py` 之前補 ffmpeg、torch 2.14 cu130、`/content` 連結 |
+
+## 9. Colab 開不到 G4 時：RunPod
+
+2026-11-10～12，Colab G4 開機一直回 503，所以加了 RunPod 備案。流程跟 Colab 一樣：本機準備 → 雲端只跑 H3 → 成品下載回各 spec 旁邊。
+
+1. 到 RunPod 註冊並儲值，Settings → API Keys 建一把金鑰：
+   - **REST API 的 Pods 要 Read／Write**；
+   - GraphQL 給 Read 就好；
+   - Serverless 不用。
+2. 金鑰存成文字檔，設環境變數 `RUNPOD_KEY_FILE` 指到它（或直接設 `RUNPOD_API_KEY`）。**不要貼進聊天或 repo。**
+3. 指令：
+
+```bash
+python cloud/runpod_h3.py check                            # 餘額、5090／PRO 6000 庫存、金鑰權限
+python cloud/runpod_h3.py batch a/spec.json b/spec.json --gpu 5090 --stop-after
+python cloud/runpod_h3.py stop                             # 沒加 --stop-after 時，用完一定要刪機
+```
+
+**實測（2026-11-13，模型常駐、torch 2.14）**
+
+| 顯示卡 | 每小時 | 2.5 秒 DMAD | 5 秒 DMAD | 5 秒 14 步 | 開機到可拍 |
+|---|---|---|---|---|---|
+| RTX 5090（冰島） | US$1.39 | 43 秒 | 70 秒 | 143 秒 | 約 4 分 |
+| RTX PRO 6000 Workstation（羅馬尼亞） | US$2.82 | 34 秒 | 59 秒 | 135 秒 | 約 3 分 |
+
+- 畫面跟本機 5090 同 seed 比，PSNR 42–43 dB，看不出差別。
+- 5 秒鏡頭每支的費用：5090 約 US$0.027，PRO 6000 約 US$0.046；PRO 6000 開 2 個 ComfyUI 可降到約 US$0.03。
+- 刪機後模型就沒了，下次重下 55 GB，約 1–1.5 分鐘。
+
+**RunPod 和 Colab 不同的坑**（`vm/runpod_prep.sh` 已處理）
+
+| 問題 | 原因 → 解法 |
+|---|---|
+| H3 慢 1.7–2 倍（5 秒 DMAD 103 秒） | 範本的 torch 2.8 cu128 讓 comfy-kitchen 關掉 CUDA 加速（log：`need pytorch with cu130`）→ 升級 torch 2.14 cu130 |
+| `pip install` 被拒（externally-managed-environment） | Ubuntu 24.04 的 PEP 668 → `PIP_BREAK_SYSTEM_PACKAGES=1`、`UV_BREAK_SYSTEM_PACKAGES=1` |
+| 沒有 ffmpeg | `apt-get install ffmpeg` |
+| 網頁上開 5090 一直「no longer any instances available」 | 庫存少、網頁列表沒即時更新 → 用 API 開（本工具），開不到會自動改試 Community 機房 |
+| Python 呼叫 API 回 403 | 預設的 `Python-urllib` User-Agent 被擋 → 自帶 User-Agent |
+| 同樣是 5090，有的機器 5 秒 DMAD 要 123–140 秒（正常 70 秒） | 奧斯陸那台的 PCIe 只有第 1 代。5090 的 32 GB 放不下整個 H3，要邊算邊搬權重，插槽慢就跟著慢 → 工具開機後會印出 PCIe 代數，低於第 4 代就警告；要穩定用 `--gpu pro6000`（96 GB 不用搬） |
 
 已有類似但只做「上傳參考圖＋提示詞 → Colab 跑 H3 → 下載」的開源工具：[killkli/minimax-h3-colab-skill](https://github.com/killkli/minimax-h3-colab-skill)（Codex 技能）。
