@@ -9,8 +9,9 @@
   字數＝中文字＋英數字，不含標點。
 每鏡長度＝max(鏡表秒數 sec, 台詞總長＋前 0.25＋每句後 0.3 秒)。草圖格子用 storyboard_<k>_label.png（每 16 鏡一張，依鏡在
 shots 裡的順序對應；改劇本刪鏡後要沿用舊格子，可在鏡上寫 "panel_index": 舊序號，從 0 起算）。
-輸出（同資料夾）：讀本.wav（文字讀本時是靜音）、讀本_timeline.json（每鏡 dur、h3_sec）、讀本試映.mp4（720×1280）、_frames/。
-用法：python tools/assemble_read.py <片資料夾>/preview/shots.json"""
+輸出（同資料夾）：讀本.wav（文字讀本時是靜音）、讀本_timeline.json（每鏡 dur、h3_sec）、讀本試映.mp4、_frames/。
+⭐ 2026-11-14 起預設 16:9 橫式 1280×720（使用者：「讀本試映用 16 比 9，不要用直式」；專案預設片型就是 16:9）；做 9:16 Shorts 才加 --vertical（720×1280）。
+用法：python tools/assemble_read.py <片資料夾>/preview/shots.json [--vertical]"""
 import json
 import re
 import subprocess
@@ -25,7 +26,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from fonts import font  # noqa: E402
 
 SR = 24000
-W, H = 720, 1280
+VERT = "--vertical" in sys.argv
+W, H = (720, 1280) if VERT else (1280, 720)
 PER_SHEET = 16
 READ_CPS = 4.0                  # 文字讀本：試映畫面的一般語速（字／秒）
 H3_CPS, H3_PAD, H3_MIN = 3.0, 2.0, 3.0   # 建議 H3 鏡長＝字數 ÷ 3＋2 秒，最短 3 秒
@@ -73,22 +75,27 @@ def panel(here, i, n_total):
 def frame(here, idx, n_total, sid, caps, end_card):
     bg = Image.new("RGB", (W, H), (12, 12, 16)); d = ImageDraw.Draw(bg)
     pn = panel(here, idx, n_total) if sid != "END" else None
+    # 版面：直式＝草圖在上、字在下；橫式＝草圖在上半中間（高 540）、鏡號＋字幕在下面 180 px
+    box_h, top, sid_y, cap_y, cpl, fs, lh = (980, 60, 1070, 1120, 23, 28, 38) if VERT else (540, 14, 566, 566, 40, 30, 40)
+    if pn and not VERT and pn.width / pn.height < 16 / 9 - 0.02:   # 橫式：草圖格子裁成 16:9（Image 2.5 的 4×4 格子約 3:2），看到的就是成片構圖
+        nh = int(pn.width * 9 / 16); y0 = (pn.height - nh) // 2; pn = pn.crop((0, y0, pn.width, y0 + nh))
     if pn:
-        r = min((W - 40) / pn.width, 980 / pn.height); pn = pn.resize((int(pn.width * r), int(pn.height * r)), Image.LANCZOS)
-        bg.paste(pn, ((W - pn.width) // 2, 60))
+        r = min((W - 40) / pn.width, box_h / pn.height); pn = pn.resize((int(pn.width * r), int(pn.height * r)), Image.LANCZOS)
+        bg.paste(pn, ((W - pn.width) // 2, top))
     elif sid == "END":
-        d.text((W // 2, 520), end_card or "", font=ImageFont.truetype(font("jhbd"), 50), fill=(255, 214, 120), anchor="mm")
-    d.text((24, 1070), sid, font=ImageFont.truetype(font("jhbd"), 36), fill=(120, 230, 255))
-    y, f = 1120, ImageFont.truetype(font("jhbd"), 28)
+        d.text((W // 2, H * 0.4), end_card or "", font=ImageFont.truetype(font("jhbd"), 50), fill=(255, 214, 120), anchor="mm")
+    d.text((24, sid_y), sid, font=ImageFont.truetype(font("jhbd"), 36), fill=(120, 230, 255))
+    x0 = 24 if VERT else 150
+    y, f = cap_y, ImageFont.truetype(font("jhbd"), fs)
     for c in caps:
         while c:
-            seg, c = c[:23], c[23:]
-            d.text((24, y), seg, font=f, fill=(240, 240, 240)); y += 38
+            seg, c = c[:cpl], c[cpl:]
+            d.text((x0, y), seg, font=f, fill=(240, 240, 240)); y += lh
     return bg
 
 
 def main():
-    sp = Path(sys.argv[1]).resolve(); here = sp.parent
+    sp = Path([a for a in sys.argv[1:] if not a.startswith("--")][0]).resolve(); here = sp.parent
     spec = json.loads(sp.read_text(encoding="utf-8"))
     shots = list(spec["shots"])
     if spec.get("end_card"):

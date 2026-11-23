@@ -42,7 +42,9 @@
 
 ## 鏡表「畫面」欄 → H3 spec 的 `action`
 
-鏡表用中文寫畫面；轉成 H3 spec 時，`action` 照 MiniMax 官方 `h3-prompt-writing` 技能（安裝見 `docs/02_端到端流程.md` 6.「動作寫法」）寫成 50–120 個英文字：「Starting from <Picture 1>, …」首幀定錨 → 動作開始 → 持續發展 → 結果；寫出身體部位、幅度、次數，不寫「誇張、生動」這類抽象詞（模型不知道要誇張到哪）。一句話版動作量只有新寫法的 1/2.7（2026-10-23 原頻道 A/B）。例：「全班跳起來歡呼」→ "…bend their knees deeply and spring straight up so their feet leave the floor, then land and jump a second time, pumping both fists above their heads with each jump…"。鏡內時間點（"at about 1.2 seconds"）選用。大動作鏡、背景容易冒人的鏡，action 前先加 2–4 句首幀描述（構圖、人物外觀與位置、光線）：動作量不變，但畫面較釘在首幀（原頻道 2026-10-24 補測：跳躍頭不出框、背景不冒人）；一般鏡不必寫到官方建議的 350–500 字。
+鏡表用中文寫畫面；轉成 H3 spec 時，`action` 照 MiniMax 官方 `h3-prompt-writing` 技能（安裝見 `docs/02_端到端流程.md` 6.「動作寫法」）寫成 50–150 個英文字：「Starting from <Picture 1>, …」首幀定錨 → 動作開始 → 持續發展 → 結果；寫出身體部位、幅度、次數，不寫「誇張、生動」這類抽象詞（模型不知道要誇張到哪）。一句話版動作量只有新寫法的 1/2.7（2026-10-23 原頻道 A/B）。例：「全班跳起來歡呼」→ "…bend their knees deeply and spring straight up so their feet leave the floor, then land and jump a second time, pumping both fists above their heads with each jump…"。鏡內時間點（"at about 1.2 seconds"）選用。大動作鏡、背景容易冒人的鏡，action 前先加 2–4 句首幀描述（構圖、人物外觀與位置、光線）：動作量不變，但畫面較釘在首幀（原頻道 2026-10-24 補測：跳躍頭不出框、背景不冒人）；一般鏡不必寫到官方建議的 350–500 字。
+
+**2026-11-23 起拆成 2–3 個 Beat**：「Beat 1: … Beat 2: …」每個 Beat 對一句台詞、前後有因果（抱緊資料 → 低頭用拇指摸紙邊 → 抬頭小點頭），只寫首幀看得到的手、道具、身體，最後一句寫停住的姿勢（"After the last word he holds still, …"）；講話大頭的動作量約 1.4–2 倍，構圖偶爾會飄，多抽 seed。鎖了尾幀的鏡由尾幀決定動作，改寫法沒用，要動就改尾幀。
 
 ## 素材備料清單（鏡表後附）
 

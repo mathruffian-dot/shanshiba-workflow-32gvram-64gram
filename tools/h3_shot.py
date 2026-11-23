@@ -39,9 +39,12 @@ Shot spec (JSON; relative paths resolve against the JSON file's folder):
        # or {"fixed": {"file": "guide.wav"}}  exact soundtrack reused 1:1 (48 kHz mono; [] silence -> write a silent wav)
   "shots": [
     {"camera": "The camera holds a static shot on a tripod.",           # official camera wording (type + amplitude + speed)
-     # action: since 2026-10-23 write 50-120 words in the official order "Starting from <Picture 1>, ..." first-frame anchor ->
+     # action: since 2026-10-23 write 50-150 words in the official order "Starting from <Picture 1>, ..." first-frame anchor ->
      # action onset -> continuous development -> result; name the body parts, amplitude and repetitions, no abstract adjectives
      # (our A/B 2026-10-23: one-line actions gave 1/2.7 of the motion). In-shot times ("at about 1.2 seconds") optional.
+     # Since 2026-11-23 (our A/B 2026-11-23): split it into 2-3 causal "Beat 1: ... Beat 2: ..." actions tied to the lines, only things
+     # visible in the first frame, and end with the held pose ("After the last word he holds still, ...") -> talking close-ups
+     # moved ~1.4-2x more. With a locked last_frame the end image decides the motion; change the end frame instead.
      "action": "Starting from <Picture 1>, Ahe lifts his chin from the notebook and turns his head toward the teacher on his left. "
                "His eyebrows rise, the corners of his mouth curl up slowly into a small grateful smile, and he gives one short nod.",
      "dialogue": [{"subject": "ahe", "line": "謝謝你讓我自己做。", "lang": "Chinese", "offscreen": false,
@@ -556,8 +559,11 @@ def main():
         for i, sh in enumerate(spec["shots"], start=1):
             n = len((sh.get("action") or "").split())
             if 0 < n < 50:
-                W.append(f"[Shot {i}] action is short ({n} words): write 50-120 words 'Starting from <Picture 1>, ...' onset -> development -> result,"
+                W.append(f"[Shot {i}] action is short ({n} words): write 50-150 words 'Starting from <Picture 1>, ...' split into 'Beat 1: ... Beat 2: ...' (2-3 causal actions) and a held end pose,"
                          " with body parts, amplitude and repetitions (official h3-prompt-writing; one-liners moved ~1/2.7 as much)")
+            if n >= 50 and sh.get("dialogue") and "beat 1" not in (sh.get("action") or "").lower():
+                W.append(f"[Shot {i}] talking shot without beats: split the action into 'Beat 1: ... Beat 2: ...' tied to the sentences,"
+                         " plus a held end pose (2026-11-23 A/B: ~1.4-2x more motion than one continuous sentence)")
         first, last = spec.get("first_frame"), spec.get("last_frame")
         if first and last and (spec_path.parent / first).resolve() == (spec_path.parent / last).resolve():
             W.append("last_frame = first_frame pins everyone back to the first pose (2026-10-23 S22: 100% still); fine for static/prop-lock shots,"
