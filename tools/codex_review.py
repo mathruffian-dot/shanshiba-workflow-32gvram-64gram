@@ -1,4 +1,4 @@
-r"""叫 Codex CLI 當審核副手（預設 gpt-6.2-astra、思考強度 high、唯讀）。2026-11-24 建立。
+r"""叫 Codex CLI 當審核副手（預設 gpt-6.2-astra、思考強度 medium、唯讀；要審得更深才加 --effort high）。2026-11-24 建立。
 
 為什麼有這支：Codex 的唯讀沙盒讀不到本機檔，所有材料都要從 stdin 餵。手寫指令時踩過的坑——
 用 `cut -c` 截行把中文字切壞，Codex 直接拒收（input is not valid UTF-8）；忘了寫思考強度（config 預設是 xhigh）；
@@ -6,7 +6,7 @@ r"""叫 Codex CLI 當審核副手（預設 gpt-6.2-astra、思考強度 high、�
 
 用法（任何 Python；codex 要在 PATH，版本 ≥ 0.170.0 才有 gpt-6.2-astra）：
   python codex_review.py --ask ask.md [--attach 檔案 ...] [--image 圖 ...] [--with-prev] [--name 主題] [--outdir 資料夾]
-                         [--model gpt-6.2-astra] [--effort high] [--timeout 900]
+                         [--model gpt-6.2-astra] [--effort medium] [--timeout 900]
 
   --ask       你要問 Codex 的話（UTF-8 文字檔）：背景、你做了什麼、要它回答的編號問題、字數上限。
   --attach    要給它看的文字檔，原文整份附在後面（不截斷、不改寫）。可以給很多個。
@@ -56,7 +56,7 @@ def main():
     ap.add_argument("--name", default="review")
     ap.add_argument("--outdir", default="codex_review")
     ap.add_argument("--model", default="gpt-6.2-astra")
-    ap.add_argument("--effort", default="high", choices=["low", "medium", "high", "xhigh", "ultra"])
+    ap.add_argument("--effort", default="medium", choices=["low", "medium", "high", "xhigh", "ultra"])
     ap.add_argument("--timeout", type=int, default=900)
     ap.add_argument("--dry-run", action="store_true", help="只組提示詞、存檔、印大小，不呼叫 Codex")
     try:
@@ -131,7 +131,7 @@ def main():
         r = subprocess.run(cmd, input=prompt.encode("utf-8"), capture_output=True, timeout=a.timeout, cwd=str(out))
     except subprocess.TimeoutExpired:
         tmp.unlink(missing_ok=True)
-        print(f"Codex 超過 {a.timeout} 秒沒回來（--timeout 可加長；high 一輪通常 3–6 分鐘）。這一輪（第 {rnd} 輪）沒有意見。")
+        print(f"Codex 超過 {a.timeout} 秒沒回來（這一輪的思考強度是 {a.effort}；--timeout 可加長，high 一輪通常 3–6 分鐘）。這一輪（第 {rnd} 輪）沒有意見。")
         return 1
     log = r.stdout.decode("utf-8", "replace") + "\n--- stderr ---\n" + r.stderr.decode("utf-8", "replace")
     lf.write_text(log, encoding="utf-8", newline="\n")
