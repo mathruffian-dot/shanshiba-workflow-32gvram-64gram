@@ -259,6 +259,26 @@ def main():
     spliced = work / "vocal_spliced.wav"
     sf.write(str(spliced), y, sr)
 
+    # 背景軌漏人聲：分離後的背景軌在換掉的字那裡常留著原本那個字的母音（作者 2026-11-11 實測：
+    # 人聲軌聽寫是對的，混回背景卻被聽成別的字；背景軌在該字 −33 dB、平常 −75 dB）→ 該字前 0.1／後 0.25 秒內背景比中位數大 15 dB 以上就壓到底噪
+    if is_video and bg is not None:
+        gb, gsr = sf.read(str(bg), dtype="float32", always_2d=True)
+        hop = int(0.05 * gsr)
+        env = np.array([rms(gb[i:i + hop]) for i in range(0, len(gb) - hop, hop)])
+        floor = float(np.median(env))
+        g = np.ones(len(gb), dtype=np.float32); f = int(0.03 * gsr)
+        for p in plan:
+            a, b = p["src_span"]; n0, n1 = max(f, int((a - 0.1) * gsr)), min(len(gb) - f, int((b + 0.25) * gsr))
+            over = 20 * np.log10(rms(gb[n0:n1]) / floor)
+            p["bg_over_db"] = round(over, 1)
+            if over > 15:
+                g[n0:n1] = np.minimum(g[n0:n1], 0.01)
+                g[n0 - f:n0] = np.minimum(g[n0 - f:n0], np.linspace(1, 0.01, f)); g[n1:n1 + f] = np.minimum(g[n1:n1 + f], np.linspace(0.01, 1, f))
+                print(f"[vc_swap] {p['char']}：背景軌在該字高出底噪 {over:.0f} dB（漏人聲）→ 壓掉")
+        if (g < 1).any():
+            bg = work / "src_bg_clean.wav"
+            sf.write(str(bg), gb * g[:, None], gsr)
+
     final = spliced
     if vc == "cosy":
         final = work / "vocal_vc.wav"

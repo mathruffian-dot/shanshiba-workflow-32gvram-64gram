@@ -77,7 +77,7 @@ def state():
 
 
 def ssh_args(st, *extra):
-    return ["-i", str(SSH_KEY), "-o", "StrictHostKeyChecking=no", "-o", "UserKnownHostsFile=" + os.devnull,
+    return ["-i", str(SSH_KEY), "-o", "StrictHostKeyChecking=no", "-o", "UserKnownHostsFile=/dev/null",  # 不用 os.devnull：Windows 上是 "nul"，Git 附的 ssh 會把它當檔名寫進當前目錄
             "-o", "LogLevel=ERROR", "-o", "ConnectTimeout=20", "-o", "ServerAliveInterval=30", *extra]
 
 

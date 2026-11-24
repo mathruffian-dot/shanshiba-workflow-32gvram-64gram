@@ -71,6 +71,20 @@ def judge(r, plain, rd, cand_path):
 RERANK = "--rerank" in sys.argv      # 不重跑 ASR，只用 picks.json 裡的聽寫結果重新判定與排序
 
 
+def edge_ref(voice, text, ref, tries=5):
+    """edge-tts 產生台灣國語參考音。用本 venv 的 edge_tts（PATH 上可能是別的舊版）；
+    2026-11-10：7.2.8 被微軟回 403 → 升 7.3.1；YunJhe 偶爾回「No audio received」→ 失敗自動重試。"""
+    import time
+    for k in range(tries):
+        r = subprocess.run([sys.executable, "-m", "edge_tts", "--voice", voice, "--text", text, "--write-media", str(ref)],
+                           capture_output=True, text=True, encoding="utf-8", errors="replace")
+        if r.returncode == 0 and ref.exists() and ref.stat().st_size > 1000:
+            return
+        time.sleep(2 + 2 * k)
+    ref.unlink(missing_ok=True)
+    raise RuntimeError(f"edge-tts 重試 {tries} 次仍失敗（{voice}）：{r.stderr.strip()[-300:]}")
+
+
 def main():
     spec_path = Path([a for a in sys.argv[1:] if not a.startswith("--")][0]).resolve()
     spec = json.loads(spec_path.read_text(encoding="utf-8-sig"))
@@ -96,7 +110,7 @@ def main():
             if not ref.exists() or ref.stat().st_mtime < tw.stat().st_mtime:
                 subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(tw), str(ref)], check=True)
         elif not ref.exists():
-            subprocess.run(["edge-tts", "--voice", j.get("edge_voice", "zh-TW-YunJheNeural"), "--text", plain, "--write-media", str(ref)], check=True)
+            edge_ref(j.get("edge_voice", "zh-TW-YunJheNeural"), plain, ref)
         rd = dur(ref)
         rows = []
         for c in cands:
