@@ -6,6 +6,8 @@
 | `skills/shanshiba-drama/` | 編劇技能（2026-10-23 更新）：九階段＋階段關卡、主題錨點、預設 9:16 劇本與鏡表格式、**生成前試映**（16 宮格分鏡草圖＋讀本，`tools/make_storyboard.py`、`tools/assemble_read.py`）、抓馬上位模式、審稿清單（改寫自 AI-drama-pound，MIT，見 NOTICE.md） |
 | `skills/blender-previs/` | Blender 預演技能：需求訪談、鏡位契約、布置圖規則、提示詞包、檢查清單 |
 | `skills/rap-battle/` | 饒舌對決技能（2026-10-28）：選題與對決設計、歌詞規則（押法混用、唱段像流行副歌、殺句、兩邊一起改、讀音）、生歌（**先問有沒有 Suno**，沒有才用 YuE2 14 版）、鏡表規格、逐秒自審表；成片交給 `pipeline/template_battle/` |
+| `skills/codex-review/` | 叫 Codex CLI 當審核副手（2026-11-24）：審計畫、程式與工具、劇本、成片、要公開推送的內容；怎麼送（`tools/codex_review.cmd`，材料整檔從 stdin 餵、自動附上一輪意見）、提問檔怎麼寫、意見回來怎麼處理、各種情況的提問範本。沒有 Codex CLI 的人可以把做法換成自己的第二個審核模型 |
+| `skills/upload-pack/` | 上架包技能（2026-11-24）：封面三張、標題十個、說明欄、SEO 關鍵字、字幕、社群貼文、上傳設定寫進 `<片>/youtube/metadata.md`；附自查腳本 `scripts/check_pack.py`（`--selftest` 內建回歸測試）。頻道形象的部分是原頻道的例子，換成你自己的 |
 
 技能放到專案的 `.claude/skills/` 底下，Claude Code 會自動載入。
 
